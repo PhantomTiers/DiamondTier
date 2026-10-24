@@ -1,6 +1,6 @@
 {
-  "rename": { "runsz": "runsztuffington" },
-  "remove": ["Blusped"],
+  "rename": { "runsz": "runsztuffington", "Blusped": "oLineage" },
+  "remove": [],
   "regions": { "oLineage": "NA", "sssap": "NA", "Crifies": "NA" },
   "tags": { "oLineage": "Creator" },
   "extraPlayers": [
