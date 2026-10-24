@@ -3,6 +3,7 @@
   "remove": [],
   "regions": { "oLineage": "NA", "sssap": "NA", "Crifies": "NA" },
   "tags": { "oLineage": "Creator" },
+  "display": {},
   "extraPlayers": [
     {
       "name": "oLineage",
