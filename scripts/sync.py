@@ -49,6 +49,60 @@ def main():
         return 0
 
     ov = json.load(open("overrides.json", encoding="utf-8"))
-    rename = {k.lower(): v for k, v in ov.get("rename", {}).items()}
-    remove = {n.lower() for n in ov.get("remove", [])}
-    regions =
+    rename = dict((k.lower(), v) for k, v in ov.get("rename", dict()).items())
+    remove = set(n.lower() for n in ov.get("remove", []))
+    regions = dict((k.lower(), v) for k, v in ov.get("regions", dict()).items())
+
+    out, seen = [], set()
+    for p in players:
+        name = rename.get(p["name"].lower(), p["name"])
+        if name.lower() in remove or p["name"].lower() in remove or name.lower() in seen:
+            continue
+        seen.add(name.lower())
+        entry = {"name": name}
+        if name.lower() in regions:
+            entry["region"] = regions[name.lower()]
+        entry["tiers"] = p["tiers"]
+        out.append(entry)
+
+    # players you add yourself (not on the source list)
+    for extra in ov.get("extraPlayers", []):
+        if extra["name"].lower() in seen:
+            continue
+        seen.add(extra["name"].lower())
+        out.insert(0, extra)
+
+    data = {}
+    if os.path.exists(OUT):
+        try:
+            data = json.load(open(OUT, encoding="utf-8"))
+        except Exception:
+            data = {}
+    result = {
+        "players": out,
+        "updates": data.get("updates", []),
+        "tournaments": data.get("tournaments", []),
+        "subtiers": data.get("subtiers", []),
+    }
+    if "subtiersOpen" in data:
+        result["subtiersOpen"] = data["subtiersOpen"]
+    result["tags"] = ov.get("tags", {})
+
+    new = "{\n  \"players\": [\n" + ",\n".join("    " + json.dumps(p, separators=(", ", ": ")) for p in out) + "\n  ]"
+    for key in ("updates", "tournaments", "subtiers"):
+        new += ",\n  \"%s\": %s" % (key, json.dumps(result[key]))
+    if "subtiersOpen" in result:
+        new += ",\n  \"subtiersOpen\": %s" % json.dumps(result["subtiersOpen"])
+    new += ",\n  \"tags\": %s\n}\n" % json.dumps(result["tags"])
+
+    old = open(OUT, encoding="utf-8").read() if os.path.exists(OUT) else ""
+    if new != old:
+        open(OUT, "w", encoding="utf-8").write(new)
+        print("Updated %s with %d players." % (OUT, len(out)))
+    else:
+        print("No changes.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
