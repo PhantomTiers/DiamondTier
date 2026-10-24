@@ -71,6 +71,67 @@ const SYSTEM = [
   "Keep everything safe for work and family-friendly. Never produce sexual, 18+, graphic violence, hateful, self-harm or illegal content.",
   "If someone asks for something like that or sends nonsense or spam, reply only with: I can't help with that.",
 ].join(" ");
+
+// ---------- facts the AI can use ----------
+const ORDER = ["HT1", "LT1", "HT2", "LT2", "HT3", "LT3", "HT4", "LT4", "HT5", "LT5"];
+const PTS = [70, 55, 46, 32, 25, 13, 7, 4, 2, 1];
+const LABEL = { crystal: "Crystal", sword: "Sword", axe: "Axe", mace: "Mace", nethpot: "Netherite Pot", uhc: "UHC", dsmp: "Diamond SMP", smp: "SMP" };
+
+function rankTitle(p) {
+  if (p >= 400) return "Combat Grandmaster";
+  if (p >= 250) return "Combat Master";
+  if (p >= 100) return "Combat Ace";
+  if (p >= 50) return "Combat Specialist";
+  if (p >= 20) return "Combat Cadet";
+  if (p >= 10) return "Combat Novice";
+  return "Rookie";
+}
+
+function summarize(list) {
+  const rows = list.map((p) => {
+    let pts = 0;
+    let best = null;
+    for (const m of Object.keys(p.tiers || {})) {
+      const i = ORDER.indexOf(p.tiers[m]);
+      if (i < 0) continue;
+      pts += PTS[i];
+      if (!best || i < best.i) best = { i: i, modes: [m] };
+      else if (i === best.i) best.modes.push(m);
+    }
+    return { p: p, pts: pts, best: best };
+  });
+  rows.sort((a, b) => b.pts - a.pts);
+  rows.forEach((r) => { r.rank = rows.filter((o) => o.pts > r.pts).length + 1; });
+  return rows;
+}
+
+function describe(r, updates) {
+  const p = r.p;
+  const tiers = Object.keys(p.tiers).map((m) => (LABEL[m] || m) + " " + p.tiers[m]).join(", ");
+  let s = p.name + ": " + (p.region ? "region " + p.region + "; " : "") + "current tiers: " + tiers + "; ";
+  if (r.best) s += "highest tier: " + ORDER[r.best.i] + " in " + r.best.modes.map((m) => LABEL[m] || m).join(" and ") + "; ";
+  s += "points: " + r.pts + " (" + rankTitle(r.pts) + "); overall rank #" + r.rank + "; ranked in " + Object.keys(p.tiers).length + " gamemode(s).";
+  const lines = (updates || []).filter((u) => u && String(u.text || "").toLowerCase().includes(p.name.toLowerCase()));
+  if (lines.length) s += " Update record: " + lines.map((u) => (u.date ? u.date + " - " : "") + u.text).join(" | ");
+  const tag = (OV.tags || {})[p.name];
+  if (tag) s += " Special title: " + tag + ".";
+  return s;
+}
+
+async function buildContext(env, url, messages) {
+  const d = await loadData(env, url);
+  const obj = d.obj || {};
+  const rows = summarize(obj.players || []);
+  const text = messages.filter((m) => m.role === "user").slice(-3).map((m) => m.content.toLowerCase()).join(" \n ");
+  const found = rows.filter((r) => r.p.name.length >= 3 && text.includes(r.p.name.toLowerCase())).slice(0, 5);
+  let ctx = "Live DiamondTier data. There are " + rows.length + " ranked players. Top 10 overall: " +
+    rows.slice(0, 10).map((r) => "#" + r.rank + " " + r.p.name + " (" + r.pts + " pts)").join(", ") + ".";
+  if (found.length) ctx += "\nPlayers the user mentioned:\n" + found.map((r) => describe(r, obj.updates)).join("\n");
+  else ctx += "\nIf the user asks about a player who is not listed here, say they are not on the list.";
+  ctx += "\nIMPORTANT: this site only stores each player's CURRENT tiers. It does not store previous tiers, test dates or when someone started. If asked, say that history isn't tracked yet. Never invent tiers, dates or points; only use the data above.";
+  return ctx;
+}
+
 const REFUSAL = "I can't help with that.";
 const hits = new Map();
 
@@ -81,7 +142,7 @@ function jsonOut(obj, status) {
   });
 }
 
-async function chat(request, env) {
+async function chat(request, env, url) {
   if (request.method !== "POST") return jsonOut({ error: "POST only" }, 405);
   if (!env.AI) return jsonOut({ error: "AI is not set up" }, 503);
 
@@ -112,7 +173,7 @@ async function chat(request, env) {
     if (verdict.includes("unsafe") || verdict.includes('"safe":false')) return jsonOut({ reply: REFUSAL });
 
     const out = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-      messages: [{ role: "system", content: SYSTEM }].concat(messages),
+      messages: [{ role: "system", content: SYSTEM + "\n\n" + (await buildContext(env, url, messages)) }].concat(messages),
       max_tokens: 400,
     });
     const reply = String((out && out.response) || "").trim();
@@ -128,26 +189,34 @@ const HEADERS = {
   "access-control-allow-origin": "*",
 };
 
+let cache = { at: 0, text: "", obj: null };
+
+async function loadData(env, url) {
+  if (cache.obj && Date.now() - cache.at < 30000) return cache;
+  // the saved copy (also holds updates / tournaments / subtiers, and is the fallback)
+  const saved = await env.ASSETS.fetch(new Request(new URL("/players.json", url)));
+  const savedText = await saved.text();
+  let base = {};
+  try { base = JSON.parse(savedText); } catch (e) {}
+  try {
+    const res = await fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const players = parse(await res.text());
+    if (players.length < 10) throw new Error("source looks wrong");
+    const obj = build(players, base);
+    cache = { at: Date.now(), text: JSON.stringify(obj), obj: obj };
+    return cache;
+  } catch (e) {
+    return { text: savedText, obj: base };
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/chat") return chat(request, env);
+    if (url.pathname === "/api/chat") return chat(request, env, url);
     if (url.pathname !== "/players.json") return env.ASSETS.fetch(request);
-
-    // the saved copy (also holds updates / tournaments / subtiers, and is the fallback)
-    const saved = await env.ASSETS.fetch(new Request(new URL("/players.json", url)));
-    const savedText = await saved.text();
-    let base = {};
-    try { base = JSON.parse(savedText); } catch (e) {}
-
-    try {
-      const res = await fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const players = parse(await res.text());
-      if (players.length < 10) throw new Error("source looks wrong");
-      return new Response(JSON.stringify(build(players, base)), { headers: HEADERS });
-    } catch (e) {
-      return new Response(savedText, { headers: HEADERS });
-    }
+    const d = await loadData(env, url);
+    return new Response(d.text, { headers: HEADERS });
   },
 };
