@@ -2,9 +2,10 @@
   "name": "diamondtier",
   "main": "src/worker.js",
   "compatibility_date": "2025-10-01",
+  "ai": { "binding": "AI" },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/players.json"]
+    "run_worker_first": ["/players.json", "/api/*"]
   }
 }
