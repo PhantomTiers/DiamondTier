@@ -87,9 +87,9 @@ button{font-family:inherit}
 .p1{--c:var(--gold);--tint:#6b5200;width:190px;height:330px;order:2;border-color:rgba(255,198,26,.35);animation-delay:.2s}
 .p2{--c:var(--iron);--tint:#3a3f4c;width:170px;height:292px;order:1;animation-delay:.05s}
 .p3{--c:var(--cu);--tint:#5a2a0c;width:150px;height:262px;order:3;animation-delay:.12s}
-.pod .nm{width:100%;padding:12px 8px 0;text-align:center;font:700 25px var(--px);color:var(--c);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.p2 .nm{color:#fff}
-.fig{flex:1;display:flex;align-items:flex-end;justify-content:center;padding-bottom:0;position:relative;z-index:1;animation:idle 3s ease-in-out infinite}
+.pod .nm{flex:none;width:100%;padding:12px 8px 4px;text-align:center;font:700 25px/1.15 var(--px);color:var(--c);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p2 .nm{color:#fff}.p2 .nm,.p3 .nm{font-size:22px}
+.fig{flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:0;position:relative;z-index:1;animation:idle 3s ease-in-out infinite}
 @keyframes idle{50%{transform:translateY(-4px)}}
 .fig .av{image-rendering:pixelated;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6))}
 .base{width:100%;padding:6px 0 10px;text-align:center;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 45%,transparent));margin-top:-2px}
@@ -99,12 +99,12 @@ button{font-family:inherit}
 .rule{width:min(640px,80%);height:2px;margin:26px auto 16px;background:linear-gradient(90deg,transparent,rgba(160,190,255,.45),transparent)}
 
 .list{max-width:560px;margin:0 auto;display:grid;gap:10px}
-.row{display:grid;grid-template-columns:34px 38px 1fr auto;align-items:center;gap:12px;padding:8px 16px 8px 12px;border:1px solid var(--line);border-radius:10px;background:#192760;
+.row{display:grid;grid-template-columns:34px 42px 1fr auto;align-items:center;gap:12px;padding:8px 16px 8px 12px;border:1px solid var(--line);border-radius:10px;background:#192760;
   animation:up .45s cubic-bezier(.2,.9,.3,1) both;transition:border-color .2s,background .2s,transform .2s}
 @keyframes up{from{opacity:0;transform:translateY(12px)}}
 .row:hover{border-color:rgba(70,230,255,.55);background:#223580;transform:scale(1.015)}
 .rk{font:700 22px var(--b);color:var(--muted);text-align:center}
-.row .hd{width:38px;height:38px;border-radius:8px;overflow:hidden}
+.row .pose{margin:0 auto;filter:drop-shadow(0 3px 5px rgba(0,0,0,.5))}
 .row .nm{text-align:center;font:700 16px var(--b);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row .rt{display:flex;align-items:baseline;gap:8px;font-size:12px;color:var(--muted);white-space:nowrap}
 .row .rt s{text-decoration:none;color:var(--text)}
@@ -142,8 +142,7 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
   .p1{width:34%;height:285px}.p2{width:31%;height:252px}.p3{width:28%;height:224px}
   .pod .nm{font-size:16px;padding:10px 4px 0}.base .n{font-size:40px}
   .list{max-width:100%}
-  .row{grid-template-columns:26px 34px minmax(0,1fr) auto;gap:8px;padding:8px 10px 8px 6px}
-  .row .hd{width:34px;height:34px}.row .rt s:not(.tp){display:none}
+  .row{grid-template-columns:26px 40px minmax(0,1fr) auto;gap:8px;padding:8px 10px 8px 6px}.row .rt s:not(.tp){display:none}
   .foot{gap:10px}.tog button{padding:7px 11px}
   .mc{padding:22px 14px 18px}
   .mc .grid{grid-template-columns:1fr 1fr;gap:6px}
@@ -502,7 +501,7 @@ function render(){
   var rows=data(),stage=document.getElementById("stage"),rule=document.getElementById("rule"),box=document.getElementById("list"),foot=document.getElementById("foot");
   var modeName=MODES.filter(function(m){return m[0]===mode})[0][1];
   document.getElementById("ttl").innerHTML=icon(mode)+(mode==="overall"?"Top Players":"Top "+modeName+" Players");
-  var big=window.innerWidth>760,poses=["victory","crossed","wave"],hs=big?[170,150,130]:[125,108,92],podium=rows.length>=3&&!query;
+  var big=window.innerWidth>760,poses=["victory","crossed","wave"],hs=big?[168,144,112]:[125,108,92],podium=rows.length>=3&&!query;
   if(podium){
     stage.innerHTML=[0,1,2].map(function(i){var r=rows[i];
       return '<div class="pod p'+(i+1)+'" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile"><div class="nm">'+nameLink(r.p)+'</div><div class="fig">'+figure(r.p,poses[i],hs[i])+'</div><div class="base"><div class="n">'+(i+1)+'</div>'
@@ -514,7 +513,7 @@ function render(){
   var rest=podium?rows.slice(3):rows,shown=full?rest:rest.slice(0,podium?7:10),h="";
   if(!rows.length)h='<div class="empty">'+(query?"No players match that search.":"No ranked players in "+esc(modeName)+" yet.")+'</div>';
   shown.forEach(function(r,i){
-    h+='<div class="row" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile" style="animation-delay:'+i*40+'ms"><span class="rk">'+r.rank+'</span>'+figure(r.p,"head",38)
+    h+='<div class="row" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile" style="animation-delay:'+i*40+'ms"><span class="rk">'+r.rank+'</span>'+figure(r.p,"idle",58)
       +'<div class="nm">'+nameLink(r.p)+'</div><div class="rt">'+(r.ti==null?'':mode==="overall"?'<s class="tp"><span data-n="'+r.pts+'">0</span> Points</s>':badge(r.ti))+'</div></div>';
   });
   box.innerHTML=h;
@@ -556,7 +555,7 @@ function openPlayer(i){
   var ranked=players.slice().sort(function(a,b){return b.total-a.total||a.order-b.order}),rk=ranked.indexOf(p)+1;
   var meta=["Overall #"+rk,p.region,p.has?"Total "+p.total+" points":""].filter(Boolean).join(" · ");
   var g=MODES.slice(1).map(function(m){var t=p.tiers[m[0]];return '<div class="g" title="'+esc(m[1])+'">'+(ICONS[m[0]]?icon(m[0]):'<b class="gl">'+esc(m[1])+'</b>')+(t==null?'<span>Unranked</span>':badge(t))+'</div>'}).join("");
-  openModal((rk<=3?figure(p,"idle",190):figure(p,"head",120))+'<h3>'+esc(p.name)+'</h3><div class="meta">'+esc(meta)+'</div><div class="grid">'+g+'</div><div class="link"><a class="cta" href="https://namemc.com/profile/'+encodeURIComponent(p.name)+'" target="_blank" rel="noopener">View on NameMC</a></div>');
+  openModal(figure(p,"idle",190)+'<h3>'+esc(p.name)+'</h3><div class="meta">'+esc(meta)+'</div><div class="grid">'+g+'</div><div class="link"><a class="cta" href="https://namemc.com/profile/'+encodeURIComponent(p.name)+'" target="_blank" rel="noopener">View on NameMC</a></div>');
 }
 var TCOL=["#4FB4FF","#C4C8D0","#FFC61A","#3DE08A","#C080FF"];
 function openInfo(){
