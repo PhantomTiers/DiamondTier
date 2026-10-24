@@ -1,1 +1,13 @@
-{ "players": [], "updates": [], "tournaments": [], "subtiers": [], "tags": { "oLineage": "Creator" } }
+{
+  "players": [
+    {
+      "name": "oLineage",
+      "region": "NA",
+      "tiers": { "crystal": "LT3", "sword": "HT3", "mace": "HT3", "nethpot": "LT3", "uhc": "LT3", "dsmp": "LT3", "smp": "LT3" }
+    }
+  ],
+  "updates": [],
+  "tournaments": [],
+  "subtiers": [],
+  "tags": { "oLineage": "Creator" }
+}
