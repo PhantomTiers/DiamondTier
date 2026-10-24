@@ -539,9 +539,9 @@ function rngf(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>1
 var sparkHTML=(function(){var r=rngf(9),s="";for(var i=0;i<34;i++)s+='<i style="left:'+(r()*100).toFixed(1)+'%;top:'+(r()*100).toFixed(1)+'%;--t:'+(2+r()*3).toFixed(1)+'s;--w:-'+(r()*5).toFixed(1)+'s"></i>';return s})();
 
 function render(){
-  var rows=data(),stage=document.getElementById("stage"),rule=document.getElementById("rule"),box=document.getElementById("list"),foot=document.getElementById("foot");
+  var locked=sect==="sub"&&!subOpen,rows=locked?[]:data(),stage=document.getElementById("stage"),rule=document.getElementById("rule"),box=document.getElementById("list"),foot=document.getElementById("foot");
   var modeName=MODES.filter(function(m){return m[0]===mode})[0][1];
-  document.getElementById("ttl").innerHTML=icon(mode)+(mode==="overall"?"Top Players":"Top "+modeName+" Players");
+  document.getElementById("ttl").innerHTML=icon(mode)+(locked?modeName:mode==="overall"?"Top Players":"Top "+modeName+" Players");
   var big=window.innerWidth>760,poses=["victory","crossed","wave"],hs=big?[168,144,112]:[125,108,92],podium=rows.length>=3&&!query;
   if(podium){
     stage.innerHTML=[0,1,2].map(function(i){var r=rows[i];
@@ -552,7 +552,7 @@ function render(){
   }else{stage.style.display="none";rule.style.display="none"}
   document.getElementById("panel").classList.toggle("has-pod",podium);
   var rest=podium?rows.slice(3):rows,shown=full?rest:rest.slice(0,podium?7:10),h="";
-  if(!rows.length)h='<div class="empty">'+(query?"No players match that search.":"No ranked players in "+esc(modeName)+" yet.")+'</div>';
+  if(!rows.length)h='<div class="empty">'+(locked?"Not tiered yet.":query?"No players match that search.":"No ranked players in "+esc(modeName)+" yet.")+'</div>';
   shown.forEach(function(r,i){
     h+='<div class="row" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile" style="animation-delay:'+Math.min(i,14)*40+'ms"><span class="rk">'+r.rank+'</span>'+figure(r.p,"idle",58)
       +'<div class="nm">'+nameLink(r.p)+'</div><div class="rt">'+(r.ti==null?'':mode==="overall"?'<s class="tp"><span data-n="'+r.pts+'">0</span> Points</s>':badge(r.ti))+'</div></div>';
