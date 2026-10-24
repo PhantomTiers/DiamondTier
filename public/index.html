@@ -390,7 +390,7 @@ var players=[],updates=[],tours=[],mode="overall",region="All",query="",full=fal
 var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function norm(list,modes){modes=modes||MODES;return list.map(function(p,i){
+function norm(list,modes){modes=modes||MAIN_MODES;return list.map(function(p,i){
   var tiers={},tot=0,has=false;
   for(var k in (p.tiers||{})){var ix=TIERS.indexOf(String(p.tiers[k]).toUpperCase());
     if(ix>-1&&k!=="overall"&&modes.some(function(m){return m[0]===k})){tiers[k]=ix;tot+=PTS[ix];has=true}}
