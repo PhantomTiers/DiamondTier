@@ -342,7 +342,7 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .row[class*=" k"]:hover{border-color:rgba(var(--rc),.95);background:linear-gradient(90deg,rgba(var(--rc),.30),rgba(var(--rc),.10) 55%),#223580}
 .ptit{display:flex;align-items:center;gap:8px;margin:6px auto 4px;padding:6px 14px 6px 8px;border:1px solid color-mix(in srgb,var(--k) 55%,transparent);border-radius:999px;background:color-mix(in srgb,var(--k) 14%,transparent);color:var(--k);font:700 15px var(--px);cursor:pointer}
 .ptit svg{width:26px;height:26px}.ptit:hover{background:color-mix(in srgb,var(--k) 24%,transparent)}
-.ptag{display:table;margin:4px auto 0;padding:3px 12px;border-radius:8px;background:linear-gradient(90deg,#ffc61a,#ff8a3d);color:#2a1a00;font:700 13px var(--px)}
+.ptag{display:table;margin:4px auto 0;padding:3px 12px;border-radius:8px;background:linear-gradient(90deg,#7b3cff,#c45bff);color:#fff;box-shadow:0 0 14px rgba(160,90,255,.45);font:700 13px var(--px)}
 .ttl3{display:grid;gap:8px}.tt{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(6,10,32,.6)}
 .tt svg{width:38px;height:38px;flex:none}.tt b{display:block;font:700 16px var(--px);color:var(--k)}.tt small{display:block;margin:2px 0 0;text-align:left;color:var(--muted);font-size:12px}
 .tt.on{border-color:var(--k);background:color-mix(in srgb,var(--k) 14%,transparent)}
@@ -680,7 +680,7 @@ function openPlayer(i){
   var meta=["Overall #"+rk,p.region,p.has?"Total "+p.total+" points":""].filter(Boolean).join(" · ");
   var g=MODES.slice(1).map(function(m){var t=p.tiers[m[0]];return '<div class="g" title="'+esc(m[1])+'">'+(ICONS[m[0]]?icon(m[0]):'<b class="gl">'+esc(m[1])+'</b>')+(t==null?'<span>Unranked</span>':badge(t))+'</div>'}).join("");
   var T=titleOf(p.has?p.total:0),sp=ptags[p.name]||ptags[String(p.name).toLowerCase()];
-  openModal(figure(p,"idle",190)+'<h3>'+esc(p.name)+'</h3>'+(sp?'<div class="ptag">'+esc(sp)+'</div>':'')+'<button type="button" class="ptit" data-title="'+esc(T[0])+'" style="--k:'+T[2]+'">'+gemSvg(T[2])+'<span>'+esc(T[0])+'</span></button><div class="meta">'+esc(meta)+'</div><div class="grid">'+g+'</div><div class="link"><a class="cta" href="https://namemc.com/profile/'+encodeURIComponent(p.name)+'" target="_blank" rel="noopener">View on NameMC</a></div>');
+  openModal(figure(p,"idle",190)+'<h3>'+esc(p.name)+'</h3>'+(sp?'<div class="ptag">'+esc(sp==="Creator"?"Developer":sp)+'</div>':'')+'<button type="button" class="ptit" data-title="'+esc(T[0])+'" style="--k:'+T[2]+'">'+gemSvg(T[2])+'<span>'+esc(T[0])+'</span></button><div class="meta">'+esc(meta)+'</div><div class="grid">'+g+'</div><div class="link"><a class="cta" href="https://namemc.com/profile/'+encodeURIComponent(p.name)+'" target="_blank" rel="noopener">View on NameMC</a></div>');
 }
 var TCOL=["#4FB4FF","#C4C8D0","#FFC61A","#3DE08A","#C080FF"];
 function openInfo(){
