@@ -133,7 +133,10 @@ button{font-family:inherit}
 .tog button{border:0;background:none;color:var(--muted);padding:7px 14px;border-radius:7px;font:700 11px var(--b);cursor:pointer;transition:all .2s}
 .tog button[aria-pressed="true"]{background:#16200f;color:var(--cy);background:#0c2530;box-shadow:inset 0 0 0 1px rgba(70,230,255,.45)}
 .more{background:none;border:0;color:var(--muted);font:500 16px var(--b);cursor:pointer;transition:color .2s}
-.more:hover{color:var(--cy)}
+.more{display:block;margin:22px auto 6px;padding:14px 34px;border:1px solid rgba(70,230,255,.7);border-radius:999px;background:linear-gradient(180deg,#6af0ff,#22b8d8);color:#04222b;font:700 18px var(--b);box-shadow:0 0 24px rgba(70,230,255,.45),0 6px 18px rgba(0,0,0,.35);animation:morep 2.4s ease-in-out infinite}
+.more:hover{color:#021a21;transform:translateY(-2px) scale(1.04);box-shadow:0 0 34px rgba(70,230,255,.75),0 8px 22px rgba(0,0,0,.4)}
+@keyframes morep{50%{box-shadow:0 0 38px rgba(70,230,255,.7),0 6px 18px rgba(0,0,0,.35)}}
+@media (prefers-reduced-motion:reduce){.more{animation:none}}
 small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-size:12px}
 
 @media (max-width:760px){
@@ -828,7 +831,7 @@ fillPod();window.addEventListener("resize",fillPod);
 /* ---------- sponsors ---------- */
 document.getElementById("spLink").onclick=function(e){
   e.preventDefault();
-  openModal('<h3>Sponsors</h3><div class="meta">Want to sponsor DiamondTier?</div><div class="spm"><p>Please contact</p><a class="em" href="mailto:grimmworkzz@gmail.com">grimmworkzz@gmail.com</a><p>for sponsorship.</p><p><b>$50 - $250</b> sponsorships<br>Repaid over <b>3 months</b></p><p>Sponsors get their <b>advertisement posted on the website</b>.</p></div>');
+  openModal('<h3>Sponsors</h3><div class="meta">Want to sponsor DiamondTier?</div><div class="spm"><p>Please contact</p><a class="em" href="mailto:diamondtiers2@gmail.com">diamondtiers2@gmail.com</a><p>for sponsorship.</p><p><b>$50 - $250</b> sponsorships<br>Repaid over <b>3 months</b></p><p>Sponsors get their <b>advertisement posted on the website</b>.</p></div>');
 };
 var curView="",curKey="",subOpen=false;
 function route(force){
