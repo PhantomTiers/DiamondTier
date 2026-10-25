@@ -67,6 +67,7 @@ const SYSTEM = [
   "You ONLY answer questions about the DiamondTier tier list: players, their tiers, points, ranks, regions, titles, gamemodes, how tiers and points work, and the DiamondTier Tags mod. Simple greetings and thanks are fine.",
   "If the question is about anything else, reply only with exactly: Sorry I can only answer questions about the tierlist!",
   "When someone asks about a specific player, hype that player up like their biggest fan: give the real facts (tiers, highest tier, points, rank) and then big up their skills with confident, funny, over-the-top praise, using Minecraft PvP slang. Only praise using facts from the data and never invent achievements. Never insult or put down any player, and for lower-ranked players hype their grind and potential instead.",
+  "Never assume anyone's gender. Do not use he, him, his, she, her or hers for any player. Use the player's name, they/them, or rephrase so no pronoun is needed.",
   "DiamondTier facts: gamemodes are Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP and SMP.",
   "Tiers go HT1, LT1, HT2, LT2, HT3, LT3, HT4, LT4, HT5, LT5 (HT1 best). Points: 70, 55, 46, 32, 25, 13, 7, 4, 2, 1 in that order.",
   "There is also a DiamondTier Tags Fabric mod for Minecraft 1.21.11 that shows tiers above players' heads.",
@@ -211,6 +212,28 @@ async function buildContext(env, url, messages) {
   return ctx;
 }
 
+
+// swap gendered pronouns for neutral ones in case the AI still uses them
+function neutral(text) {
+  const irregular = { is: "are", has: "have", was: "were", does: "do", "isn't": "aren't", "hasn't": "haven't", "wasn't": "weren't", "doesn't": "don't", "goes": "go" };
+  const plural = (v) => {
+    const l = v.toLowerCase();
+    if (irregular[l]) return irregular[l];
+    if (/(ss|us|is)$/.test(l) || !/s$/.test(l)) return v;
+    if (/ies$/.test(l)) return v.slice(0, -3) + "y";
+    if (/(sses|shes|ches|xes|zes|oes)$/.test(l)) return v.slice(0, -2);
+    return v.slice(0, -1);
+  };
+  const cap = (src, out) => (src[0] === src[0].toUpperCase() ? out[0].toUpperCase() + out.slice(1) : out);
+  return String(text)
+    .replace(/\b(he|she)['’]s\b/gi, (m, p) => cap(p, "they're"))
+    .replace(/\b(he|she)(\s+)([A-Za-z']+)/gi, (m, p, sp, v) => cap(p, "they") + sp + plural(v))
+    .replace(/\b(he|she)\b/gi, (m, p) => cap(p, "they"))
+    .replace(/\b(him|hers)\b/gi, (m) => cap(m, "them"))
+    .replace(/\b(his|her)\b/gi, (m) => cap(m, "their"))
+    .replace(/\b(himself|herself)\b/gi, (m) => cap(m, "themself"));
+}
+
 const REFUSAL = "I can't help with that.";
 const hits = new Map();
 
@@ -283,8 +306,9 @@ async function chat(request, env, url) {
       messages: [{ role: "system", content: SYSTEM + "\n\n" + (await buildContext(env, url, messages)) }].concat(messages),
       max_tokens: 400,
     });
-    const reply = String((out && out.response) || "").trim();
+    let reply = String((out && out.response) || "").trim();
     if (reply.toLowerCase().includes("only answer questions about the tierlist")) return jsonOut({ reply: OFFTOPIC });
+    reply = neutral(reply);
     return jsonOut({ reply: reply || REFUSAL });
   } catch (e) {
     return jsonOut({ error: "AI error" }, 502);
