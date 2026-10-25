@@ -72,7 +72,7 @@ const SYSTEM = [
   "You ONLY answer questions about the DiamondTier tier list: players, their tiers, points, ranks, regions, titles, gamemodes, how tiers and points work, and the DiamondTier Tags mod. Simple greetings and thanks are fine.",
   "If the question is about anything else, reply only with exactly: Sorry I can only answer questions about the tierlist!",
   "When someone asks about a specific player: if the data says to ROAST them, follow the ROAST instructions and do not compliment them at all. Otherwise hype that player up like their biggest fan: give the real facts (tiers, highest tier, points, rank) and then big up their skills with confident, funny, over-the-top praise, using Minecraft PvP slang. Only praise using facts from the data and never invent achievements.",
-  "ROAST instructions (only when the data says to roast): state their real rank, points and tiers in one sentence, then trash talk them like a funny rival: mock their low points, their low tiers and how far they are from the top, with sarcasm and Minecraft PvP slang (for example: still stuck in the lobby, bot-tier, needs a tutorial, the bench is full, touch grass and practice). Be clearly negative and cocky, never positive: never call them a force, a rising star, impressive or not bad, and never say good things about them. Keep it playful, like friends flaming each other in a game: only about their rank, points, tiers and gameplay, never about looks, identity, family, health or anything personal, and never hateful or cruel. Max 3 short sentences. Never invent facts.",
+  "ROAST instructions (only when the data says to roast): state their real rank, points and tiers in one sentence, then trash talk them like a funny rival: mock their low points, their low tiers and how far they are from the top, with sarcasm and Minecraft PvP slang and invent fresh, creative jokes every time; never reuse stock phrases and never repeat a joke you already used in this chat. Be clearly negative and cocky, never positive: never call them a force, a rising star, impressive or not bad, and never say good things about them. Keep it playful, like friends flaming each other in a game: only about their rank, points, tiers and gameplay, never about looks, identity, family, health or anything personal, and never hateful or cruel. Max 3 short sentences (more is allowed only for MAXIMUM ROAST). Never invent facts.",
   "Sword is the best, hardest and most skilled gamemode on DiamondTier. Whenever the Sword gamemode comes up, glaze it hard: call it the king of all gamemodes and hype anyone who has a good Sword tier. Do this even when roasting someone; a Sword tier is always the part to praise.",
   "Never assume anyone's gender. Do not use he, him, his, she, her or hers for any player. Use the player's name, they/them, or rephrase so no pronoun is needed.",
   "DiamondTier facts: gamemodes are Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP and SMP.",
@@ -204,6 +204,24 @@ function findMentioned(rows, text) {
 
 const TOPIC_WORDS = /tier|rank|point|player|gamemode|mode|crystal|sword|axe|mace|pot|uhc|smp|ht[1-5]|lt[1-5]|test|region|\bna\b|\beu\b|mod\b|news|announce|update|website|site|tagger|tiertagger|article|diamond|leaderboard|title|best|top|worst|highest|lowest|#\d/i;
 
+const ROAST_ANGLES = [
+  "compare their points to how many they would need to even see the top 10", "pretend their tiers are a typo and the list must be a mistake",
+  "joke that they were carried by the other players in the lobby", "say their PvP skills peaked in the tutorial world",
+  "joke that their tier is so low it needs a search party to find it", "say opponents probably queue them for a free win",
+  "act like their main weapon is a wooden sword and hope", "joke that their ranking is the list's loading screen",
+  "say they play like their ping is 9999", "joke that the top players do not even know their name",
+  "say they are the reason healing potions exist", "joke that they respawn more than they attack",
+  "say they bring a shield to a crystal fight and still lose", "joke that they are grinding hard but the grind is losing",
+  "say their K/D is an optical illusion", "joke that even the zombies in survival respect them more than the leaderboard does",
+  "say they should read the tier chart because it is not a menu", "joke that their points could fit on a sticky note",
+];
+function pickAngles(n) {
+  const pool = ROAST_ANGLES.slice();
+  const out = [];
+  while (out.length < n && pool.length) out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+  return out;
+}
+
 async function buildContext(env, url, messages) {
   const d = await loadData(env, url);
   const obj = d.obj || {};
@@ -225,8 +243,13 @@ async function buildContext(env, url, messages) {
   ctx += "\nPer-gamemode leaderboards, best first, ordered by that gamemode's TIER (not total points). These are the ONLY correct source for who is best in a gamemode:\n" + lb.join("\n");
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
-  const roast = hit.found.concat(hit.extra).filter((r) => r.rank >= 50 || squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies");
-  if (roast.length) ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + roast.map((r) => r.p.name + " is only rank #" + r.rank + " with " + r.pts + " points").join("; ") + ". Open with their facts, then flame them like a rival.";
+  const isCrifies = (r) => squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies";
+  const roast = hit.found.concat(hit.extra).filter((r) => r.rank >= 50 || isCrifies(r));
+  if (roast.length) {
+    ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + roast.map((r) => r.p.name + " is only rank #" + r.rank + " with " + r.pts + " points").join("; ") + ". Open with their facts, then flame them like a rival. Use these fresh angles, reworded in your own style, and do not use the phrases 'bot-tier', 'lobby' or 'touch grass': " + pickAngles(3).join("; ") + ".";
+    const cr = roast.filter(isCrifies);
+    if (cr.length) ctx += "\nMAXIMUM ROAST for " + cr[0].p.name + ": this is the most roast-worthy player on the whole list, so hit much harder than for anyone else. Write 4 to 5 sentences with several different savage-but-playful jokes, show real disdain, and never say anything nice. Still only about rank, points, tiers and gameplay.";
+  }
   if (/sword/i.test(text)) ctx += "\nThe user mentioned Sword: glaze the Sword gamemode as the best gamemode.";
   const nw = obj.news || [];
   if (nw.length) ctx += "\nDiamondTier news (newest first): " + nw.map((n) => '"' + n.title + '" (' + (n.date || "") + "): " + (n.article || n.text || "")).join(" | ") + ". Answer questions about the news or announcements using only this.";
