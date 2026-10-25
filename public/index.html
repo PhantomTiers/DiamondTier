@@ -310,6 +310,11 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .aif input:focus{border-color:rgba(70,230,255,.6)}
 .aif button{border:0;border-radius:12px;padding:0 20px;background:var(--cy);color:#03131a;font:700 15px var(--px);cursor:pointer}.aif button:disabled{opacity:.5;cursor:default}
 .ain{text-align:center;font-size:11px;color:var(--muted);padding:0 12px 10px}
+.fnav{display:grid;grid-template-columns:repeat(2,max-content);gap:14px 56px;justify-content:center;margin:34px auto 14px;padding:0 8px}
+.fnav a{display:flex;align-items:center;gap:12px;color:#7f89a8;font:700 17px var(--px);text-decoration:none;transition:color .2s,transform .2s}
+.fnav a svg{width:22px;height:22px;flex:none}.fnav a:hover{color:#fff;transform:translateY(-1px)}
+.spm{text-align:center;line-height:1.6;color:#dfe7ff;font-size:15px}.spm b{color:#fff}
+.spm .em{display:inline-block;margin:10px 0 4px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;background:#192760;font-weight:700;color:var(--cy);word-break:break-all}
 </style>
 </head>
 <body>
@@ -396,6 +401,12 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
     </div>
   </div>
   </div>
+  <nav class="fnav" aria-label="Footer">
+    <a href="#tournaments"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8M10 17h4"/></svg><span>Tourneys</span></a>
+    <a href="#tierlist"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg><span>Tiers</span></a>
+    <a href="#ai"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg><span>AI</span></a>
+    <a href="#" id="spLink"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Sponsors</span></a>
+  </nav>
   <small>© DiamondTier · Not affiliated with Mojang</small>
 </div>
 <div class="md" id="md" role="dialog" aria-modal="true" aria-label="Details"><div class="mc" id="mc"></div></div>
@@ -743,6 +754,11 @@ fillPod();window.addEventListener("resize",fillPod);
   };
   window.addEventListener("hashchange",function(){if(location.hash==="#ai")setTimeout(function(){inp.focus()},120)});
 })();
+/* ---------- sponsors ---------- */
+document.getElementById("spLink").onclick=function(e){
+  e.preventDefault();
+  openModal('<h3>Sponsors</h3><div class="meta">Want to sponsor DiamondTier?</div><div class="spm"><p>Please contact</p><a class="em" href="mailto:grimmworkzz@gmail.com">grimmworkzz@gmail.com</a><p>for sponsorship.</p><p><b>$50 - $250</b> sponsorships<br>Repaid over <b>3 months</b></p></div>');
+};
 var curView="",curKey="",subOpen=false;
 function route(force){
   var h=(location.hash||"").replace("#","").toLowerCase(),v=(h==="tierlist"||h==="subtiers")?"vTier":h==="tournaments"?"vTour":h==="mod"?"vMod":h==="ai"?"vAI":"vHome",key=v==="vTier"?h:v;
