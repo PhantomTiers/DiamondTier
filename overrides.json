@@ -1,14 +1,51 @@
 {
-  "rename": { "runsz": "runsztuffington", "Blusped": "oLineage" },
+  "rename": {
+    "runsz": "runsztuffington",
+    "Blusped": "oLineage"
+  },
   "remove": [],
-  "regions": { "oLineage": "NA", "sssap": "NA", "Crifies": "NA" },
-  "tags": { "oLineage": "Creator" },
+  "regions": {
+    "oLineage": "NA",
+    "sssap": "NA",
+    "Crifies": "NA"
+  },
+  "tags": {
+    "oLineage": "Creator"
+  },
   "display": {},
   "extraPlayers": [
     {
       "name": "oLineage",
       "region": "NA",
-      "tiers": { "crystal": "LT3", "sword": "HT3", "mace": "HT3", "nethpot": "LT3", "uhc": "LT3", "dsmp": "LT3", "smp": "LT3" }
+      "tiers": {
+        "crystal": "LT3",
+        "sword": "HT3",
+        "mace": "HT3",
+        "nethpot": "LT3",
+        "uhc": "LT3",
+        "dsmp": "LT3",
+        "smp": "LT3"
+      }
+    }
+  ],
+  "news": [
+    {
+      "date": "Oct 24, 2026",
+      "title": "Trident subtier added",
+      "text": "Trident is now part of the subtiers lineup.",
+      "tags": [
+        "News",
+        "Subtiers"
+      ]
+    },
+    {
+      "date": "Oct 24, 2026",
+      "title": "DiamondTier Tags mod submitted",
+      "text": "The mod has been submitted to Modrinth and CurseForge and is waiting for review.",
+      "tags": [
+        "News",
+        "Mod"
+      ]
     }
   ]
 }
