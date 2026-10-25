@@ -346,6 +346,11 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .ttl3{display:grid;gap:8px}.tt{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(6,10,32,.6)}
 .tt svg{width:38px;height:38px;flex:none}.tt b{display:block;font:700 16px var(--px);color:var(--k)}.tt small{display:block;margin:2px 0 0;text-align:left;color:var(--muted);font-size:12px}
 .tt.on{border-color:var(--k);background:color-mix(in srgb,var(--k) 14%,transparent)}
+.rg{display:inline-block;margin-right:7px;padding:2px 7px;border-radius:6px;font:700 11px var(--px);letter-spacing:.04em;vertical-align:middle;background:rgba(150,160,190,.18);color:#c9d0e6}
+.rg.rEU{background:rgba(47,212,122,.18);color:#3de08a;box-shadow:inset 0 0 0 1px rgba(47,212,122,.5)}
+.rg.rNA{background:rgba(255,82,82,.18);color:#ff6b6b;box-shadow:inset 0 0 0 1px rgba(255,82,82,.5)}
+.rg.rAS{background:rgba(255,198,26,.18);color:#ffd23f;box-shadow:inset 0 0 0 1px rgba(255,198,26,.5)}
+.pod .pt{white-space:nowrap}@media(max-width:560px){.pod .rg{margin-right:4px;padding:2px 5px;font-size:10px}.pod .pt{font-size:11px}}
 </style>
 </head>
 <body>
@@ -590,6 +595,7 @@ function figure(p,pose,h){
   return '<span class="'+(head?"hd":"pose")+'" style="width:'+w+'px;height:'+h+'px" data-skin="'+esc(p.id)+'" data-name="'+esc(p.name)+'" data-url="'+esc(p.skin)+'" data-hash="'+esc(p.hash)+'" data-pose="'+pose+'">'+drawn(p,pose,head)+'</span>';
 }
 function nameLink(p){return esc(p.name)}
+function regChip(p){var r=p&&p.region?String(p.region).toUpperCase():"";return /^(NA|EU|AS)$/.test(r)?'<span class="rg r'+r+'">'+r+'</span>':r?'<span class="rg">'+esc(r)+'</span>':''}
 function badge(i){return '<span class="tier t'+TIERS[i][2]+(TIERS[i][0]==="L"?' lt':'')+'">'+TIERS[i]+'</span>'}
 
 /* ---------- data (skins: body renders for #1-3, heads for #4+, Steve if nothing loads) ---------- */
@@ -621,7 +627,7 @@ function render(){
   if(podium){
     stage.innerHTML=[0,1,2].map(function(i){var r=rows[i];
       return '<div class="pod p'+(i+1)+'" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile"><div class="nm">'+nameLink(r.p)+'</div><div class="fig">'+figure(r.p,poses[i],hs[i])+'</div><div class="base"><div class="n">'+(i+1)+'</div>'
-        +(r.ti==null?'':'<div class="pt">'+(mode==="overall"?'<span data-n="'+r.pts+'">0</span> pts':TIERS[r.ti])+'</div>')+'</div></div>';
+        +(r.ti==null?'':'<div class="pt">'+regChip(r.p)+(mode==="overall"?'<span data-n="'+r.pts+'">0</span> pts':TIERS[r.ti])+'</div>')+'</div></div>';
     }).join("");
     stage.style.display="";rule.style.display="";
   }else{stage.style.display="none";rule.style.display="none"}
@@ -630,7 +636,7 @@ function render(){
   if(!rows.length)h='<div class="empty">'+(locked?"Not tiered yet.":query?"No players match that search.":"No ranked players in "+esc(modeName)+" yet.")+'</div>';
   shown.forEach(function(r,i){
     h+='<div class="row'+(r.ti!=null&&mode!=="overall"?' k'+TIERS[r.ti][2]:'')+'" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile" style="animation-delay:'+Math.min(i,14)*40+'ms"><span class="rk">'+r.rank+'</span>'+figure(r.p,"idle",58)
-      +'<div class="nm">'+nameLink(r.p)+'</div><div class="rt">'+(r.ti==null?'':mode==="overall"?'<s class="tp"><span data-n="'+r.pts+'">0</span> Points</s>':badge(r.ti))+'</div></div>';
+      +'<div class="nm">'+nameLink(r.p)+'</div><div class="rt">'+(r.ti==null?'':regChip(r.p)+(mode==="overall"?'<s class="tp"><span data-n="'+r.pts+'">0</span> Points</s>':badge(r.ti)))+'</div></div>';
   });
   box.innerHTML=h;
   var more=document.getElementById("more");
