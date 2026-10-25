@@ -10,13 +10,16 @@ function parse(text) {
   for (const line of text.split("\n")) {
     const at = line.indexOf(" — ");
     if (at < 0) continue;
-    const name = line.slice(0, at).trim();
+    let name = line.slice(0, at).trim();
+    let region = "";
+    const rm = name.match(/^(.*?)\s*\[([A-Za-z]{2,4})\]$/);
+    if (rm) { name = rm[1].trim(); region = rm[2].toUpperCase(); }
     const tiers = {};
     for (const part of line.slice(at + 3).split("|")) {
       const m = part.match(/^\s*(\w+):\s*([HL]T[1-5])/);
       if (m && MODES.includes(m[1])) tiers[m[1]] = m[2];
     }
-    if (name && Object.keys(tiers).length) players.push({ name: name, tiers: tiers });
+    if (name && Object.keys(tiers).length) players.push({ name: name, region: region, tiers: tiers });
   }
   return players;
 }
@@ -38,7 +41,8 @@ function build(players, base) {
     if (remove.has(name.toLowerCase()) || remove.has(p.name.toLowerCase()) || seen.has(name.toLowerCase())) continue;
     seen.add(name.toLowerCase());
     const entry = { name: name };
-    if (regions[name.toLowerCase()]) entry.region = regions[name.toLowerCase()];
+    const reg = p.region || regions[name.toLowerCase()];
+    if (reg) entry.region = reg;
     entry.tiers = p.tiers;
     out.push(entry);
   }
