@@ -315,6 +315,28 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .fnav a svg{width:22px;height:22px;flex:none}.fnav a:hover{color:#fff;transform:translateY(-1px)}
 .spm{text-align:center;line-height:1.6;color:#dfe7ff;font-size:15px}.spm b{color:#fff}
 .spm .em{display:inline-block;margin:10px 0 4px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;background:#192760;font-weight:700;color:var(--cy);word-break:break-all}
+.hsec{max-width:1000px;margin:34px auto 0;padding-top:22px;border-top:1px solid var(--line)}
+.hsec h2{margin:0 0 16px;font:700 28px var(--px);color:#fff}
+.ng{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.nc{display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(10,16,48,.7);text-align:left;cursor:pointer;color:inherit;font:inherit;transition:transform .2s,border-color .2s}
+.nc:hover{transform:translateY(-3px);border-color:rgba(70,230,255,.5)}
+.nc .im{aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#1c3a8a,#3b1f8a);display:grid;place-items:center}
+.nc .im img{width:100%;height:100%;object-fit:cover;display:block}.nc .im svg{width:54px;height:54px;color:var(--cy);opacity:.85}
+.nc .tg{display:flex;gap:8px;flex-wrap:wrap}.nc .tg i{font:700 13px var(--px);font-style:normal;padding:5px 10px;border-radius:8px;background:#1b2b50;color:#dfe7ff}
+.nc b{font:700 20px var(--px);color:#fff}.nc p{margin:0;color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nc.soon{cursor:default}.nc.soon:hover{transform:none;border-color:var(--line)}
+.nempty{padding:26px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+.nmd img{width:100%;border-radius:12px;margin:0 0 12px}.nmd p{margin:10px 0 0;color:#dfe7ff;font-size:15px;line-height:1.55;white-space:pre-wrap}.nmd .tg i{font:700 13px var(--px);font-style:normal;padding:5px 10px;border-radius:8px;background:#1b2b50;color:#dfe7ff}.nmd .tg{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.sph{text-align:center;margin-bottom:16px}.sph small{display:block;margin:0 0 6px;font:600 13px var(--px);letter-spacing:.12em;color:var(--muted)}.sph h2{margin:0}
+.sbox{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(10,16,48,.7)}
+.sl{display:grid;gap:10px}.sr{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(6,10,32,.7)}
+.sr .dt{width:10px;height:10px;border-radius:50%;background:#f5b942;box-shadow:0 0 8px #f5b94266;flex:none}
+.sr b{font:700 17px var(--px);color:#fff;flex:1}.sr i{font:600 13px var(--px);font-style:normal;padding:6px 12px;border-radius:8px;background:#1b2b50;color:#dfe7ff}
+.sf{margin-top:14px;text-align:center;color:var(--muted);font-size:14px}
+.sone{padding:44px 16px;text-align:center}.sone b{font:700 30px var(--px);color:#fff}
+.nempty{grid-column:1/-1}
+.fnav{grid-template-columns:repeat(6,max-content);gap:14px 44px;margin:40px auto 0;padding:26px 8px 0;border-top:1px solid var(--line);max-width:1000px}
+@media(max-width:900px){.fnav{grid-template-columns:repeat(3,max-content);gap:14px 32px}}@media(max-width:560px){.fnav{grid-template-columns:repeat(2,max-content);gap:14px 40px}}
 </style>
 </head>
 <body>
@@ -401,9 +423,13 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
     </div>
   </div>
   </div>
+  <section class="hsec" id="newsSec"><h2>Recent News</h2><div class="ng" id="newsGrid"></div></section>
+  <section class="hsec" id="srvSec"><h2>Servers</h2><div class="sbox sone"><b>Servers coming soon</b></div></section>
   <nav class="fnav" aria-label="Footer">
     <a href="#tournaments"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8M10 17h4"/></svg><span>Tourneys</span></a>
     <a href="#tierlist"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg><span>Tiers</span></a>
+    <a href="#" data-go="newsSec"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z"/><path d="M18 9h2v8a2 2 0 0 1-2 2M8 8h7M8 12h7M8 15h4"/></svg><span>News</span></a>
+    <a href="#" data-go="srvSec"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg><span>Servers</span></a>
     <a href="#ai"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg><span>AI</span></a>
     <a href="#" id="spLink"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Sponsors</span></a>
   </nav>
@@ -423,7 +449,7 @@ var TIERS=["HT1","LT1","HT2","LT2","HT3","LT3","HT4","LT4","HT5","LT5"];
 var PTS=[70,55,46,32,25,13,7,4,2,1];
 var DEFAULT=[{name:"Rnickname"},{name:"oLineage",uuid:"a471c5ef-43a8-4d46-a215-62a01e8e4471",skinHash:"2b4543645ddec2c50ace58f9df7a154057b8fe2d6e766fb8f6a0a48b168c9344"},{name:"sssap"},{name:"itzrealsasuke"}];
 var REG=["All","NA","EU","AS"];
-var players=[],updates=[],tours=[],mode="overall",region="All",query="",full=false;
+var news=[],players=[],updates=[],tours=[],mode="overall",region="All",query="",full=false;
 var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -707,12 +733,24 @@ document.getElementById("more").onclick=function(){
 var wait=new Promise(function(res){setTimeout(function(){res(null)},1500)});
 Promise.race([fetch("players.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null}),wait]).then(function(list){
   var arr=Array.isArray(list)?list:(list&&list.players),ups=list&&!Array.isArray(list)&&list.updates;
-  tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
+  tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];news=list&&!Array.isArray(list)&&Array.isArray(list.news)?list.news:[];if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
   render();route(true);moveInd();setTimeout(moveInd,80);setTimeout(shoot,900);
 });
 
 /* ---------- views: #  (home) · #tierlist · #tournaments ---------- */
 var DCI="https://discord.gg/VMVcGhx9gR";
+function renderNews(){
+  var g=document.getElementById("newsGrid"),gem='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 6 3-6M12 9v12"/></svg>';
+  if(!g)return;
+  g.innerHTML=news.length?news.map(function(n,i){
+    var tg=(n.tags||[]).map(function(t){return '<i>'+esc(t.charAt(0)==="#"?t:"#"+t)+'</i>'}).join("");
+    return '<button type="button" class="nc" data-n="'+i+'"><div class="im">'+(n.image?'<img src="'+esc(n.image)+'" alt="" loading="lazy">':gem)+'</div>'+(tg?'<div class="tg">'+tg+'</div>':'')+'<b>'+esc(n.title||"")+'</b>'+(n.text?'<p>'+esc(n.text)+'</p>':'')+'</button>';
+  }).join(""):'<div class="nempty">No news yet. Check back soon!</div>';
+  [].forEach.call(g.querySelectorAll(".nc"),function(b){b.onclick=function(){
+    var n=news[+b.dataset.n];if(!n)return;
+    openModal('<div class="nmd"><h3>'+esc(n.title||"")+'</h3><div class="meta">'+esc(n.date||"")+'</div>'+(n.image?'<img src="'+esc(n.image)+'" alt="">':'')+'<div class="tg">'+((n.tags||[]).map(function(t){return '<i>'+esc(t.charAt(0)==="#"?t:"#"+t)+'</i>'}).join(""))+'</div><p>'+esc(n.text||"")+'</p></div>');
+  }});
+}
 function renderTours(){
   var box=document.getElementById("tourList");
   if(!tours.length){box.innerHTML='<div class="none"><svg class="big" viewBox="0 0 24 24" fill="#c98bff" aria-hidden="true"><path d="M6 3h12v6a6 6 0 0 1-12 0V3z"/><path d="M5 5H2.5v2A3.5 3.5 0 0 0 6 10.5V9a2 2 0 0 1-1-1.7V6zM19 5h2.5v2a3.5 3.5 0 0 1-3.5 3.5V9a2 2 0 0 0 1-1.7V6z"/><path d="M10.5 14.5h3V18h-3zM7 19h10v2.2H7z"/></svg><h4>No active tournaments</h4><p>Nothing is running right now. When the next one starts it will show up here, so check back soon.</p><a class="dc" href="'+DCI+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>Join the Discord</a></div>';return}
@@ -796,6 +834,7 @@ route(true);
 })();
 window.addEventListener("load",moveInd);
 window.addEventListener("resize",function(){moveInd();render()});
+(function(){[].forEach.call(document.querySelectorAll("[data-go]"),function(a){a.addEventListener("click",function(e){e.preventDefault();if(location.hash&&location.hash!=="#"&&location.hash!=="#home"){location.hash="";}setTimeout(function(){var el=document.getElementById(a.getAttribute("data-go"));if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},80)})})})();
 </script>
 </body>
 </html>
