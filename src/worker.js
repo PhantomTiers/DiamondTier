@@ -57,6 +57,7 @@ function build(players, base) {
   if ("subtiersOpen" in base) result.subtiersOpen = base.subtiersOpen;
   result.tags = OV.tags || {};
   result.display = OV.display || {};
+  result.news = OV.news || [];
   return result;
 }
 
