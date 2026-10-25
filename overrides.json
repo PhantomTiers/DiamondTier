@@ -31,20 +31,33 @@
   "news": [
     {
       "date": "Oct 24, 2026",
+      "title": "New Diamond Website out now",
+      "text": "The brand new DiamondTier website is live.",
+      "tags": [
+        "News",
+        "Website"
+      ],
+      "image": "/news/website.png",
+      "article": "The new DiamondTier website is out now. It has a fresh look, a podium for the top players, a main tierlist and a separate subtiers list, tournaments, and a built-in AI that can answer questions about any player on the list. We'll keep adding news and features here, so check back often."
+    },
+    {
+      "date": "Oct 24, 2026",
+      "title": "New Diamond Tiertagger coming out soon!",
+      "text": "A new version of the DiamondTier Tags mod is on the way.",
+      "tags": [
+        "News",
+        "Mod"
+      ],
+      "image": "/news/tiertagger.png",
+      "article": "The DiamondTier Tags mod shows a player's tier above their head in game and has an in-game menu to look up players and view your own tiers. A new Diamond Tiertagger is coming out soon. It is currently waiting on review for Modrinth and CurseForge, and we'll post here as soon as it is live."
+    },
+    {
+      "date": "Oct 24, 2026",
       "title": "Trident subtier added",
       "text": "Trident is now part of the subtiers lineup.",
       "tags": [
         "News",
         "Subtiers"
-      ]
-    },
-    {
-      "date": "Oct 24, 2026",
-      "title": "DiamondTier Tags mod submitted",
-      "text": "The mod has been submitted to Modrinth and CurseForge and is waiting for review.",
-      "tags": [
-        "News",
-        "Mod"
       ]
     }
   ]
