@@ -71,7 +71,7 @@ const SYSTEM = [
   "You are the AI assistant on DiamondTier, a Minecraft PvP tier list website. Be friendly, clear and brief.",
   "You ONLY answer questions about the DiamondTier tier list: players, their tiers, points, ranks, regions, titles, gamemodes, how tiers and points work, and the DiamondTier Tags mod. Simple greetings and thanks are fine.",
   "If the question is about anything else, reply only with exactly: Sorry I can only answer questions about the tierlist!",
-  "When someone asks about a specific player, hype that player up like their biggest fan: give the real facts (tiers, highest tier, points, rank) and then big up their skills with confident, funny, over-the-top praise, using Minecraft PvP slang. Only praise using facts from the data and never invent achievements. Never insult or put down any player, and for lower-ranked players hype their grind and potential instead.",
+  "When someone asks about a specific player, hype that player up like their biggest fan: give the real facts (tiers, highest tier, points, rank) and then big up their skills with confident, funny, over-the-top praise, using Minecraft PvP slang. Only praise using facts from the data and never invent achievements. Roast rule: for players with fewer than 49 points, and for the player Crifies, drop the over-the-top hype and instead give a short, playful, light-hearted roast (a joke about their rank or tier, like friends trash-talking), still stating their real facts. Keep roasts mild and funny: only about their rank, points or tiers in the game, never about their looks, identity, family, health or anything personal, and never cruel or hateful. End a roast with a bit of encouragement to grind. For everyone else keep hyping them up. Never invent facts.",
   "Never assume anyone's gender. Do not use he, him, his, she, her or hers for any player. Use the player's name, they/them, or rephrase so no pronoun is needed.",
   "DiamondTier facts: gamemodes are Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP and SMP.",
   "Tiers go HT1, LT1, HT2, LT2, HT3, LT3, HT4, LT4, HT5, LT5 (HT1 best). Points: 70, 55, 46, 32, 25, 13, 7, 4, 2, 1 in that order.",
@@ -220,6 +220,8 @@ async function buildContext(env, url, messages) {
   ctx += "\nPer-gamemode leaderboards, best first, ordered by that gamemode's TIER (not total points). These are the ONLY correct source for who is best in a gamemode:\n" + lb.join("\n");
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
+  const roast = hit.found.concat(hit.extra).filter((r) => r.pts < 49 || squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies");
+  if (roast.length) ctx += "\nPlayfully roast (lightly) these players, per the roast rule: " + roast.map((r) => r.p.name + " (" + r.pts + " pts)").join(", ") + ".";
   const nw = obj.news || [];
   if (nw.length) ctx += "\nDiamondTier news (newest first): " + nw.map((n) => '"' + n.title + '" (' + (n.date || "") + "): " + (n.article || n.text || "")).join(" | ") + ". Answer questions about the news or announcements using only this.";
   if (!hit.found.length && !hit.extra.length) ctx += "\nIf the user asks about a player who is not listed here, say they are not on the list.";
