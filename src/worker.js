@@ -104,7 +104,7 @@ function summarize(list) {
     return { p: p, pts: pts, best: best };
   });
   rows.sort((a, b) => b.pts - a.pts);
-  rows.forEach((r) => { r.rank = rows.filter((o) => o.pts > r.pts).length + 1; });
+  rows.forEach((r, i) => { r.rank = i + 1; }); // same order as the website: points, then list order
   return rows;
 }
 
@@ -121,16 +121,92 @@ function describe(r, updates) {
   return s;
 }
 
+
+function squash(s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ""); }
+
+// players the user is probably talking about: spaces, capitals and small typos don't matter ("o lineage" finds oLineage)
+const STOP = new Set(("tell me about who whos what whats is are the a an of on in to for and or with his her their him them this that these those they he she it its " +
+  "tier tiers tierlist list rank ranks ranking ranked point points player players mode modes gamemode gamemodes best top worst highest lowest right now current currently " +
+  "show give know any info information please pls plz how many much does did do has have had was were can you your yours my mine our hello hey yo sup crystal sword axe mace pot uhc smp nethpot " +
+  "netherite diamond region title mod skin number position name named called like just really very also than then when where which why").split(" "));
+
+function lev(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = [];
+  for (let j = 0; j <= b.length; j++) prev.push(j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    let low = i;
+    for (let j = 1; j <= b.length; j++) {
+      const v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      cur.push(v);
+      if (v < low) low = v;
+    }
+    if (low > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+
+function findMentioned(rows, text) {
+  const words = String(text).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+  const grams = [];
+  for (let i = 0; i < words.length; i++) {
+    let g = "";
+    for (let n = 0; n < 3 && i + n < words.length; n++) {
+      g += words[i + n];
+      if (g.length >= 3 && !(n === 0 && STOP.has(words[i]))) grams.push(g);
+    }
+  }
+  const scored = [];
+  for (const r of rows) {
+    const name = squash(r.p.name);
+    if (name.length < 3) continue;
+    let best = 99;
+    for (const g of grams) {
+      if (g === name) { best = 0; break; }
+      if (g.length >= 4 && name.length >= 4 && (name.startsWith(g) || (g.startsWith(name) && name.length >= 5))) best = Math.min(best, 0.5);
+      else if (g.length >= 5 && name.length >= 5) {
+        const max = g.length >= 8 ? 2 : 1;
+        const d = lev(g, name, max);
+        if (d <= max) best = Math.min(best, d);
+      }
+    }
+    if (best < 99) scored.push({ r: r, s: best });
+  }
+  scored.sort((x, y) => x.s - y.s);
+  const found = scored.slice(0, 4).map((x) => x.r);
+
+  // rank lookups: "#217", "rank 217", "217th", "who is 217"
+  const extra = [];
+  const nums = [];
+  let m;
+  const re = /#\s*(\d{1,3})\b|\b(?:rank|number|position|place)\s*#?\s*(\d{1,3})\b|\b(\d{1,3})(?:st|nd|rd|th)\b/gi;
+  while ((m = re.exec(text))) nums.push(parseInt(m[1] || m[2] || m[3], 10));
+  if (!nums.length) {
+    const bare = String(text).match(/\bwho(?:'?s| is)?\s+(\d{1,3})\b/i);
+    if (bare) nums.push(parseInt(bare[1], 10));
+  }
+  for (const n of nums) {
+    const row = rows[n - 1];
+    if (n >= 1 && row && !found.includes(row) && !extra.includes(row)) { row.pos = n; extra.push(row); }
+  }
+  return { found: found, extra: extra.slice(0, 3) };
+}
+
+const TOPIC_WORDS = /tier|rank|point|player|gamemode|mode|crystal|sword|axe|mace|pot|uhc|smp|ht[1-5]|lt[1-5]|test|region|\bna\b|\beu\b|mod\b|diamond|leaderboard|title|best|top|worst|highest|lowest|#\d/i;
+
 async function buildContext(env, url, messages) {
   const d = await loadData(env, url);
   const obj = d.obj || {};
   const rows = summarize(obj.players || []);
-  const text = messages.filter((m) => m.role === "user").slice(-3).map((m) => m.content.toLowerCase()).join(" \n ");
-  const found = rows.filter((r) => r.p.name.length >= 3 && text.includes(r.p.name.toLowerCase())).slice(0, 5);
+  const text = messages.filter((m) => m.role === "user").slice(-3).map((m) => m.content).join(" \n ");
+  const hit = findMentioned(rows, text);
   let ctx = "Live DiamondTier data. There are " + rows.length + " ranked players. Top 10 overall: " +
     rows.slice(0, 10).map((r) => "#" + r.rank + " " + r.p.name + " (" + r.pts + " pts)").join(", ") + ".";
-  if (found.length) ctx += "\nPlayers the user mentioned:\n" + found.map((r) => describe(r, obj.updates)).join("\n");
-  else ctx += "\nIf the user asks about a player who is not listed here, say they are not on the list.";
+  if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
+  if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
+  if (!hit.found.length && !hit.extra.length) ctx += "\nIf the user asks about a player who is not listed here, say they are not on the list.";
   ctx += "\nIMPORTANT: this site only stores each player's CURRENT tiers. It does not store previous tiers, test dates or when someone started. If asked, say that history isn't tracked yet. Never invent tiers, dates or points; only use the data above.";
   return ctx;
 }
@@ -184,17 +260,18 @@ async function chat(request, env, url) {
     const verdict = JSON.stringify(guard && guard.response !== undefined ? guard.response : guard).toLowerCase();
     if (verdict.includes("unsafe") || verdict.includes('"safe":false')) return jsonOut({ reply: REFUSAL });
 
-    // is this about the tier list? (greetings are fine)
+    // is this about the tier list? (greetings and anything that mentions the list, a player or a rank are always fine)
     try {
-      const names = ((await loadData(env, url)).obj.players || []).map((p) => p.name.toLowerCase());
+      const d = await loadData(env, url);
+      const rows = summarize((d.obj && d.obj.players) || []);
       const last = messages[messages.length - 1].content;
-      const lower = last.toLowerCase();
-      const mentionsPlayer = names.some((n) => n.length >= 3 && lower.includes(n));
-      if (!mentionsPlayer) {
+      const hit = findMentioned(rows, last);
+      const onTopic = hit.found.length || hit.extra.length || TOPIC_WORDS.test(last) || last.trim().length < 12 || messages.length > 2;
+      if (!onTopic) {
         const cls = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", {
           messages: [
-            { role: "system", content: "You are a strict classifier. The website is a Minecraft PvP tier list (DiamondTier): players, tiers like HT1 or LT3, points, ranks, regions, gamemodes (Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP, SMP), tournaments, and its Minecraft mod. Answer ONLY the single word YES if the user's message is a greeting, a thanks, a follow-up in that conversation, or is about any of that. Answer ONLY NO for anything else (general knowledge, homework, coding, news, other games, jokes, personal chat)." },
-            { role: "user", content: "Previous message: " + (messages.length > 1 ? messages[messages.length - 2].content.slice(0, 200) : "(none)") + "\nMessage: " + last },
+            { role: "system", content: "The website is a Minecraft PvP tier list (DiamondTier) with players, tiers, points, ranks and gamemodes. Answer ONLY NO if the user's message is clearly about something completely unrelated, like general knowledge, homework, coding, news, recipes, other games or personal chat. If there is any doubt, answer YES. Reply with one word: YES or NO." },
+            { role: "user", content: last },
           ],
           max_tokens: 3,
         });
