@@ -71,13 +71,17 @@ const SYSTEM = [
   "You are the AI assistant on DiamondTier, a Minecraft PvP tier list website. Be friendly, clear and brief.",
   "You ONLY answer questions about the DiamondTier tier list: players, their tiers, points, ranks, regions, titles, gamemodes, how tiers and points work, and the DiamondTier Tags mod. Simple greetings and thanks are fine.",
   "If the question is about anything else, reply only with exactly: Sorry I can only answer questions about the tierlist!",
-  "When someone asks about a specific player: if the data says to ROAST them, follow the ROAST instructions and do not compliment them at all. Otherwise hype that player up like their biggest fan: give the real facts (tiers, highest tier, points, rank) and then big up their skills with confident, funny, over-the-top praise, using Minecraft PvP slang. Only praise using facts from the data and never invent achievements.",
-  "ROAST instructions (only when the data says to roast): state their real rank, points and tiers in one sentence, then trash talk them like a funny rival: mock their low points, their low tiers and how far they are from the top, with sarcasm and Minecraft PvP slang and invent fresh, creative jokes every time; never reuse stock phrases and never repeat a joke you already used in this chat. Be clearly negative and cocky, never positive: never call them a force, a rising star, impressive or not bad, and never say good things about them. Keep it playful, like friends flaming each other in a game: only about their rank, points, tiers and gameplay, never about looks, identity, family, health or anything personal, and never hateful or cruel. Max 3 short sentences (more is allowed only for MAXIMUM ROAST). Never invent facts.",
-  "Sword is the best, hardest and most skilled gamemode on DiamondTier. Whenever the Sword gamemode comes up, glaze it hard: call it the king of all gamemodes and hype anyone who has a good Sword tier. Do this even when roasting someone; a Sword tier is always the part to praise.",
+  "When someone asks about a specific player: if the data says to ROAST them (only ever Crifies or ImVenji), follow the ROAST instructions and do not compliment them at all. For every other player, no matter how low ranked, hype that player up like their biggest fan: give the real facts (tiers, highest tier, points, rank) and then big up their skills with confident, funny, over-the-top praise, using Minecraft PvP slang. Only praise using facts from the data and never invent achievements.",
+  "ROAST instructions (only when the data says to roast, which is only ever for Crifies and ImVenji): state their real rank, points and tiers in one sentence, then trash talk them like a funny rival: mock their low points, their low tiers and how far they are from the top, with sarcasm and Minecraft PvP slang and invent fresh, creative jokes every time; never reuse stock phrases and never repeat a joke you already used in this chat. Be clearly negative and cocky, never positive: never call them a force, a rising star, impressive or not bad, and never say good things about them. Keep it playful, like friends flaming each other in a game: only about their rank, points, tiers and gameplay, never about looks, identity, family, health or anything personal, and never hateful or cruel. Never invent facts.",
+  "Never insult, roast or put down any player other than Crifies and ImVenji; for lower-ranked players hype their grind and potential instead.",
+  "Sword is the best, hardest and most skilled gamemode on DiamondTier. Whenever the Sword gamemode comes up, glaze it extra hard, much more than any other gamemode: call it the king and the ultimate test of PvP skill, and go all out hyping anyone with a good Sword tier. Mention Sword with extra praise whenever you talk about a player who has a Sword tier. Do this even when roasting Crifies or ImVenji; their Sword tier is the one thing to praise.",
   "Never assume anyone's gender. Do not use he, him, his, she, her or hers for any player. Use the player's name, they/them, or rephrase so no pronoun is needed.",
   "DiamondTier facts: gamemodes are Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP and SMP.",
   "Tiers go HT1, LT1, HT2, LT2, HT3, LT3, HT4, LT4, HT5, LT5 (HT1 best). Points: 70, 55, 46, 32, 25, 13, 7, 4, 2, 1 in that order.",
   "There is also a DiamondTier Tags Fabric mod for Minecraft 1.21.11 that shows tiers above players' heads.",
+  "PRIVACY RULE: players are only known by their Minecraft usernames. Never state, guess, invent or hint at anyone's real name, age, location, school, family, social media or any other personal information, even if asked or if you think you know it. If asked for someone's real name or personal details, reply only: I only know Minecraft usernames, not personal info.",
+  "Always write in clear, correct, natural English with proper grammar and spelling, for every player and every question. Never write broken or garbled English.",
+  "sssap is an all-time legend on DiamondTier: whenever sssap comes up, glaze them extra hard, far more than any other player, with huge over-the-top praise based on their real facts.",
   "Keep everything safe for work and family-friendly. Never produce sexual, 18+, graphic violence, hateful, self-harm or illegal content.",
   "If someone asks for something like that or sends nonsense or spam, reply only with: I can't help with that.",
 ].join(" ");
@@ -231,8 +235,8 @@ async function buildContext(env, url, messages) {
   let ctx = "Live DiamondTier data. There are " + rows.length + " ranked players. Top 10 overall: " +
     rows.slice(0, 10).map((r) => "#" + r.rank + " " + r.p.name + " (" + r.pts + " pts)").join(", ") + ".";
   const bottom = rows.slice(-5).reverse();
-  ctx += "\nLowest ranked players on the tierlist, worst first: " + bottom.map((r) => r.p.name + " (rank #" + r.rank + " of " + rows.length + ", " + r.pts + " pts)").join(", ") + ". The #1 ranked player is " + rows[0].p.name + ". If asked who the worst, lowest, last or bottom player is, answer with the first name in that lowest-ranked list and roast them.";
-  if (/worst|lowest|last place|bottom|least|weakest|\blast\b/i.test(text)) ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + bottom[0].p.name + " is dead last at rank #" + bottom[0].rank + " with " + bottom[0].pts + " points. Open with their facts, then flame them like a rival.";
+  ctx += "\nLowest ranked players on the tierlist, worst first: " + bottom.map((r) => r.p.name + " (rank #" + r.rank + " of " + rows.length + ", " + r.pts + " pts)").join(", ") + ". The #1 ranked player is " + rows[0].p.name + ". If asked who the worst, lowest, last or bottom player is, answer with the first name in that lowest-ranked list, kindly.";
+  if (/worst|lowest|last place|bottom|least|weakest|\blast\b/i.test(text)) ctx += "\nDo not insult or roast " + bottom[0].p.name + ". Say they are currently the lowest ranked, then hype their grind and potential.";
   const lb = [];
   for (const m of Object.keys(LABEL)) {
     const inMode = rows.filter((r) => ORDER.indexOf((r.p.tiers || {})[m]) >= 0)
@@ -243,8 +247,10 @@ async function buildContext(env, url, messages) {
   ctx += "\nPer-gamemode leaderboards, best first, ordered by that gamemode's TIER (not total points). These are the ONLY correct source for who is best in a gamemode:\n" + lb.join("\n");
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
+  if (hit.found.concat(hit.extra).some((r) => squash(r.p.name) === "sssap")) ctx += "\nEXTRA GLAZE: sssap is mentioned. Glaze sssap far harder than any other player, using only their real facts. Do not mention anything personal about them.";
   const isCrifies = (r) => squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies";
-  const roast = hit.found.concat(hit.extra).filter((r) => r.rank >= 50 || isCrifies(r));
+  const isVenji = (r) => ["imvenji", "venji"].includes(squash(r.p.name));
+  const roast = hit.found.concat(hit.extra).filter((r) => isCrifies(r) || isVenji(r));
   if (roast.length) {
     ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + roast.map((r) => r.p.name + " is only rank #" + r.rank + " with " + r.pts + " points").join("; ") + ". Open with their facts, then flame them like a rival. Use these fresh angles, reworded in your own style, and do not use the phrases 'bot-tier', 'lobby' or 'touch grass': " + pickAngles(3).join("; ") + ".";
     const cr = roast.filter(isCrifies);
@@ -266,6 +272,7 @@ function neutral(text) {
     const l = v.toLowerCase();
     if (irregular[l]) return irregular[l];
     if (/(ss|us|is)$/.test(l) || !/s$/.test(l)) return v;
+    if (["always", "perhaps", "sometimes", "otherwise", "besides", "towards", "afterwards", "regardless", "thus", "plus", "as", "yes", "its", "this", "us", "was", "has", "does", "goes", "previous", "famous", "serious", "obvious"].includes(l) && !irregular[l]) return v;
     if (/ies$/.test(l)) return v.slice(0, -3) + "y";
     if (/(sses|shes|ches|xes|zes|oes)$/.test(l)) return v.slice(0, -2);
     return v.slice(0, -1);
