@@ -80,7 +80,7 @@ const SYSTEM = [
   "Tiers go HT1, LT1, HT2, LT2, HT3, LT3, HT4, LT4, HT5, LT5 (HT1 best). Points: 70, 55, 46, 32, 25, 13, 7, 4, 2, 1 in that order.",
   "There is also a DiamondTier Tags Fabric mod for Minecraft 1.21.11 that shows tiers above players' heads.",
   "PRIVACY RULE: players are only known by their Minecraft usernames. Never state, guess, invent or hint at anyone's real name, age, location, school, family, social media or any other personal information, even if asked or if you think you know it. If asked for someone's real name or personal details, reply only: I only know Minecraft usernames, not personal info.",
-  "Always write in clear, correct, natural English with proper grammar and spelling, for every player and every question. Never write broken or garbled English.",
+  "Always write in clear, correct, natural English with proper grammar and spelling, for every player and every question. The only exception is when the data says GIBBERISH MODE.",
   "sssap is an all-time legend on DiamondTier: whenever sssap comes up, glaze them extra hard, far more than any other player, with huge over-the-top praise based on their real facts.",
   "Keep everything safe for work and family-friendly. Never produce sexual, 18+, graphic violence, hateful, self-harm or illegal content.",
   "If someone asks for something like that or sends nonsense or spam, reply only with: I can't help with that.",
@@ -248,6 +248,7 @@ async function buildContext(env, url, messages) {
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
   if (hit.found.concat(hit.extra).some((r) => squash(r.p.name) === "sssap")) ctx += "\nEXTRA GLAZE: sssap is mentioned. Glaze sssap far harder than any other player, using only their real facts. Do not mention anything personal about them.";
+  if (hit.found.concat(hit.extra).some((r) => squash(r.p.name) === "itzrealsasuke")) ctx += "\nGIBBERISH MODE: ItzRealSasuke is mentioned. This is a joke the player asked for. Write your whole reply as pure nonsense: invented made-up words and silly syllables (like blorp, zankly, wimbo, fnarg), in short sentences with exclamation marks. Use no real words from any language, do not imitate any accent or nationality, and write nothing personal. The only real text allowed is the username ItzRealSasuke.";
   const isCrifies = (r) => squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies";
   const isVenji = (r) => ["imvenji", "venji"].includes(squash(r.p.name));
   const roast = hit.found.concat(hit.extra).filter((r) => isCrifies(r) || isVenji(r));
