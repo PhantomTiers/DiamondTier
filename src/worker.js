@@ -222,8 +222,8 @@ async function buildContext(env, url, messages) {
   ctx += "\nPer-gamemode leaderboards, best first, ordered by that gamemode's TIER (not total points). These are the ONLY correct source for who is best in a gamemode:\n" + lb.join("\n");
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
-  const roast = hit.found.concat(hit.extra).filter((r) => r.pts < 49 || squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies");
-  if (roast.length) ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + roast.map((r) => r.p.name + " has only " + r.pts + " points, rank #" + r.rank).join("; ") + ". Open with their facts, then flame them like a rival.";
+  const roast = hit.found.concat(hit.extra).filter((r) => r.rank >= 50 || squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies");
+  if (roast.length) ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + roast.map((r) => r.p.name + " is only rank #" + r.rank + " with " + r.pts + " points").join("; ") + ". Open with their facts, then flame them like a rival.";
   if (/sword/i.test(text)) ctx += "\nThe user mentioned Sword: glaze the Sword gamemode as the best gamemode.";
   const nw = obj.news || [];
   if (nw.length) ctx += "\nDiamondTier news (newest first): " + nw.map((n) => '"' + n.title + '" (' + (n.date || "") + "): " + (n.article || n.text || "")).join(" | ") + ". Answer questions about the news or announcements using only this.";
