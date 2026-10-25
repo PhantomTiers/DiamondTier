@@ -125,7 +125,7 @@ button{font-family:inherit}
 .row .rt s{text-decoration:none;color:var(--text)}
 .row .rt s.tp{font-size:14px;font-weight:700;color:var(--cy)}
 .tier{font:700 17px var(--px);color:var(--k)}
-.t1{--k:var(--gold)}.t2{--k:var(--cy)}.t3{--k:#a99bff}.t4{--k:#7b93ff}.t5{--k:#9aa3b8}
+.t1{--k:#ffc61a}.t2{--k:#d3d9e6}.t3{--k:#e0924f}.t4{--k:#6fa8ff}.t5{--k:#5b8cff}
 .lt{opacity:.8}
 .empty{padding:30px;text-align:center;color:var(--muted)}
 .foot{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;flex-wrap:wrap}
@@ -337,6 +337,15 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .nempty{grid-column:1/-1}
 .fnav{grid-template-columns:repeat(6,max-content);gap:14px 44px;margin:40px auto 0;padding:26px 8px 0;border-top:1px solid var(--line);max-width:1000px}
 @media(max-width:900px){.fnav{grid-template-columns:repeat(3,max-content);gap:14px 32px}}@media(max-width:560px){.fnav{grid-template-columns:repeat(2,max-content);gap:14px 40px}}
+.row.k1{--rc:255,198,26}.row.k2{--rc:211,217,230}.row.k3{--rc:224,146,79}.row.k4{--rc:111,168,255}.row.k5{--rc:91,140,255}
+.row[class*=" k"]{border-color:rgba(var(--rc),.55);background:linear-gradient(90deg,rgba(var(--rc),.20),rgba(var(--rc),.05) 55%),#192760;box-shadow:inset 3px 0 0 rgba(var(--rc),.9)}
+.row[class*=" k"]:hover{border-color:rgba(var(--rc),.95);background:linear-gradient(90deg,rgba(var(--rc),.30),rgba(var(--rc),.10) 55%),#223580}
+.ptit{display:flex;align-items:center;gap:8px;margin:6px auto 4px;padding:6px 14px 6px 8px;border:1px solid color-mix(in srgb,var(--k) 55%,transparent);border-radius:999px;background:color-mix(in srgb,var(--k) 14%,transparent);color:var(--k);font:700 15px var(--px);cursor:pointer}
+.ptit svg{width:26px;height:26px}.ptit:hover{background:color-mix(in srgb,var(--k) 24%,transparent)}
+.ptag{display:table;margin:4px auto 0;padding:3px 12px;border-radius:8px;background:linear-gradient(90deg,#ffc61a,#ff8a3d);color:#2a1a00;font:700 13px var(--px)}
+.ttl3{display:grid;gap:8px}.tt{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(6,10,32,.6)}
+.tt svg{width:38px;height:38px;flex:none}.tt b{display:block;font:700 16px var(--px);color:var(--k)}.tt small{display:block;margin:2px 0 0;text-align:left;color:var(--muted);font-size:12px}
+.tt.on{border-color:var(--k);background:color-mix(in srgb,var(--k) 14%,transparent)}
 </style>
 </head>
 <body>
@@ -620,7 +629,7 @@ function render(){
   var rest=podium?rows.slice(3):rows,shown=full?rest:rest.slice(0,podium?7:10),h="";
   if(!rows.length)h='<div class="empty">'+(locked?"Not tiered yet.":query?"No players match that search.":"No ranked players in "+esc(modeName)+" yet.")+'</div>';
   shown.forEach(function(r,i){
-    h+='<div class="row" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile" style="animation-delay:'+Math.min(i,14)*40+'ms"><span class="rk">'+r.rank+'</span>'+figure(r.p,"idle",58)
+    h+='<div class="row'+(r.ti!=null&&mode!=="overall"?' k'+TIERS[r.ti][2]:'')+'" data-pid="'+r.p.order+'" tabindex="0" role="button" aria-label="'+esc(r.p.name)+' profile" style="animation-delay:'+Math.min(i,14)*40+'ms"><span class="rk">'+r.rank+'</span>'+figure(r.p,"idle",58)
       +'<div class="nm">'+nameLink(r.p)+'</div><div class="rt">'+(r.ti==null?'':mode==="overall"?'<s class="tp"><span data-n="'+r.pts+'">0</span> Points</s>':badge(r.ti))+'</div></div>';
   });
   box.innerHTML=h;
@@ -657,12 +666,21 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Escape")closeModal();
   if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.pid){e.preventDefault();openPlayer(+e.target.dataset.pid)}
 });
+var TITLES=[["Combat Grandmaster",400,"#4fd8ff"],["Combat Master",250,"#4f8cff"],["Combat Ace",100,"#ff5c7a"],["Combat Specialist",50,"#e060d0"],["Combat Cadet",20,"#7a86ff"],["Combat Novice",10,"#2fd47a"],["Rookie",0,"#8c93a6"]];
+var ptags={};
+function titleOf(pts){for(var i=0;i<TITLES.length;i++)if(pts>=TITLES[i][1])return TITLES[i];return TITLES[TITLES.length-1]}
+function gemSvg(c){return '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="9" y="9" width="22" height="22" rx="6" transform="rotate(45 20 20)" fill="'+c+'" fill-opacity=".45" stroke="'+c+'" stroke-width="3"/></svg>'}
+function openTitles(cur){
+  var h=TITLES.map(function(t){return '<div class="tt'+(t[0]===cur?' on':'')+'" style="--k:'+t[2]+'">'+gemSvg(t[2])+'<div><b>'+esc(t[0])+'</b><small>'+(t[1]?'Obtained '+t[1]+'+ total points.':'Default title for new players.')+'</small></div></div>'}).join("");
+  openModal('<h3>Titles</h3><div class="meta">Earn points in any gamemode to rank up</div><div class="ttl3">'+h+'</div>');
+}
 function openPlayer(i){
   var p=players[i];if(!p)return;
   var ranked=players.slice().sort(function(a,b){return b.total-a.total||a.order-b.order}),rk=ranked.indexOf(p)+1;
   var meta=["Overall #"+rk,p.region,p.has?"Total "+p.total+" points":""].filter(Boolean).join(" · ");
   var g=MODES.slice(1).map(function(m){var t=p.tiers[m[0]];return '<div class="g" title="'+esc(m[1])+'">'+(ICONS[m[0]]?icon(m[0]):'<b class="gl">'+esc(m[1])+'</b>')+(t==null?'<span>Unranked</span>':badge(t))+'</div>'}).join("");
-  openModal(figure(p,"idle",190)+'<h3>'+esc(p.name)+'</h3><div class="meta">'+esc(meta)+'</div><div class="grid">'+g+'</div><div class="link"><a class="cta" href="https://namemc.com/profile/'+encodeURIComponent(p.name)+'" target="_blank" rel="noopener">View on NameMC</a></div>');
+  var T=titleOf(p.has?p.total:0),sp=ptags[p.name]||ptags[String(p.name).toLowerCase()];
+  openModal(figure(p,"idle",190)+'<h3>'+esc(p.name)+'</h3>'+(sp?'<div class="ptag">'+esc(sp)+'</div>':'')+'<button type="button" class="ptit" data-title="'+esc(T[0])+'" style="--k:'+T[2]+'">'+gemSvg(T[2])+'<span>'+esc(T[0])+'</span></button><div class="meta">'+esc(meta)+'</div><div class="grid">'+g+'</div><div class="link"><a class="cta" href="https://namemc.com/profile/'+encodeURIComponent(p.name)+'" target="_blank" rel="noopener">View on NameMC</a></div>');
 }
 var TCOL=["#4FB4FF","#C4C8D0","#FFC61A","#3DE08A","#C080FF"];
 function openInfo(){
@@ -678,6 +696,7 @@ function openInfo(){
 function openUpdates(){
   openModal('<h3>Update record</h3><div class="meta">Latest rank changes</div><div class="up">'+(updates.length?updates.map(function(u){return '<div><small>'+esc(u.date||"")+'</small>'+esc(u.text||"")+'</div>'}).join(""):'<div>No updates yet.</div>')+'</div>');
 }
+mc.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("[data-title]");if(t)openTitles(t.dataset.title)});
 function pick(e){var t=e.target.closest&&e.target.closest("[data-pid]");if(t)openPlayer(+t.dataset.pid)}
 document.getElementById("stage").addEventListener("click",pick);
 document.getElementById("list").addEventListener("click",pick);
@@ -737,7 +756,7 @@ var wait=new Promise(function(res){setTimeout(function(){res(null)},1500)});
 var applied=false;
 function apply(list){var first=!applied;applied=true;
   var arr=Array.isArray(list)?list:(list&&list.players),ups=list&&!Array.isArray(list)&&list.updates;
-  tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
+  tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];ptags=list&&!Array.isArray(list)&&list.tags&&typeof list.tags==="object"?list.tags:ptags;news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
   render();route(true);moveInd();setTimeout(moveInd,80);if(first)setTimeout(shoot,900);
 }
 fetch("players.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null}).then(function(list){if(list||!applied)apply(list)});
