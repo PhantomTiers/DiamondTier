@@ -748,7 +748,7 @@ function renderNews(){
   }).join(""):'<div class="nempty">No news yet. Check back soon!</div>';
   [].forEach.call(g.querySelectorAll(".nc"),function(b){b.onclick=function(){
     var n=news[+b.dataset.n];if(!n)return;
-    openModal('<div class="nmd"><h3>'+esc(n.title||"")+'</h3><div class="meta">'+esc(n.date||"")+'</div>'+(n.image?'<img src="'+esc(n.image)+'" alt="">':'')+'<div class="tg">'+((n.tags||[]).map(function(t){return '<i>'+esc(t.charAt(0)==="#"?t:"#"+t)+'</i>'}).join(""))+'</div><p>'+esc(n.text||"")+'</p></div>');
+    openModal('<div class="nmd"><h3>'+esc(n.title||"")+'</h3><div class="meta">'+esc(n.date||"")+'</div>'+(n.image?'<img src="'+esc(n.image)+'" alt="">':'')+'<div class="tg">'+((n.tags||[]).map(function(t){return '<i>'+esc(t.charAt(0)==="#"?t:"#"+t)+'</i>'}).join(""))+'</div><p>'+esc(n.article||n.text||"")+'</p></div>');
   }});
 }
 function renderTours(){
