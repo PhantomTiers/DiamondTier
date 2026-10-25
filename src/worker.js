@@ -206,12 +206,20 @@ async function buildContext(env, url, messages) {
   const hit = findMentioned(rows, text);
   let ctx = "Live DiamondTier data. There are " + rows.length + " ranked players. Top 10 overall: " +
     rows.slice(0, 10).map((r) => "#" + r.rank + " " + r.p.name + " (" + r.pts + " pts)").join(", ") + ".";
+  const lb = [];
+  for (const m of Object.keys(LABEL)) {
+    const inMode = rows.filter((r) => ORDER.indexOf((r.p.tiers || {})[m]) >= 0)
+      .sort((a, b) => ORDER.indexOf(a.p.tiers[m]) - ORDER.indexOf(b.p.tiers[m]) || a.rank - b.rank);
+    lb.push(LABEL[m] + " (" + inMode.length + " ranked): " + (inMode.length ? inMode.slice(0, 5).map((r, i) => (i + 1) + ". " + r.p.name + " " + r.p.tiers[m]).join(", ") : "nobody tiered yet") +
+      (inMode.length && ORDER.indexOf(inMode[0].p.tiers[m]) > 0 ? " [nobody is HT1 in " + LABEL[m] + "; best tier is " + inMode[0].p.tiers[m] + "]" : ""));
+  }
+  ctx += "\nPer-gamemode leaderboards, best first, ordered by that gamemode's TIER (not total points). These are the ONLY correct source for who is best in a gamemode:\n" + lb.join("\n");
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
   const nw = obj.news || [];
   if (nw.length) ctx += "\nDiamondTier news (newest first): " + nw.map((n) => '"' + n.title + '" (' + (n.date || "") + "): " + (n.article || n.text || "")).join(" | ") + ". Answer questions about the news or announcements using only this.";
   if (!hit.found.length && !hit.extra.length) ctx += "\nIf the user asks about a player who is not listed here, say they are not on the list.";
-  ctx += "\nIMPORTANT: this site only stores each player's CURRENT tiers. It does not store previous tiers, test dates or when someone started. If asked, say that history isn't tracked yet. Never invent tiers, dates or points; only use the data above.";
+  ctx += "\nIMPORTANT: this site only stores each player's CURRENT tiers. It does not store previous tiers, test dates or when someone started. If asked, say that history isn't tracked yet. Never invent tiers, dates or points; only use the data above. For questions about who is best at a gamemode, use the per-gamemode leaderboards, never total points, and give that player's tier in that gamemode exactly as listed. If someone says you are wrong, re-check the data above and answer from it.";
   return ctx;
 }
 
