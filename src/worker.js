@@ -145,6 +145,15 @@ function jsonOut(obj, status) {
 }
 
 async function chat(request, env, url) {
+  if (request.method === "GET") {
+    // open /api/chat in the browser to see if the AI is connected
+    const report = { worker: "ok", aiBinding: Boolean(env.AI) };
+    if (env.AI) {
+      try { const g = await env.AI.run("@cf/meta/llama-guard-3-8b", { messages: [{ role: "user", content: "hi" }] }); report.guard = "ok"; } catch (e) { report.guard = String(e && e.message || e); }
+      try { const m = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", { messages: [{ role: "user", content: "say hi" }], max_tokens: 5 }); report.model = "ok"; } catch (e) { report.model = String(e && e.message || e); }
+    }
+    return jsonOut(report);
+  }
   if (request.method !== "POST") return jsonOut({ error: "POST only" }, 405);
   if (!env.AI) return jsonOut({ error: "AI is not set up" }, 503);
 
