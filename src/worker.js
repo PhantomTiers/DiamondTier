@@ -212,6 +212,9 @@ async function buildContext(env, url, messages) {
   const hit = findMentioned(rows, text);
   let ctx = "Live DiamondTier data. There are " + rows.length + " ranked players. Top 10 overall: " +
     rows.slice(0, 10).map((r) => "#" + r.rank + " " + r.p.name + " (" + r.pts + " pts)").join(", ") + ".";
+  const bottom = rows.slice(-5).reverse();
+  ctx += "\nLowest ranked players on the tierlist, worst first: " + bottom.map((r) => r.p.name + " (rank #" + r.rank + " of " + rows.length + ", " + r.pts + " pts)").join(", ") + ". The #1 ranked player is " + rows[0].p.name + ". If asked who the worst, lowest, last or bottom player is, answer with the first name in that lowest-ranked list and roast them.";
+  if (/worst|lowest|last place|bottom|least|weakest|\blast\b/i.test(text)) ctx += "\nROAST THIS PLAYER (do not hype or compliment them): " + bottom[0].p.name + " is dead last at rank #" + bottom[0].rank + " with " + bottom[0].pts + " points. Open with their facts, then flame them like a rival.";
   const lb = [];
   for (const m of Object.keys(LABEL)) {
     const inMode = rows.filter((r) => ORDER.indexOf((r.p.tiers || {})[m]) >= 0)
