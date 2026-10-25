@@ -734,11 +734,14 @@ document.getElementById("more").onclick=function(){
 
 /* load players.json, fall back to the top 3 */
 var wait=new Promise(function(res){setTimeout(function(){res(null)},1500)});
-Promise.race([fetch("players.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null}),wait]).then(function(list){
+var applied=false;
+function apply(list){var first=!applied;applied=true;
   var arr=Array.isArray(list)?list:(list&&list.players),ups=list&&!Array.isArray(list)&&list.updates;
   tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
-  render();route(true);moveInd();setTimeout(moveInd,80);setTimeout(shoot,900);
-});
+  render();route(true);moveInd();setTimeout(moveInd,80);if(first)setTimeout(shoot,900);
+}
+fetch("players.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null}).then(function(list){if(list||!applied)apply(list)});
+setTimeout(function(){if(!applied)apply(null)},2500);
 
 /* ---------- views: #  (home) · #tierlist · #tournaments ---------- */
 var DCI="https://discord.gg/VMVcGhx9gR";
