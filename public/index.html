@@ -315,7 +315,7 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .fnav a svg{width:22px;height:22px;flex:none}.fnav a:hover{color:#fff;transform:translateY(-1px)}
 .spm{text-align:center;line-height:1.6;color:#dfe7ff;font-size:15px}.spm b{color:#fff}
 .spm .em{display:inline-block;margin:10px 0 4px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;background:#192760;font-weight:700;color:var(--cy);word-break:break-all}
-.hsec{max-width:1000px;margin:34px auto 0;padding-top:22px;border-top:1px solid var(--line)}
+.hsec[hidden]{display:none}.hsec{max-width:1000px;margin:34px auto 0;padding-top:22px;border-top:1px solid var(--line)}
 .hsec h2{margin:0 0 16px;font:700 28px var(--px);color:#fff}
 .ng{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
 .nc{display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(10,16,48,.7);text-align:left;cursor:pointer;color:inherit;font:inherit;transition:transform .2s,border-color .2s}
@@ -807,6 +807,7 @@ function route(force){
   var changed=key!==curKey;curKey=key;curView=v;
   if(v==="vTier")setSection(h==="subtiers"?"sub":"main");
   document.getElementById("subNote").hidden=!(v==="vTier"&&sect==="sub"&&!subOpen);
+  [].forEach.call(document.querySelectorAll(".hsec"),function(s){s.hidden=v!=="vHome"});
   ["vHome","vTour","vTier","vMod","vAI"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
   var el=document.getElementById(v);void el.offsetWidth;if(changed)el.classList.add("enter");
   document.getElementById("home2").classList.toggle("on",v==="vHome");
