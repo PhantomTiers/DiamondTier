@@ -703,7 +703,7 @@ function replay(){["stage","list","rule"].forEach(function(id){var e=document.ge
 function moveInd(){}
 var tabs=document.getElementById("tabs");
 function buildTabs(){
-  tabs.innerHTML="";tabs.classList.remove("open");tabs.classList.toggle("sub",sect==="sub");tabs.style.setProperty("--n",MODES.length);
+  tabs.innerHTML="";tabs.classList.add("open");tabs.classList.toggle("sub",sect==="sub");tabs.style.setProperty("--n",MODES.length);
   MODES.forEach(function(m){
     var b=document.createElement("button");b.type="button";
     b.innerHTML='<span class="lb lf">'+(m[0]==="nethpot"?"Netherite Pot":m[1])+'</span><span class="lb ls">'+(SHORT[m[0]]||m[1])+'</span>'+(ICONS[m[0]]?'<span class="dd">'+icon(m[0],"ic")+'</span>':'');
