@@ -150,7 +150,7 @@ async function chat(request, env, url) {
     const report = { worker: "ok", aiBinding: Boolean(env.AI) };
     if (env.AI) {
       try { const g = await env.AI.run("@cf/meta/llama-guard-3-8b", { messages: [{ role: "user", content: "hi" }] }); report.guard = "ok"; } catch (e) { report.guard = String(e && e.message || e); }
-      try { const m = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", { messages: [{ role: "user", content: "say hi" }], max_tokens: 5 }); report.model = "ok"; } catch (e) { report.model = String(e && e.message || e); }
+      try { const m = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", { messages: [{ role: "user", content: "say hi" }], max_tokens: 5 }); report.model = "ok"; } catch (e) { report.model = String(e && e.message || e); }
     }
     return jsonOut(report);
   }
@@ -190,7 +190,7 @@ async function chat(request, env, url) {
       const lower = last.toLowerCase();
       const mentionsPlayer = names.some((n) => n.length >= 3 && lower.includes(n));
       if (!mentionsPlayer) {
-        const cls = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+        const cls = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", {
           messages: [
             { role: "system", content: "You are a strict classifier. The website is a Minecraft PvP tier list (DiamondTier): players, tiers like HT1 or LT3, points, ranks, regions, gamemodes (Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP, SMP), tournaments, and its Minecraft mod. Answer ONLY the single word YES if the user's message is a greeting, a thanks, a follow-up in that conversation, or is about any of that. Answer ONLY NO for anything else (general knowledge, homework, coding, news, other games, jokes, personal chat)." },
             { role: "user", content: "Previous message: " + (messages.length > 1 ? messages[messages.length - 2].content.slice(0, 200) : "(none)") + "\nMessage: " + last },
@@ -201,7 +201,7 @@ async function chat(request, env, url) {
       }
     } catch (e) { /* if the check fails, the main prompt still keeps it on topic */ }
 
-    const out = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const out = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", {
       messages: [{ role: "system", content: SYSTEM + "\n\n" + (await buildContext(env, url, messages)) }].concat(messages),
       max_tokens: 400,
     });
