@@ -28,13 +28,17 @@ def parse(text):
             continue
         name, rest = line.split(" — ", 1)
         name = name.strip()
+        region = ""
+        rm = re.match(r"^(.*?)\s*\[([A-Za-z]{2,4})\]$", name)
+        if rm:
+            name, region = rm.group(1).strip(), rm.group(2).upper()
         tiers = {}
         for part in rest.split("|"):
             m = re.match(r"\s*(\w+):\s*([HL]T[1-5])", part)
             if m and m.group(1) in MODES and TIER.match(m.group(2)):
                 tiers[m.group(1)] = m.group(2)
         if name and tiers:
-            players.append({"name": name, "tiers": tiers})
+            players.append({"name": name, "region": region, "tiers": tiers})
     return players
 
 
@@ -60,8 +64,9 @@ def main():
             continue
         seen.add(name.lower())
         entry = {"name": name}
-        if name.lower() in regions:
-            entry["region"] = regions[name.lower()]
+        reg = p.get("region") or regions.get(name.lower())
+        if reg:
+            entry["region"] = reg
         entry["tiers"] = p["tiers"]
         out.append(entry)
 
@@ -87,13 +92,15 @@ def main():
     if "subtiersOpen" in data:
         result["subtiersOpen"] = data["subtiersOpen"]
     result["tags"] = ov.get("tags", {})
+    result["display"] = ov.get("display", {})
 
     new = "{\n  \"players\": [\n" + ",\n".join("    " + json.dumps(p, separators=(", ", ": ")) for p in out) + "\n  ]"
     for key in ("updates", "tournaments", "subtiers"):
         new += ",\n  \"%s\": %s" % (key, json.dumps(result[key]))
     if "subtiersOpen" in result:
         new += ",\n  \"subtiersOpen\": %s" % json.dumps(result["subtiersOpen"])
-    new += ",\n  \"tags\": %s\n}\n" % json.dumps(result["tags"])
+    new += ",\n  \"tags\": %s" % json.dumps(result["tags"])
+    new += ",\n  \"display\": %s\n}\n" % json.dumps(result["display"])
 
     old = open(OUT, encoding="utf-8").read() if os.path.exists(OUT) else ""
     if new != old:
