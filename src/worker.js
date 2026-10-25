@@ -64,13 +64,15 @@ function build(players, base) {
 // ---------- AI assistant (/api/chat) ----------
 const SYSTEM = [
   "You are the AI assistant on DiamondTier, a Minecraft PvP tier list website. Be friendly, clear and brief.",
-  "You can answer general questions about anything, plus Minecraft and DiamondTier.",
+  "You ONLY answer questions about the DiamondTier tier list: players, their tiers, points, ranks, regions, titles, gamemodes, how tiers and points work, and the DiamondTier Tags mod. Simple greetings and thanks are fine.",
+  "If the question is about anything else, reply only with exactly: Sorry I can only answer questions about the tierlist!",
   "DiamondTier facts: gamemodes are Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP and SMP.",
   "Tiers go HT1, LT1, HT2, LT2, HT3, LT3, HT4, LT4, HT5, LT5 (HT1 best). Points: 70, 55, 46, 32, 25, 13, 7, 4, 2, 1 in that order.",
   "There is also a DiamondTier Tags Fabric mod for Minecraft 1.21.11 that shows tiers above players' heads.",
   "Keep everything safe for work and family-friendly. Never produce sexual, 18+, graphic violence, hateful, self-harm or illegal content.",
   "If someone asks for something like that or sends nonsense or spam, reply only with: I can't help with that.",
 ].join(" ");
+const OFFTOPIC = "Sorry I can only answer questions about the tierlist!";
 
 // ---------- facts the AI can use ----------
 const ORDER = ["HT1", "LT1", "HT2", "LT2", "HT3", "LT3", "HT4", "LT4", "HT5", "LT5"];
@@ -172,11 +174,30 @@ async function chat(request, env, url) {
     const verdict = JSON.stringify(guard && guard.response !== undefined ? guard.response : guard).toLowerCase();
     if (verdict.includes("unsafe") || verdict.includes('"safe":false')) return jsonOut({ reply: REFUSAL });
 
+    // is this about the tier list? (greetings are fine)
+    try {
+      const names = ((await loadData(env, url)).obj.players || []).map((p) => p.name.toLowerCase());
+      const last = messages[messages.length - 1].content;
+      const lower = last.toLowerCase();
+      const mentionsPlayer = names.some((n) => n.length >= 3 && lower.includes(n));
+      if (!mentionsPlayer) {
+        const cls = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+          messages: [
+            { role: "system", content: "You are a strict classifier. The website is a Minecraft PvP tier list (DiamondTier): players, tiers like HT1 or LT3, points, ranks, regions, gamemodes (Crystal, Sword, Axe, Mace, Netherite Pot, UHC, Diamond SMP, SMP), tournaments, and its Minecraft mod. Answer ONLY the single word YES if the user's message is a greeting, a thanks, a follow-up in that conversation, or is about any of that. Answer ONLY NO for anything else (general knowledge, homework, coding, news, other games, jokes, personal chat)." },
+            { role: "user", content: "Previous message: " + (messages.length > 1 ? messages[messages.length - 2].content.slice(0, 200) : "(none)") + "\nMessage: " + last },
+          ],
+          max_tokens: 3,
+        });
+        if (String((cls && cls.response) || "").trim().toUpperCase().startsWith("NO")) return jsonOut({ reply: OFFTOPIC });
+      }
+    } catch (e) { /* if the check fails, the main prompt still keeps it on topic */ }
+
     const out = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
       messages: [{ role: "system", content: SYSTEM + "\n\n" + (await buildContext(env, url, messages)) }].concat(messages),
       max_tokens: 400,
     });
     const reply = String((out && out.response) || "").trim();
+    if (reply.toLowerCase().includes("only answer questions about the tierlist")) return jsonOut({ reply: OFFTOPIC });
     return jsonOut({ reply: reply || REFUSAL });
   } catch (e) {
     return jsonOut({ error: "AI error" }, 502);
