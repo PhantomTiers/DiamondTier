@@ -549,6 +549,13 @@ function tryLoad(u){return new Promise(function(done){(function next(i){if(i>=u.
   im.src=u[i]})(0)})}
 /* Look the player up first so we get their real skin file; the by-name skin sites hand back a default Steve when they can't match a name. */
 function lookup(id){
+  return fetch("/api/skin?name="+encodeURIComponent(id),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    if(j&&j.url)return[j.url];
+    if(j&&j.none)return"none";
+    throw 0;
+  }).catch(function(){return lookupOld(id)});
+}
+function lookupOld(id){
   return fetch("https://mcprofiles.me/api/player/"+encodeURIComponent(id),{cache:"no-store"}).then(function(r){return r.text()}).then(function(t){
     var m=t.match(/textures\.minecraft\.net\/texture\/([0-9a-f]{20,})/i);
     if(m)return["https://textures.minecraft.net/texture/"+m[1]];
