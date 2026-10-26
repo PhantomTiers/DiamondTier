@@ -31,7 +31,7 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;min-height:100vh;color:var(--text);font:500 15px/1.5 var(--b);background:linear-gradient(180deg,var(--bg1),var(--bg2) 70%) fixed;overflow-x:hidden}
 .wrap{max-width:1000px;margin:0 auto;padding:14px 16px 50px}
-:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+.kb :focus-visible{outline:2px solid var(--cy);outline-offset:3px}
 button{font-family:inherit}
 
 .nav{position:relative;height:72px;margin:14px 0 28px}
@@ -96,7 +96,7 @@ button{font-family:inherit}
 .row .nm a{color:inherit;text-decoration:none}
 .pod{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;
   background:linear-gradient(180deg,#14204f 0%,#1b2b66 60%,var(--tint) 130%);animation:rise .7s cubic-bezier(.2,.9,.3,1) both;transition:transform .25s,box-shadow .25s}
-.pod,.row{cursor:pointer}.pod:focus-visible,.row:focus-visible{outline:2px solid var(--cy)}
+.pod,.row{cursor:pointer}.kb .pod:focus-visible,.kb .row:focus-visible{outline:2px solid var(--cy)}*{-webkit-tap-highlight-color:transparent}
 .pod:hover{transform:translateY(-8px);box-shadow:0 14px 40px color-mix(in srgb,var(--c) 28%,transparent)}
 @keyframes rise{from{opacity:0;transform:translateY(60px)}}
 .p1{--c:var(--gold);--tint:#6b5200;width:190px;height:330px;order:2;border-color:rgba(255,198,26,.35);animation-delay:.2s}
@@ -806,7 +806,7 @@ function fillPod(){
     el.innerHTML=L[k].map(function(c){return '<div class="col">'+figure(st,c[0],c[1])+'<div class="blk" style="height:'+c[2]+'px">'+c[3]+'</div></div>'}).join("");
   });
 }
-fillPod();window.addEventListener("resize",fillPod);
+fillPod();var podW=window.innerWidth;window.addEventListener("resize",function(){if(window.innerWidth!==podW){podW=window.innerWidth;fillPod()}});
 /* ---------- AI chat ---------- */
 (function(){
   var msgs=document.getElementById("aiMsgs"),form=document.getElementById("aiForm"),inp=document.getElementById("aiIn"),btn=document.getElementById("aiSend"),hist=[],busy=false,AV=document.querySelector(".aih img").src;
@@ -870,7 +870,12 @@ route(true);
   setTimeout(loop,700);
 })();
 window.addEventListener("load",moveInd);
-window.addEventListener("resize",function(){moveInd();render()});
+var lastW=window.innerWidth;
+window.addEventListener("resize",function(){if(window.innerWidth===lastW)return;lastW=window.innerWidth;moveInd();render()}); /* phones fire resize while scrolling (address bar); only redraw when the width really changes */
+(function(){var r=document.documentElement;
+  window.addEventListener("keydown",function(e){if(e.key==="Tab")r.classList.add("kb")});
+  ["mousedown","pointerdown","touchstart"].forEach(function(t){window.addEventListener(t,function(){r.classList.remove("kb")},{passive:true})});
+})();
 (function(){[].forEach.call(document.querySelectorAll("[data-go]"),function(a){a.addEventListener("click",function(e){e.preventDefault();if(location.hash&&location.hash!=="#"&&location.hash!=="#home"){location.hash="";}setTimeout(function(){var el=document.getElementById(a.getAttribute("data-go"));if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},80)})})})();
 </script>
 </body>
