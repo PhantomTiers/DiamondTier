@@ -397,9 +397,39 @@ async function loadData(env, url) {
   }
 }
 
+// Fresh skin lookup straight from Mojang, so a changed skin shows up on the next refresh.
+// Answers are kept for 60 seconds so Mojang's rate limits are not hit.
+async function skinApi(url, ctx) {
+  const name = (url.searchParams.get("name") || "").trim();
+  const out = (obj, status) => new Response(JSON.stringify(obj), { status: status || 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=60", "access-control-allow-origin": "*" } });
+  if (!/^[A-Za-z0-9_]{1,16}$/.test(name)) return out({ none: true });
+  const cache = caches.default;
+  const key = new Request(url.origin + "/api/skin?name=" + name.toLowerCase());
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  try {
+    const r = await fetch("https://api.mojang.com/users/profiles/minecraft/" + name);
+    if (r.status === 404 || r.status === 204) { const res = out({ none: true }); ctx && ctx.waitUntil(cache.put(key, res.clone())); return res; }
+    if (!r.ok) return out({ error: "lookup" }, 502);
+    const prof = await r.json();
+    const s = await fetch("https://sessionserver.mojang.com/session/minecraft/profile/" + prof.id);
+    if (!s.ok) return out({ error: "session" }, 502);
+    const j = await s.json();
+    const prop = (j.properties || []).find((p) => p.name === "textures");
+    const tex = prop ? JSON.parse(atob(prop.value)) : null;
+    const skin = tex && tex.textures && tex.textures.SKIN && tex.textures.SKIN.url;
+    const res = out(skin ? { name: prof.name, id: prof.id, url: String(skin).replace(/^http:/, "https:") } : { name: prof.name, id: prof.id, none: true });
+    ctx && ctx.waitUntil(cache.put(key, res.clone()));
+    return res;
+  } catch (e) {
+    return out({ error: "failed" }, 502);
+  }
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname === "/api/skin") return skinApi(url, ctx);
     if (url.pathname === "/api/chat") return chat(request, env, url);
     if (url.pathname !== "/players.json") return env.ASSETS.fetch(request);
     const d = await loadData(env, url);
