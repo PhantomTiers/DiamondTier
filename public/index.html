@@ -541,7 +541,7 @@ function drawSkin(img,pose,head){
   part(8,8,4,0,8,8);if(m64)part(40,8,4,0,8,8);
   return c;
 }
-var skinCache={};
+var skinCache={},BUST=Date.now(); /* new value on every page load so skins are looked up fresh each refresh */
 function tryLoad(u){return new Promise(function(done){(function next(i){if(i>=u.length)return done(null);
   var im=new Image();im.crossOrigin="anonymous";
   im.onload=function(){done(im)};
@@ -549,19 +549,19 @@ function tryLoad(u){return new Promise(function(done){(function next(i){if(i>=u.
   im.src=u[i]})(0)})}
 /* Look the player up first so we get their real skin file; the by-name skin sites hand back a default Steve when they can't match a name. */
 function lookup(id){
-  return fetch("https://mcprofiles.me/api/player/"+encodeURIComponent(id)).then(function(r){return r.text()}).then(function(t){
+  return fetch("https://mcprofiles.me/api/player/"+encodeURIComponent(id),{cache:"no-store"}).then(function(r){return r.text()}).then(function(t){
     var m=t.match(/textures\.minecraft\.net\/texture\/([0-9a-f]{20,})/i);
     if(m)return["https://textures.minecraft.net/texture/"+m[1]];
     throw 0;
   }).catch(function(){return lookupDb(id)});
 }
 function lookupDb(id){
-  return fetch("https://playerdb.co/api/player/minecraft/"+encodeURIComponent(id)).then(function(r){return r.json()}).then(function(j){
+  return fetch("https://playerdb.co/api/player/minecraft/"+encodeURIComponent(id),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
     var pl=j&&j.success&&j.data&&j.data.player;
     if(!pl)return"none";
     var u=[],raw=String(pl.raw_id||pl.id||"").replace(/-/g,"");
     if(pl.skin_texture)u.push(String(pl.skin_texture).replace(/^http:/,"https:"));
-    if(raw)u.push("https://crafatar.com/skins/"+raw,"https://mc-heads.net/skin/"+raw);
+    if(raw)u.push("https://crafatar.com/skins/"+raw+"?t="+BUST,"https://mc-heads.net/skin/"+raw+"?t="+BUST);
     return u;
   }).catch(function(){return null});
 }
@@ -576,7 +576,7 @@ function loadSkin(id,url,hash){
     return lookup(id).then(function(r){
       if(r==="none")return null;                       /* no such account: show Steve */
       if(r&&r.length){return tryLoad(r)}
-      return tryLoad(["https://minotar.net/skin/"+n,"https://mc-heads.net/skin/"+n,"https://crafatar.com/skins/"+n]); /* lookup service unreachable */
+      return tryLoad(["https://minotar.net/skin/"+n+"?t="+BUST,"https://mc-heads.net/skin/"+n+"?t="+BUST,"https://crafatar.com/skins/"+n+"?t="+BUST]); /* lookup service unreachable */
     });
   });
 }
