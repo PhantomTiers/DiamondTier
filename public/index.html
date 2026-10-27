@@ -643,7 +643,8 @@ function loadSkin(id,url,hash){
 }
 function loadEl(el){
   var sp=SPR[String(el.dataset.name||"").toLowerCase()];
-  if(sp&&!el.dataset.url){el.textContent="";el.appendChild(drawSkin(spriteCanvas(sp),el.dataset.pose,el.dataset.pose==="head"));return}
+  var spOn=false;
+  if(sp&&!el.dataset.url){el.textContent="";el.appendChild(drawSkin(spriteCanvas(sp),el.dataset.pose,el.dataset.pose==="head"));spOn=true} /* built-in picture only shows until the real skin loads */
   var key="dtsk:"+String(el.dataset.skin||"").toLowerCase(),saved=null,shown="";
   try{saved=localStorage.getItem(key)}catch(e){}
   function paint(img){if(!img||!el.isConnected)return;shown=img.src;el.textContent="";el.appendChild(drawSkin(img,el.dataset.pose,el.dataset.pose==="head"))}
