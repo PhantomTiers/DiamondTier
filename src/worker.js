@@ -408,6 +408,20 @@ async function skinApi(url, ctx) {
   const hit = await cache.match(key);
   if (hit) return hit;
   try {
+    // 1) mcprofiles first (it reads straight from Mojang and has the skin file in one call)
+    try {
+      const mp = await fetch("https://mcprofiles.me/api/player/" + encodeURIComponent(name), { signal: AbortSignal.timeout(4000) });
+      if (mp.ok) {
+        const mj = await mp.json();
+        const su = mj && mj.data && mj.data.textures && mj.data.textures.skinUrl;
+        if (su) {
+          const res = out({ name: mj.data.username || name, id: mj.data.uuid, url: String(su).replace(/^http:/, "https:") });
+          ctx && ctx.waitUntil(cache.put(key, res.clone()));
+          return res;
+        }
+      }
+    } catch (e) { /* fall back to Mojang below */ }
+    // 2) Mojang directly
     const r = await fetch("https://api.mojang.com/users/profiles/minecraft/" + name);
     if (r.status === 404 || r.status === 204) { const res = out({ none: true }); ctx && ctx.waitUntil(cache.put(key, res.clone())); return res; }
     if (!r.ok) return out({ error: "lookup" }, 502);
