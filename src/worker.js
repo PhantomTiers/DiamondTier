@@ -412,12 +412,20 @@ async function skinApi(url, ctx) {
     if (r.status === 404 || r.status === 204) { const res = out({ none: true }); ctx && ctx.waitUntil(cache.put(key, res.clone())); return res; }
     if (!r.ok) return out({ error: "lookup" }, 502);
     const prof = await r.json();
+    let skin = null;
     const s = await fetch("https://sessionserver.mojang.com/session/minecraft/profile/" + prof.id);
-    if (!s.ok) return out({ error: "session" }, 502);
-    const j = await s.json();
-    const prop = (j.properties || []).find((p) => p.name === "textures");
-    const tex = prop ? JSON.parse(atob(prop.value)) : null;
-    const skin = tex && tex.textures && tex.textures.SKIN && tex.textures.SKIN.url;
+    if (s.ok) {
+      const j = await s.json();
+      const prop = (j.properties || []).find((p) => p.name === "textures");
+      const tex = prop ? JSON.parse(atob(prop.value)) : null;
+      skin = tex && tex.textures && tex.textures.SKIN && tex.textures.SKIN.url;
+    } else {
+      // Mojang is rate limiting: fall back to playerdb so a head still shows
+      const pd = await fetch("https://playerdb.co/api/player/minecraft/" + prof.id);
+      if (!pd.ok) return out({ error: "session" }, 502);
+      const pj = await pd.json();
+      skin = pj && pj.data && pj.data.player && pj.data.player.skin_texture;
+    }
     const res = out(skin ? { name: prof.name, id: prof.id, url: String(skin).replace(/^http:/, "https:") } : { name: prof.name, id: prof.id, none: true });
     ctx && ctx.waitUntil(cache.put(key, res.clone()));
     return res;
