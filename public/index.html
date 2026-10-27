@@ -644,9 +644,14 @@ function loadSkin(id,url,hash){
 function loadEl(el){
   var sp=SPR[String(el.dataset.name||"").toLowerCase()];
   if(sp&&!el.dataset.url){el.textContent="";el.appendChild(drawSkin(spriteCanvas(sp),el.dataset.pose,el.dataset.pose==="head"));return}
+  var key="dtsk:"+String(el.dataset.skin||"").toLowerCase(),saved=null,shown="";
+  try{saved=localStorage.getItem(key)}catch(e){}
+  function paint(img){if(!img||!el.isConnected)return;shown=img.src;el.textContent="";el.appendChild(drawSkin(img,el.dataset.pose,el.dataset.pose==="head"))}
+  if(saved&&!el.dataset.url&&!el.dataset.hash)tryLoad([saved]).then(function(im){if(im&&!shown)paint(im)}); /* show the last known skin right away */
   loadSkin(el.dataset.skin,el.dataset.url,el.dataset.hash).then(function(img){
-    if(!img||!el.isConnected)return;
-    el.textContent="";el.appendChild(drawSkin(img,el.dataset.pose,el.dataset.pose==="head"));
+    if(!img)return;
+    if(img.src!==shown)paint(img); /* fresh lookup wins if the skin changed */
+    if(/^https:\/\/textures\.minecraft\.net\//.test(img.src)){try{localStorage.setItem(key,img.src)}catch(e){}}
   });
 }
 var skinIO=window.IntersectionObserver?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){skinIO.unobserve(e.target);loadEl(e.target)}})},{rootMargin:"300px"}):null;
@@ -864,7 +869,9 @@ function fillPod(){
   var st={name:"Steve",id:"steve",skin:"",hash:"",seed:7},big=window.innerWidth>760;
   var L=[[["crossed",big?118:70,big?58:38,2],["victory",big?150:92,big?82:54,1],["wave",big?104:62,big?40:26,3]],[["wave",big?112:68,big?52:34,2],["victory",big?150:92,big?82:54,1],["crossed",big?108:64,big?40:26,3]]];
   function top3(list){return(list||[]).filter(function(p){return p.total>0}).sort(function(a,b){return b.total-a.total||a.order-b.order}).slice(0,3)}
-  var real=[top3(mainPlayers),subOpen?top3(subPlayers):[]];
+  var saved=[];try{saved=JSON.parse(localStorage.getItem("dtpod")||"[]")}catch(e){}
+  var tm=top3(mainPlayers),real=[tm.length?tm:top3(saved),[]];
+  if(tm.length){try{localStorage.setItem("dtpod",JSON.stringify(top3(mainPlayers).map(function(p){return{name:p.name,id:p.id,skin:p.skin,hash:p.hash,total:p.total,order:p.order,seed:p.seed}})))}catch(e){}}
   [].forEach.call(document.querySelectorAll(".pdm"),function(el,k){
     el.innerHTML=L[k].map(function(c){var rk=c[3],pl=real[k][rk-1]||st;return '<div class="col" title="'+esc(pl.name)+'">'+figure(pl,c[0],c[1])+'<div class="blk" style="height:'+c[2]+'px">'+rk+'</div></div>'}).join("");
     mountSkins(el);
