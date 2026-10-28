@@ -732,7 +732,7 @@ function loadEl(el){
   function paint(img){if(!img||!el.isConnected)return;shown=img.src;el._img=img;el.textContent="";el.appendChild(drawSkin(img,el.dataset.pose,el.dataset.pose==="head"))}
   if(saved&&!el.dataset.url&&!el.dataset.hash)tryLoad([saved]).then(function(im){if(im&&!shown)paint(im)}); /* show the last known skin right away */
   loadSkin(el.dataset.skin,el.dataset.url,el.dataset.hash).then(function(img){
-    if(!img){if(sp&&!el.dataset.url&&!shown&&el.isConnected){var spc=spriteCanvas(sp);el._img=spc;el.textContent="";el.appendChild(drawSkin(spc,el.dataset.pose,el.dataset.pose==="head"))}return} /* built-in picture only if nothing loads */
+    if(!img){if(sp&&!el.dataset.url&&!shown&&!el._img&&el.isConnected){var spc=spriteCanvas(sp);el._img=spc;el.textContent="";el.appendChild(drawSkin(spc,el.dataset.pose,el.dataset.pose==="head"))}return} /* built-in picture only if nothing loads */
     if(img.src!==shown)paint(img); /* fresh lookup wins if the skin changed */
     if(/^https:\/\/textures\.minecraft\.net\//.test(img.src)){try{localStorage.setItem(key,img.src)}catch(e){}}
   });
@@ -1098,7 +1098,7 @@ function fly(t,open){
     var ok=el("position:absolute;left:0;right:0;top:12px;text-align:center;font:700 clamp(12px,2.4vw,18px) var(--px);letter-spacing:.3em;color:#aaffea;text-shadow:0 0 12px #00e5ff;z-index:26");ok.textContent="REBOOT COMPLETE ✓";
     ok.animate([{opacity:0},{opacity:1,offset:.2},{opacity:1,offset:.75},{opacity:0}],{duration:1300,delay:300,fill:"both"});
     T(430,function(){
-      mfEl=document.querySelector("#mc .pose");if(mfEl){mfEl.style.visibility="";fxTick(3000,.18,.1);
+      mfEl=document.querySelector("#mc .pose");if(mfEl){if(fig._img&&!mfEl._img){try{mfEl._img=fig._img;mfEl.textContent="";mfEl.appendChild(drawSkin(fig._img,mfEl.dataset.pose,false))}catch(e){}}mfEl.style.visibility="";fxTick(3000,.18,.1);
         if(safe)mfEl.animate([{opacity:0},{opacity:1}],{duration:500});
         else mfEl.animate([{opacity:0,transform:"translateX(-16px) skewX(10deg)",filter:"drop-shadow(9px 0 #ff2bd6) drop-shadow(-9px 0 #00f0ff)"},{opacity:1,transform:"translateX(11px) skewX(-8deg)",filter:"drop-shadow(7px 0 #ff2bd6) drop-shadow(-7px 0 #00f0ff)",offset:.22},{opacity:.4,transform:"translateX(-7px)",filter:"drop-shadow(5px 0 #ff2bd6) drop-shadow(-5px 0 #00f0ff)",offset:.4},{opacity:1,transform:"translateX(4px)",filter:"drop-shadow(3px 0 #ff2bd6) drop-shadow(-3px 0 #00f0ff)",offset:.62},{opacity:1,transform:"translateX(0)",filter:"drop-shadow(0 0 0 #ff2bd6)"}],{duration:640,easing:"steps(1)"})}});
     T(1700,finish);
