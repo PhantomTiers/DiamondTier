@@ -386,6 +386,7 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 @media (prefers-reduced-motion:reduce){.cautn-in,.wipc svg{animation:none}}
 @media (max-width:480px){.nr{gap:6px}.nr .dc{width:34px;height:34px}.nr .dc svg{width:19px;height:19px}.nl{gap:12px;padding-left:2px}.sgnup{height:34px}}
 @media (max-width:380px){.nr{gap:4px}.nr .dc{width:30px;height:30px}.nr .dc svg{width:17px;height:17px}.nl{gap:8px}.nl .lk{font-size:13px}.sgnup{height:30px;padding:0 7px}}
+.poofp{position:fixed;z-index:9999;pointer-events:none;border-radius:50%;background:radial-gradient(circle at 38% 36%,rgba(190,255,170,.97),rgba(70,205,95,.8) 42%,rgba(30,150,65,0) 72%);filter:blur(1.5px)}
 </style>
 </head>
 <body>
@@ -775,7 +776,24 @@ function openUpdates(){
   openModal('<h3>Update record</h3><div class="meta">Latest rank changes</div><div class="up">'+(updates.length?updates.map(function(u){return '<div><small>'+esc(u.date||"")+'</small>'+esc(u.text||"")+'</div>'}).join(""):'<div>No updates yet.</div>')+'</div>');
 }
 mc.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("[data-title]");if(t)openTitles(t.dataset.title)});
-function pick(e){var t=e.target.closest&&e.target.closest("[data-pid]");if(t)openPlayer(+t.dataset.pid)}
+function poof(t){
+  var fig=t.querySelector(".pose,.hd");if(!fig||(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches))return false;
+  var r=fig.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,n=16;
+  fig.getAnimations().forEach(function(x){x.cancel()});
+  var gone=fig.animate([{opacity:1,transform:"scale(1)",filter:"blur(0)"},{opacity:.9,transform:"scale(1.05)",offset:.15},{opacity:0,transform:"scale(.15) translateY(-10px)",filter:"blur(7px)"}],{duration:520,easing:"ease-in",fill:"forwards"});
+  for(var i=0;i<n;i++){(function(i){
+    var d=document.createElement("div"),s=34+Math.random()*60,a=Math.random()*Math.PI*2,dist=24+Math.random()*(Math.max(r.width,r.height)*.8);
+    d.className="poofp";d.style.cssText="width:"+s+"px;height:"+s+"px;left:"+(cx-s/2)+"px;top:"+(cy-s/2+(Math.random()*r.height*.5-r.height*.25))+"px";
+    document.body.appendChild(d);
+    var dx=Math.cos(a)*dist,dy=Math.sin(a)*dist-30-Math.random()*40;
+    d.animate([{opacity:0,transform:"translate(0,0) scale(.3)"},{opacity:.95,offset:.25,transform:"translate("+dx*.4+"px,"+dy*.4+"px) scale(1)"},{opacity:0,transform:"translate("+dx+"px,"+dy+"px) scale(1.9)"}],{duration:950+Math.random()*500,delay:Math.random()*160,easing:"cubic-bezier(.2,.7,.3,1)",fill:"both"}).onfinish=function(){d.remove()};
+  })(i)}
+  setTimeout(function(){gone.cancel();fig.animate([{opacity:0,transform:"scale(.4)"},{opacity:1,transform:"scale(1)"}],{duration:380,easing:"cubic-bezier(.3,1.5,.5,1)"})},1900);
+  return true;
+}
+function pick(e){var t=e.target.closest&&e.target.closest("[data-pid]");if(!t)return;var i=+t.dataset.pid,p=players[i];
+  if(p&&String(p.name).toLowerCase()==="sssap"&&poof(t)){setTimeout(function(){openPlayer(i)},750);return}
+  openPlayer(i)}
 document.getElementById("stage").addEventListener("click",pick);
 document.getElementById("list").addEventListener("click",pick);
 document.getElementById("infoBtn").onclick=function(e){e.preventDefault();openInfo()};
