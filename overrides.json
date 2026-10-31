@@ -30,35 +30,37 @@
   ],
   "news": [
     {
-      "date": "Oct 24, 2026",
-      "title": "New Diamond Website out now",
-      "text": "The brand new DiamondTier website is live.",
+      "date": "Oct 30, 2026",
+      "title": "New Settings Out Now",
+      "text": "The website now has a Settings panel.",
       "tags": [
         "News",
         "Website"
       ],
-      "image": "/news/website.png",
-      "article": "The new DiamondTier website is out now. It has a fresh look, a podium for the top players, a main tierlist and a separate subtiers list, tournaments, and a built-in AI that can answer questions about any player on the list. We'll keep adding news and features here, so check back often."
+      "image": "/news/settings.png",
+      "article": "Settings are live. Click the gear icon at the top to change the volume, switch animations between Full, Safe and Off, and pick a colour theme that re-colours the whole site. You can also change the layout: row spacing, list width, columns and text size. Your choices are saved on your device."
     },
     {
-      "date": "Oct 24, 2026",
-      "title": "New Diamond Tiertagger coming out soon!",
-      "text": "A new version of the DiamondTier Tags mod is on the way.",
+      "date": "Oct 30, 2026",
+      "title": "Diamond Tiertagger Update",
+      "text": "A new version of the DiamondTier Tags mod is out.",
       "tags": [
         "News",
         "Mod"
       ],
-      "image": "/news/tiertagger.png",
-      "article": "The DiamondTier Tags mod shows a player's tier above their head in game and has an in-game menu to look up players and view your own tiers. A new Diamond Tiertagger is coming out soon. It is currently waiting on review for Modrinth and CurseForge, and we'll post here as soon as it is live."
+      "image": "/news/tagger2.png",
+      "article": "The DiamondTier Tags mod has been updated. Your gamemode icon and tier now show inside the name tag, like (icon) LT2 | Name, and staff get the DiamondTier hammer badge above their head. It also loads faster by remembering the last tier list. Update it on CurseForge."
     },
     {
-      "date": "Oct 24, 2026",
-      "title": "Trident subtier added",
-      "text": "Trident is now part of the subtiers lineup.",
+      "date": "Oct 30, 2026",
+      "title": "1000+ Members In The Discord!!",
+      "text": "The DiamondTier Discord passed 1000 members.",
       "tags": [
         "News",
-        "Subtiers"
-      ]
+        "Discord"
+      ],
+      "image": "/news/discord.png",
+      "article": "The DiamondTier Discord now has over 1000 members. Thank you to everyone who joined and helped the community grow!"
     }
   ]
 }
