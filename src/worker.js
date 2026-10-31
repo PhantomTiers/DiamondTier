@@ -377,20 +377,24 @@ const HEADERS = {
 
 let cache = { at: 0, text: "", obj: null };
 
+const CK = "https://diamondtier.internal/__players";
+
 async function loadData(env, url) {
   if (cache.obj && Date.now() - cache.at < 30000) return cache;
   // the saved copy (also holds updates / tournaments / subtiers, and is the fallback)
-  const saved = await env.ASSETS.fetch(new Request(new URL("/players.json", url)));
-  const savedText = await saved.text();
+  const savedP = env.ASSETS.fetch(new Request(new URL("/players.json", url))).then((r) => r.text());
+  const srcP = fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } }).catch(() => null);
+  const savedText = await savedP;
   let base = {};
   try { base = JSON.parse(savedText); } catch (e) {}
   try {
-    const res = await fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } });
-    if (!res.ok) throw new Error("HTTP " + res.status);
+    const res = await srcP;
+    if (!res || !res.ok) throw new Error("source failed");
     const players = parse(await res.text());
     if (players.length < 10) throw new Error("source looks wrong");
     const obj = build(players, base);
     cache = { at: Date.now(), text: JSON.stringify(obj), obj: obj };
+    try { await caches.default.put(new Request(CK), new Response(cache.text, { headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" } })); } catch (e) {}
     return cache;
   } catch (e) {
     return { text: savedText, obj: base };
@@ -454,6 +458,18 @@ export default {
     if (url.pathname === "/api/skin") return skinApi(url, ctx);
     if (url.pathname === "/api/chat") return chat(request, env, url);
     if (url.pathname !== "/players.json") return env.ASSETS.fetch(request);
+    // answer straight away with the last copy, and refresh it in the background
+    if (cache.obj) {
+      if (Date.now() - cache.at >= 30000) ctx.waitUntil(loadData(env, url));
+      return new Response(cache.text, { headers: HEADERS });
+    }
+    let hit = null;
+    try { hit = await caches.default.match(new Request(CK)); } catch (e) {}
+    if (hit) {
+      const text = await hit.text();
+      ctx.waitUntil(loadData(env, url));
+      return new Response(text, { headers: HEADERS });
+    }
     const d = await loadData(env, url);
     return new Response(d.text, { headers: HEADERS });
   },
