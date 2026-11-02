@@ -3,7 +3,9 @@
     "runsz": "runsztuffington",
     "Blusped": "oLineage"
   },
-  "remove": [],
+  "remove": [
+    "Larpitylarpic"
+  ],
   "regions": {
     "oLineage": "NA",
     "sssap": "NA",
@@ -62,5 +64,6 @@
       "image": "/news/discord.png",
       "article": "The DiamondTier Discord now has over 1000 members. Thank you to everyone who joined and helped the community grow!"
     }
-  ]
+  ],
+  "tierEdits": {}
 }
