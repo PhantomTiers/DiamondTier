@@ -416,66 +416,54 @@ async function loadData(env, url) {
 }
 
 // Skin lookups. No skin is ever stored.
-// Mojang and playerdb (which reads Mojang) are asked at the same time; Mojang's answer wins when it
-// arrives, so it is fast even when Mojang blocks or slows down Cloudflare.
-const SKIN_TTL = 20; // seconds an answer is reused, so many visitors don't hit rate limits
+// Step 1: find the account id (never changes, kept 6 hours) from Mojang, or from playerdb if Mojang blocks us.
+// Step 2: ask Mojang's session server with that id for the skin they wear RIGHT NOW.
+// Other sites' skins are often old, so they are only a last resort and marked old: the page replaces them
+// as soon as Mojang answers.
+const SKIN_TTL = 20;
 const jsonRes = (obj, status, maxAge) => new Response(JSON.stringify(obj), { status: status || 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=" + (maxAge == null ? SKIN_TTL : maxAge), "access-control-allow-origin": "*" } });
-let mojangDownUntil = 0; // after Mojang fails, skip it for a minute instead of waiting on it every time
 
-async function nameToId(name, ctx) {
+async function pdb(name) {
+  const r = await fetch("https://playerdb.co/api/player/minecraft/" + encodeURIComponent(name), { headers: { "User-Agent": "DiamondTier (diamondtiers2@gmail.com)" }, signal: AbortSignal.timeout(3000) });
+  const j = await r.json().catch(() => null);
+  if (j && j.code === "player.found" && j.data && j.data.player) return j.data.player;
+  if (j && /not.?found|invalid/i.test(String(j.code || ""))) return { none: true };
+  throw new Error("playerdb");
+}
+
+async function nameToId(name, ctx, pdbP) {
   const key = new Request("https://diamondtier.internal/__uuid/" + name.toLowerCase());
   const hit = await caches.default.match(key).catch(() => null);
   if (hit) return hit.json();
-  const tries = ["https://api.mojang.com/users/profiles/minecraft/", "https://api.minecraftservices.com/minecraft/profile/lookup/name/"].map(async (u) => {
+  const mojang = ["https://api.mojang.com/users/profiles/minecraft/", "https://api.minecraftservices.com/minecraft/profile/lookup/name/"].map(async (u) => {
     const r = await fetch(u + encodeURIComponent(name), { signal: AbortSignal.timeout(2500) });
     if (r.status === 404 || r.status === 204) return { none: true };
     const j = r.ok ? await r.json() : null;
     if (j && j.id) return { id: j.id, name: j.name };
     throw new Error("no");
   });
-  // the first one that finds the account wins; "no such account" only if every answer says so
-  const found = tries.map((t) => t.then((p) => (p.none ? Promise.reject(p) : p)));
-  let prof = await Promise.any(found).catch(() => null);
+  const fromPdb = pdbP.then((p) => (p.none ? p : { id: String(p.raw_id || p.id).replace(/-/g, ""), name: p.username }));
+  const all = mojang.concat([fromPdb]);
+  let prof = await Promise.any(all.map((t) => t.then((p) => (p.none ? Promise.reject(p) : p)))).catch(() => null);
   if (!prof) {
-    const all = await Promise.allSettled(tries);
-    if (all.every((x) => x.status === "fulfilled" && x.value.none)) prof = { none: true };
+    const done = await Promise.allSettled(all);
+    if (done.some((x) => x.status === "fulfilled" && x.value.none) && !done.some((x) => x.status === "fulfilled" && x.value.id)) prof = { none: true };
   }
   if (!prof) return null;
   ctx && ctx.waitUntil(caches.default.put(key, jsonRes(prof, 200, prof.none ? 600 : 21600)));
   return prof;
 }
 
-async function fromMojang(name, ctx) {
-  if (Date.now() < mojangDownUntil) throw new Error("skip");
-  try {
-    const prof = await nameToId(name, ctx);
-    if (!prof) throw new Error("no id");
-    if (prof.none) return { none: true };
-    const s = await fetch("https://sessionserver.mojang.com/session/minecraft/profile/" + prof.id, { signal: AbortSignal.timeout(2500) });
-    if (!s.ok) throw new Error("session " + s.status);
-    const j = await s.json();
-    const prop = (j.properties || []).find((p) => p.name === "textures");
-    const tex = prop ? JSON.parse(atob(prop.value)) : null;
-    const sk = tex && tex.textures && tex.textures.SKIN;
-    return sk && sk.url
-      ? { name: prof.name, url: String(sk.url).replace(/^http:/, "https:"), slim: !!(sk.metadata && sk.metadata.model === "slim") }
-      : { name: prof.name, none: true };
-  } catch (e) {
-    if (e.message !== "skip") mojangDownUntil = Date.now() + 60000;
-    throw e;
-  }
-}
-
-async function fromPlayerDb(name) {
-  const r = await fetch("https://playerdb.co/api/player/minecraft/" + encodeURIComponent(name), { headers: { "User-Agent": "DiamondTier (diamondtiers2@gmail.com)" }, signal: AbortSignal.timeout(3000) });
-  const j = await r.json().catch(() => null);
-  if (j && j.code === "player.found" && j.data && j.data.player) {
-    const pl = j.data.player;
-    if (!pl.skin_texture) return { name: pl.username, none: true };
-    return { name: pl.username, url: String(pl.skin_texture).replace(/^http:/, "https:") };
-  }
-  if (j && /not.?found|invalid/i.test(String(j.code || ""))) return { none: true };
-  throw new Error("playerdb");
+async function sessionSkin(prof) {
+  const s = await fetch("https://sessionserver.mojang.com/session/minecraft/profile/" + prof.id + "?unsigned=true", { signal: AbortSignal.timeout(3000) });
+  if (!s.ok) throw new Error("session " + s.status);
+  const j = await s.json();
+  const prop = (j.properties || []).find((p) => p.name === "textures");
+  const tex = prop ? JSON.parse(atob(prop.value)) : null;
+  const sk = tex && tex.textures && tex.textures.SKIN;
+  return sk && sk.url
+    ? { name: j.name || prof.name, url: String(sk.url).replace(/^http:/, "https:"), slim: !!(sk.metadata && sk.metadata.model === "slim"), src: "mojang" }
+    : { name: j.name || prof.name, none: true, src: "mojang" };
 }
 
 async function lookupSkin(name, ctx) {
@@ -483,12 +471,20 @@ async function lookupSkin(name, ctx) {
   const key = new Request("https://diamondtier.internal/__skin/" + name.toLowerCase());
   const hit = await caches.default.match(key).catch(() => null);
   if (hit) return hit.json();
-  const m = fromMojang(name, ctx), pdb = fromPlayerDb(name);
-  m.catch(() => {}); pdb.catch(() => {});
-  let out = await m.catch(() => null);          // Mojang first (the newest skin)
-  if (!out) out = await pdb.catch(() => null);  // Mojang blocked or slow: playerdb, which reads Mojang
-  if (!out) return { error: "lookup" };
-  ctx && ctx.waitUntil(caches.default.put(key, jsonRes(out)));
+  const pdbP = pdb(name); pdbP.catch(() => {});
+  let out = null, why = "";
+  const prof = await nameToId(name, ctx, pdbP);
+  if (prof && prof.none) out = { none: true, src: "mojang" };
+  else if (prof) {
+    try { out = await sessionSkin(prof); } catch (e) { why = e.message; }
+  } else why = "no account id";
+  if (!out) {
+    // Mojang's skin server didn't answer: playerdb's copy, marked old so it gets replaced later
+    const p = await pdbP.catch(() => null);
+    if (p && p.skin_texture) out = { name: p.username, url: String(p.skin_texture).replace(/^http:/, "https:"), src: "playerdb", old: true, why };
+  }
+  if (!out) return { error: "lookup", why };
+  if (!out.old) ctx && ctx.waitUntil(caches.default.put(key, jsonRes(out)));
   return out;
 }
 
