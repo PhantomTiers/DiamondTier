@@ -860,6 +860,13 @@ function tryLoad(u,slim){return new Promise(function(done){(function next(i){if(
   im.src=u[i]})(0)})}
 /* Look the player up first so we get their real skin file; the by-name skin sites hand back a default Steve when they can't match a name. */
 var skinQ={},skinT=null;
+/* backup when the site's own lookup fails: the visitor's browser asks playerdb (which reads Mojang) itself */
+function direct(n,q){
+  fetch("https://playerdb.co/api/player/minecraft/"+encodeURIComponent(n),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+    var pl=j&&j.data&&j.data.player,v=pl&&pl.skin_texture?{urls:[String(pl.skin_texture).replace(/^http:/,"https:")]}:j&&j.code==="player.found"?"none":"retry";
+    q[n].forEach(function(f){f(v)});
+  }).catch(function(){q[n].forEach(function(f){f("retry")})});
+}
 function lookup(id){return new Promise(function(res){var k=String(id).toLowerCase();(skinQ[k]=skinQ[k]||[]).push(res);if(!skinT)skinT=setTimeout(flushSkins,10)})}
 function flushSkins(){
   var q=skinQ,names=Object.keys(q);skinQ={};skinT=null;
@@ -868,9 +875,9 @@ function flushSkins(){
       chunk.forEach(function(n){var v=j[n];
         if(v&&v.url)q[n].forEach(function(f){f({urls:[v.url],slim:v.slim})});
         else if(v&&v.none)q[n].forEach(function(f){f("none")});
-        else q[n].forEach(function(f){f("retry")});
+        else direct(n,q);
       });
-    }).catch(function(){chunk.forEach(function(n){q[n].forEach(function(f){f("retry")})})});
+    }).catch(function(){chunk.forEach(function(n){direct(n,q)})});
   })(names.slice(c,c+40));
 }
 function loadSkin(id){
