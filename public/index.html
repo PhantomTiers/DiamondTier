@@ -853,54 +853,41 @@ function rig3d(img,u){
   R.appendChild(part("head",8,8,8,0,0,32,0,0,-32,.8));
   R.parts=parts;return R}
 var skinCache={},BUST=Date.now(); /* new value on every page load so skins are looked up fresh each refresh */
-function tryLoad(u){return new Promise(function(done){(function next(i){if(i>=u.length)return done(null);
-  var im=new Image();im.crossOrigin="anonymous";
+function tryLoad(u,slim){return new Promise(function(done){(function next(i){if(i>=u.length)return done(null);
+  var im=new Image();if(slim===undefined)im.crossOrigin="anonymous";else im.slim=slim;im.decoding="async";
   im.onload=function(){done(im)};
-  im.onerror=function(){var j=new Image();j.onload=function(){done(j)};j.onerror=function(){next(i+1)};j.src=u[i]};
+  im.onerror=function(){if(slim!==undefined)return next(i+1);var j=new Image();j.onload=function(){done(j)};j.onerror=function(){next(i+1)};j.src=u[i]};
   im.src=u[i]})(0)})}
 /* Look the player up first so we get their real skin file; the by-name skin sites hand back a default Steve when they can't match a name. */
-function lookup(id){
-  return fetch("/api/skin?name="+encodeURIComponent(id)+"&t="+BUST,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
-    if(j&&j.url)return[j.url];
-    if(j&&j.none)return"none";
-    throw 0;
-  }).catch(function(){return lookupOld(id)});
+var skinQ={},skinT=null;
+function lookup(id){return new Promise(function(res){var k=String(id).toLowerCase();(skinQ[k]=skinQ[k]||[]).push(res);if(!skinT)skinT=setTimeout(flushSkins,10)})}
+function flushSkins(){
+  var q=skinQ,names=Object.keys(q);skinQ={};skinT=null;
+  for(var c=0;c<names.length;c+=40)(function(chunk){
+    fetch("/api/skins?names="+chunk.map(encodeURIComponent).join(",")+"&t="+BUST,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+      chunk.forEach(function(n){var v=j[n];
+        if(v&&v.url)q[n].forEach(function(f){f({urls:[v.url],slim:v.slim})});
+        else if(v&&v.none)q[n].forEach(function(f){f("none")});
+        else q[n].forEach(function(f){f("retry")});
+      });
+    }).catch(function(){chunk.forEach(function(n){q[n].forEach(function(f){f("retry")})})});
+  })(names.slice(c,c+40));
 }
-function lookupOld(id){
-  return fetch("https://mcprofiles.me/api/player/"+encodeURIComponent(id),{cache:"no-store"}).then(function(r){return r.text()}).then(function(t){
-    var m=t.match(/textures\.minecraft\.net\/texture\/([0-9a-f]{20,})/i);
-    if(m)return["https://textures.minecraft.net/texture/"+m[1]];
-    throw 0;
-  }).catch(function(){return lookupDb(id)});
-}
-function lookupDb(id){
-  return fetch("https://playerdb.co/api/player/minecraft/"+encodeURIComponent(id),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
-    var pl=j&&j.success&&j.data&&j.data.player;
-    if(!pl)return"none";
-    var u=[],raw=String(pl.raw_id||pl.id||"").replace(/-/g,"");
-    if(pl.skin_texture)u.push(String(pl.skin_texture).replace(/^http:/,"https:"));
-    if(raw)u.push("https://crafatar.com/skins/"+raw+"?t="+BUST,"https://mc-heads.net/skin/"+raw+"?t="+BUST);
-    return u;
-  }).catch(function(){return null});
-}
-function loadSkin(id,url,hash){
-  var key=id+"|"+url+"|"+hash;
+function loadSkin(id){
+  var key=String(id).toLowerCase();
   if(skinCache[key])return skinCache[key];
-  var n=encodeURIComponent(id),direct=[];
-  if(url)direct.push(url);
-  if(hash)direct.push("https://textures.minecraft.net/texture/"+encodeURIComponent(hash),"https://namemc.com/texture/"+encodeURIComponent(hash)+".png");
-  return skinCache[key]=(direct.length?tryLoad(direct):Promise.resolve(null)).then(function(im){
-    if(im)return im;
-    return lookup(id).then(function(r){
-      if(r==="none")return null;                       /* no such account: show Steve */
-      if(r&&r.length){return tryLoad(r)}
-      return tryLoad(["https://minotar.net/skin/"+n+"?t="+BUST,"https://mc-heads.net/skin/"+n+"?t="+BUST,"https://crafatar.com/skins/"+n+"?t="+BUST]); /* lookup service unreachable */
-    });
-  });
+  return skinCache[key]=lookup(id).then(function(r){
+    if(r==="none")return null;                                   /* no such account: Steve */
+    if(r&&r.urls)return tryLoad(r.urls,r.slim).then(function(im){return im||"retry"});
+    return "retry";                                              /* Mojang busy: ask again soon */
+  }).then(function(v){if(v==="retry")delete skinCache[key];return v});
 }
 function loadEl(el){
   function paint(img){if(!img||!el.isConnected||el._src===img.src)return;el._src=img.src;el._img=img;el.textContent="";el.appendChild(drawSkin(img,el.dataset.pose,el.dataset.pose==="head",el.clientHeight))}
-  loadSkin(el.dataset.skin,el.dataset.url,el.dataset.hash).then(paint); /* nothing loads: keep the drawn Steve */
+  loadSkin(el.dataset.skin).then(function(img){
+    if(img==="retry"){if(!el._src&&(el._tries=(el._tries||0)+1)<6)setTimeout(function(){if(el.isConnected)loadEl(el)},3000*el._tries);return} /* keep what is shown */
+    if(img)paint(img);
+  });
 }
 /* wipe skins older versions of the page saved on this device */
 try{for(var sk=localStorage.length-1;sk>=0;sk--){var kk=localStorage.key(sk);if(kk&&kk.indexOf("dtsk:")===0)localStorage.removeItem(kk)}}catch(e){}
