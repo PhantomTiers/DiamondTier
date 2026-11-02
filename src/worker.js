@@ -488,26 +488,54 @@ async function lookupSkin(name, ctx) {
   return out;
 }
 
+// The skin helper on Vercel asks Mojang for us (Mojang blocks Cloudflare). Set SKIN_HELPER in wrangler.jsonc.
+async function viaHelper(env, names) {
+  const base = env && env.SKIN_HELPER ? String(env.SKIN_HELPER).replace(/\/+$/, "") : "";
+  if (!/^https:\/\//.test(base) || !names.length) return {};
+  try {
+    const r = await fetch(base + "/api/skins?names=" + names.map(encodeURIComponent).join(","), { signal: AbortSignal.timeout(5000) });
+    return r.ok ? await r.json() : {};
+  } catch (e) { return {}; }
+}
+
+async function lookupMany(names, ctx, env) {
+  const out = {}, need = [];
+  for (const n of names) {
+    const hit = /^[A-Za-z0-9_]{1,16}$/.test(n) ? await caches.default.match(new Request("https://diamondtier.internal/__skin/" + n.toLowerCase())).catch(() => null) : null;
+    if (hit) out[n.toLowerCase()] = await hit.json(); else need.push(n);
+  }
+  const helped = await viaHelper(env, need);
+  const rest = [];
+  for (const n of need) {
+    const v = helped[n.toLowerCase()];
+    if (v && (v.url || v.none) && v.src === "mojang") {
+      out[n.toLowerCase()] = v;
+      ctx && ctx.waitUntil(caches.default.put(new Request("https://diamondtier.internal/__skin/" + n.toLowerCase()), jsonRes(v)));
+    } else rest.push(n);
+  }
+  const res = await Promise.all(rest.map((n) => lookupSkin(n, ctx).catch(() => ({ error: "lookup" }))));
+  rest.forEach((n, i) => { out[n.toLowerCase()] = res[i]; });
+  return out;
+}
+
 // /api/skin?name=X  (one player, used by the mod too)
-async function skinApi(url, ctx) {
-  const r = await lookupSkin((url.searchParams.get("name") || "").trim(), ctx);
+async function skinApi(url, ctx, env) {
+  const n = (url.searchParams.get("name") || "").trim();
+  const r = (await lookupMany([n], ctx, env))[n.toLowerCase()] || { error: "lookup" };
   return jsonRes(r, r.error ? 502 : 200, 0);
 }
 
-// /api/skins?names=a,b,c  (up to 40 players in one request, looked up at the same time)
-async function skinsApi(url, ctx) {
+// /api/skins?names=a,b,c  (up to 40 players in one request)
+async function skinsApi(url, ctx, env) {
   const names = [...new Set((url.searchParams.get("names") || "").split(",").map((n) => n.trim()).filter(Boolean))].slice(0, 40);
-  const res = await Promise.all(names.map((n) => lookupSkin(n, ctx).catch(() => ({ error: "lookup" }))));
-  const obj = {};
-  names.forEach((n, i) => { obj[n.toLowerCase()] = res[i]; });
-  return jsonRes(obj, 200, 0);
+  return jsonRes(await lookupMany(names, ctx, env), 200, 0);
 }
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/skin") return skinApi(url, ctx);
-    if (url.pathname === "/api/skins") return skinsApi(url, ctx);
+    if (url.pathname === "/api/skin") return skinApi(url, ctx, env);
+    if (url.pathname === "/api/skins") return skinsApi(url, ctx, env);
     if (url.pathname === "/api/chat") return chat(request, env, url);
     if (url.pathname !== "/players.json") return env.ASSETS.fetch(request);
     // answer straight away with the last copy, and refresh it in the background
