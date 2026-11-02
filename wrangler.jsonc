@@ -3,6 +3,7 @@
   "main": "src/worker.js",
   "compatibility_date": "2025-10-01",
   "ai": { "binding": "AI" },
+  "vars": { "SKIN_HELPER": "https://diamondtier-skins.vercel.app" },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
