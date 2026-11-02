@@ -863,7 +863,7 @@ var skinQ={},skinT=null;
 /* backup when the site's own lookup fails: the visitor's browser asks playerdb (which reads Mojang) itself */
 function direct(n,q){
   fetch("https://playerdb.co/api/player/minecraft/"+encodeURIComponent(n),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
-    var pl=j&&j.data&&j.data.player,v=pl&&pl.skin_texture?{urls:[String(pl.skin_texture).replace(/^http:/,"https:")]}:j&&j.code==="player.found"?"none":"retry";
+    var pl=j&&j.data&&j.data.player,v=pl&&pl.skin_texture?{urls:[String(pl.skin_texture).replace(/^http:/,"https:")],old:true}:j&&j.code==="player.found"?"none":"retry";
     q[n].forEach(function(f){f(v)});
   }).catch(function(){q[n].forEach(function(f){f("retry")})});
 }
@@ -873,7 +873,7 @@ function flushSkins(){
   for(var c=0;c<names.length;c+=40)(function(chunk){
     fetch("/api/skins?names="+chunk.map(encodeURIComponent).join(",")+"&t="+BUST,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
       chunk.forEach(function(n){var v=j[n];
-        if(v&&v.url)q[n].forEach(function(f){f({urls:[v.url],slim:v.slim})});
+        if(v&&v.url)q[n].forEach(function(f){f({urls:[v.url],slim:v.slim,old:!!v.old})});
         else if(v&&v.none)q[n].forEach(function(f){f("none")});
         else direct(n,q);
       });
@@ -885,15 +885,20 @@ function loadSkin(id){
   if(skinCache[key])return skinCache[key];
   return skinCache[key]=lookup(id).then(function(r){
     if(r==="none")return null;                                   /* no such account: Steve */
-    if(r&&r.urls)return tryLoad(r.urls,r.slim).then(function(im){return im||"retry"});
+    if(r&&r.urls)return tryLoad(r.urls,r.slim).then(function(im){if(im)im._old=!!r.old;return im||"retry"});
     return "retry";                                              /* Mojang busy: ask again soon */
-  }).then(function(v){if(v==="retry")delete skinCache[key];return v});
+  }).then(function(v){if(v==="retry"||(v&&v._old))delete skinCache[key];return v});
 }
 function loadEl(el){
   function paint(img){if(!img||!el.isConnected||el._src===img.src)return;el._src=img.src;el._img=img;el.textContent="";el.appendChild(drawSkin(img,el.dataset.pose,el.dataset.pose==="head",el.clientHeight))}
   loadSkin(el.dataset.skin).then(function(img){
     if(img==="retry"){if(!el._src&&(el._tries=(el._tries||0)+1)<6)setTimeout(function(){if(el.isConnected)loadEl(el)},3000*el._tries);return} /* keep what is shown */
-    if(img)paint(img);
+    if(!img)return;
+    if(img._old){ /* not from Mojang: only fill an empty spot, then ask Mojang again soon */
+      if(!el._src||el._old){el._old=true;paint(img)}
+      if((el._otries=(el._otries||0)+1)<8)setTimeout(function(){if(el.isConnected)loadEl(el)},8000);
+      return}
+    el._old=false;paint(img);
   });
 }
 /* wipe skins older versions of the page saved on this device */
