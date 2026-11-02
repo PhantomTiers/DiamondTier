@@ -77,6 +77,25 @@ def main():
         seen.add(extra["name"].lower())
         out.insert(0, extra)
 
+    # tier changes saved by the Discord bot (None removes a gamemode)
+    for key, edits in ov.get("tierEdits", {}).items():
+        if key.lower() in remove:
+            continue
+        p = next((x for x in out if x["name"].lower() == key.lower()), None)
+        if p is None:
+            p = {"name": key}
+            if regions.get(key.lower()):
+                p["region"] = regions[key.lower()]
+            p["tiers"] = {}
+            out.append(p)
+        p["tiers"] = dict(p["tiers"])
+        for mode, tier in edits.items():
+            if tier:
+                p["tiers"][mode] = tier
+            else:
+                p["tiers"].pop(mode, None)
+    out = [p for p in out if p["tiers"]]
+
     data = {}
     if os.path.exists(OUT):
         try:
