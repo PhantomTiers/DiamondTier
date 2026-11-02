@@ -52,8 +52,22 @@ function build(players, base) {
     seen.add(e.name.toLowerCase());
     extras.push(e);
   }
+  // tier changes saved by the Discord bot (null removes a gamemode)
+  let all = extras.concat(out);
+  for (const key of Object.keys(OV.tierEdits || {})) {
+    if (remove.has(key.toLowerCase())) continue;
+    let i = all.findIndex((p) => p.name.toLowerCase() === key.toLowerCase());
+    if (i < 0) { all.push({ name: key, tiers: {} }); i = all.length - 1; const r = regions[key.toLowerCase()]; if (r) all[i].region = r; }
+    const p = Object.assign({}, all[i], { tiers: Object.assign({}, all[i].tiers) });
+    for (const m of Object.keys(OV.tierEdits[key])) {
+      const t = OV.tierEdits[key][m];
+      if (t) p.tiers[m] = t; else delete p.tiers[m];
+    }
+    all[i] = p;
+  }
+  all = all.filter((p) => Object.keys(p.tiers).length);
   const result = {
-    players: extras.concat(out),
+    players: all,
     updates: base.updates || [],
     tournaments: base.tournaments || [],
     subtiers: base.subtiers || [],
@@ -401,61 +415,78 @@ async function loadData(env, url) {
   }
 }
 
-// Fresh skin lookup straight from Mojang, so a changed skin shows up on the next refresh.
-// Answers are kept for 60 seconds so Mojang's rate limits are not hit.
-async function skinApi(url, ctx) {
-  const name = (url.searchParams.get("name") || "").trim();
-  const out = (obj, status) => new Response(JSON.stringify(obj), { status: status || 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=60", "access-control-allow-origin": "*" } });
-  if (!/^[A-Za-z0-9_]{1,16}$/.test(name)) return out({ none: true });
-  const cache = caches.default;
-  const key = new Request(url.origin + "/api/skin?name=" + name.toLowerCase());
-  const hit = await cache.match(key);
-  if (hit) return hit;
-  try {
-    // 1) mcprofiles first (it reads straight from Mojang and has the skin file in one call)
+// Skin lookups, only from Mojang (the skin they wear right now). No skin is ever stored.
+// Only the name -> account id link is remembered (6 hours) so Mojang isn't asked twice per skin.
+const SKIN_TTL = 20; // seconds a lookup answer is reused, so many visitors don't hit Mojang's rate limit
+const jsonRes = (obj, status, maxAge) => new Response(JSON.stringify(obj), { status: status || 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=" + (maxAge == null ? SKIN_TTL : maxAge), "access-control-allow-origin": "*" } });
+
+async function nameToId(name, ctx) {
+  const key = new Request("https://diamondtier.internal/__uuid/" + name.toLowerCase());
+  const hit = await caches.default.match(key).catch(() => null);
+  if (hit) return hit.json();
+  let prof = null;
+  for (const u of ["https://api.mojang.com/users/profiles/minecraft/", "https://api.minecraftservices.com/minecraft/profile/lookup/name/"]) {
     try {
-      const mp = await fetch("https://mcprofiles.me/api/player/" + encodeURIComponent(name), { signal: AbortSignal.timeout(4000) });
-      if (mp.ok) {
-        const mj = await mp.json();
-        const su = mj && mj.data && mj.data.textures && mj.data.textures.skinUrl;
-        if (su) {
-          const res = out({ name: mj.data.username || name, id: mj.data.uuid, url: String(su).replace(/^http:/, "https:") });
-          ctx && ctx.waitUntil(cache.put(key, res.clone()));
-          return res;
-        }
-      }
-    } catch (e) { /* fall back to Mojang below */ }
-    // 2) Mojang directly
-    const r = await fetch("https://api.mojang.com/users/profiles/minecraft/" + name);
-    if (r.status === 404 || r.status === 204) { const res = out({ none: true }); ctx && ctx.waitUntil(cache.put(key, res.clone())); return res; }
-    if (!r.ok) return out({ error: "lookup" }, 502);
-    const prof = await r.json();
-    let skin = null;
-    const s = await fetch("https://sessionserver.mojang.com/session/minecraft/profile/" + prof.id);
-    if (s.ok) {
-      const j = await s.json();
-      const prop = (j.properties || []).find((p) => p.name === "textures");
-      const tex = prop ? JSON.parse(atob(prop.value)) : null;
-      skin = tex && tex.textures && tex.textures.SKIN && tex.textures.SKIN.url;
-    } else {
-      // Mojang is rate limiting: fall back to playerdb so a head still shows
-      const pd = await fetch("https://playerdb.co/api/player/minecraft/" + prof.id);
-      if (!pd.ok) return out({ error: "session" }, 502);
-      const pj = await pd.json();
-      skin = pj && pj.data && pj.data.player && pj.data.player.skin_texture;
-    }
-    const res = out(skin ? { name: prof.name, id: prof.id, url: String(skin).replace(/^http:/, "https:") } : { name: prof.name, id: prof.id, none: true });
-    ctx && ctx.waitUntil(cache.put(key, res.clone()));
-    return res;
-  } catch (e) {
-    return out({ error: "failed" }, 502);
+      const r = await fetch(u + encodeURIComponent(name), { signal: AbortSignal.timeout(3500) });
+      if (r.status === 404 || r.status === 204) { prof = { none: true }; break; }
+      if (r.ok) { const j = await r.json(); if (j && j.id) { prof = { id: j.id, name: j.name }; break; } }
+    } catch (e) {}
   }
+  if (!prof) return null; // Mojang unreachable right now
+  ctx && ctx.waitUntil(caches.default.put(key, jsonRes(prof, 200, prof.none ? 600 : 21600)));
+  return prof;
+}
+
+async function lookupSkin(name, ctx) {
+  if (!/^[A-Za-z0-9_]{1,16}$/.test(name)) return { none: true };
+  const key = new Request("https://diamondtier.internal/__skin/" + name.toLowerCase());
+  const hit = await caches.default.match(key).catch(() => null);
+  if (hit) return hit.json();
+  let out = null;
+  const prof = await nameToId(name, ctx);
+  if (prof && prof.none) out = { none: true };
+  else if (prof) {
+    // 1) Mojang's session server: the skin they are wearing right now
+    try {
+      const s = await fetch("https://sessionserver.mojang.com/session/minecraft/profile/" + prof.id, { signal: AbortSignal.timeout(3500) });
+      if (s.ok) {
+        const j = await s.json();
+        const prop = (j.properties || []).find((p) => p.name === "textures");
+        const tex = prop ? JSON.parse(atob(prop.value)) : null;
+        const sk = tex && tex.textures && tex.textures.SKIN;
+        out = sk && sk.url
+          ? { name: prof.name, id: prof.id, url: String(sk.url).replace(/^http:/, "https:"), slim: !!(sk.metadata && sk.metadata.model === "slim") }
+          : { name: prof.name, id: prof.id, none: true };
+      }
+    } catch (e) {}
+  }
+  // Mojang busy: no answer, so the page keeps the skin it shows and asks again. Other skin sites are
+  // never used because they hand back old skins.
+  if (!out) return { error: "lookup" };
+  ctx && ctx.waitUntil(caches.default.put(key, jsonRes(out)));
+  return out;
+}
+
+// /api/skin?name=X  (one player, used by the mod too)
+async function skinApi(url, ctx) {
+  const r = await lookupSkin((url.searchParams.get("name") || "").trim(), ctx);
+  return jsonRes(r, r.error ? 502 : 200, 0);
+}
+
+// /api/skins?names=a,b,c  (up to 40 players in one request, looked up at the same time)
+async function skinsApi(url, ctx) {
+  const names = [...new Set((url.searchParams.get("names") || "").split(",").map((n) => n.trim()).filter(Boolean))].slice(0, 40);
+  const res = await Promise.all(names.map((n) => lookupSkin(n, ctx).catch(() => ({ error: "lookup" }))));
+  const obj = {};
+  names.forEach((n, i) => { obj[n.toLowerCase()] = res[i]; });
+  return jsonRes(obj, 200, 0);
 }
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/skin") return skinApi(url, ctx);
+    if (url.pathname === "/api/skins") return skinsApi(url, ctx);
     if (url.pathname === "/api/chat") return chat(request, env, url);
     if (url.pathname !== "/players.json") return env.ASSETS.fetch(request);
     // answer straight away with the last copy, and refresh it in the background
