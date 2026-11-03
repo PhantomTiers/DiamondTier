@@ -269,7 +269,8 @@
     {"name":"ZenVex_","region":"AS","tiers":{"crystal":"LT4"}},
     {"name":"zenxi0n","region":"AS","tiers":{"crystal":"LT5"}},
     {"name":"Zephyrfox","region":"AS","tiers":{"sword":"HT5"}},
-    {"name":"ZYV1N","region":"AS","tiers":{"crystal":"LT3","dsmp":"LT4","nethpot":"HT4"}}
+    {"name":"ZYV1N","region":"AS","tiers":{"crystal":"LT3","dsmp":"LT4","nethpot":"HT4"}},
+    {"name":"sapstruth","region":"AS","tiers":{"diapot":"LT3"}}
   ],
   "updates": [],
   "tournaments": [],
