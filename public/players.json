@@ -214,7 +214,7 @@
     {"name":"Spork592","region":"EU","tiers":{"mace":"LT3"}},
     {"name":"srekly","region":"EU","tiers":{"crystal":"LT5","mace":"LT5","sword":"LT4"}},
     {"name":"SSSantoskun","region":"AS","tiers":{"sword":"HT5"}},
-    {"name":"sssap","region":"AS","tiers":{"axe":"LT3","crystal":"LT4","dsmp":"LT3","mace":"LT4","nethpot":"HT3","smp":"HT3","sword":"LT2","uhc":"LT4"}},
+    {"name":"sapstruth","region":"AS","tiers":{"axe":"LT3","crystal":"LT4","dsmp":"LT3","mace":"LT4","nethpot":"HT3","smp":"HT3","sword":"LT2","uhc":"LT4","diapot":"LT3"}},
     {"name":"STEELSHOTYT_XD13","region":"AS","tiers":{"crystal":"LT4","dsmp":"LT4","mace":"LT3","smp":"LT4","sword":"LT4"}},
     {"name":"StS1nner","region":"AS","tiers":{"sword":"LT3"}},
     {"name":"Suldeefire","region":"NA","tiers":{"crystal":"HT5","dsmp":"HT4","nethpot":"LT3","sword":"LT3"}},
@@ -269,8 +269,7 @@
     {"name":"ZenVex_","region":"AS","tiers":{"crystal":"LT4"}},
     {"name":"zenxi0n","region":"AS","tiers":{"crystal":"LT5"}},
     {"name":"Zephyrfox","region":"AS","tiers":{"sword":"HT5"}},
-    {"name":"ZYV1N","region":"AS","tiers":{"crystal":"LT3","dsmp":"LT4","nethpot":"HT4"}},
-    {"name":"sapstruth","region":"AS","tiers":{"diapot":"LT3"}}
+    {"name":"ZYV1N","region":"AS","tiers":{"crystal":"LT3","dsmp":"LT4","nethpot":"HT4"}}
   ],
   "updates": [],
   "tournaments": [],
