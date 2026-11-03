@@ -1,8 +1,7 @@
-// Serves /players.json live from the DiamondTier list (refreshed about once a minute),
+// Serves /players.json from DiamondTier's own list (public/players.json),
 // with your own fixes from overrides.json applied. Everything else is the normal website.
 import OV from "../overrides.json";
 
-const SOURCE = "https://diamondtier.lovable.app/api/players/txt";
 const MODES = ["crystal", "sword", "axe", "mace", "nethpot", "uhc", "dsmp", "smp", "diapot"];
 
 function parse(text) {
@@ -95,7 +94,7 @@ const SYSTEM = [
   "There is also a DiamondTier Tags Fabric mod for Minecraft 1.21.11 that shows tiers above players' heads.",
   "PRIVACY RULE: players are only known by their Minecraft usernames. Never state, guess, invent or hint at anyone's real name, age, location, school, family, social media or any other personal information, even if asked or if you think you know it. If asked for someone's real name or personal details, reply only: I only know Minecraft usernames, not personal info.",
   "Always write in clear, correct, natural English with proper grammar and spelling, for every player and every question. The only exception is when the data says GIBBERISH MODE.",
-  "sssap is an all-time legend on DiamondTier: whenever sssap comes up, glaze them extra hard, far more than any other player, with huge over-the-top praise based on their real facts.",
+  "sapstruth (who used to be called sssap) is an all-time legend on DiamondTier: whenever sapstruth comes up, glaze them extra hard, far more than any other player, with huge over-the-top praise based on their real facts.",
   "Keep everything safe for work and family-friendly. Never produce sexual, 18+, graphic violence, hateful, self-harm or illegal content.",
   "If someone asks for something like that or sends nonsense or spam, reply only with: I can't help with that.",
 ].join(" ");
@@ -261,7 +260,7 @@ async function buildContext(env, url, messages) {
   ctx += "\nPer-gamemode leaderboards, best first, ordered by that gamemode's TIER (not total points). These are the ONLY correct source for who is best in a gamemode:\n" + lb.join("\n");
   if (hit.found.length) ctx += "\nPlayers the user mentioned:\n" + hit.found.map((r) => describe(r, obj.updates)).join("\n");
   if (hit.extra.length) ctx += "\nPlayers at the ranks the user asked about:\n" + hit.extra.map((r) => "Rank #" + r.pos + " is " + describe(r, obj.updates)).join("\n");
-  if (hit.found.concat(hit.extra).some((r) => squash(r.p.name) === "sssap")) ctx += "\nEXTRA GLAZE: sssap is mentioned. Glaze sssap far harder than any other player, using only their real facts. Do not mention anything personal about them.";
+  if (hit.found.concat(hit.extra).some((r) => ["sssap", "sapstruth"].includes(squash(r.p.name)))) ctx += "\nEXTRA GLAZE: sapstruth (formerly sssap) is mentioned. Glaze sapstruth far harder than any other player, using only their real facts. Do not mention anything personal about them.";
   if (hit.found.concat(hit.extra).some((r) => squash(r.p.name) === "itzrealsasuke")) ctx += "\nGIBBERISH MODE: ItzRealSasuke is mentioned. This is a joke the player asked for. Write your whole reply as pure nonsense: invented made-up words and silly syllables (like blorp, zankly, wimbo, fnarg), in short sentences with exclamation marks. Use no real words from any language, do not imitate any accent or nationality, and write nothing personal. The only real text allowed is the username ItzRealSasuke.";
   const isCrifies = (r) => squash(r.p.name) === "crifies" || squash(r.p.name) === "cridies";
   const isVenji = (r) => ["imvenji", "venji"].includes(squash(r.p.name));
@@ -391,28 +390,16 @@ const HEADERS = {
 
 let cache = { at: 0, text: "", obj: null };
 
-const CK = "https://diamondtier.internal/__players";
-
+// DiamondTier's own player list: public/players.json in the GitHub repo is the only source.
+// The Discord bot saves tier changes into it, and Cloudflare redeploys the site from each commit.
 async function loadData(env, url) {
   if (cache.obj && Date.now() - cache.at < 30000) return cache;
-  // the saved copy (also holds updates / tournaments / subtiers, and is the fallback)
-  const savedP = env.ASSETS.fetch(new Request(new URL("/players.json", url))).then((r) => r.text());
-  const srcP = fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } }).catch(() => null);
-  const savedText = await savedP;
+  const savedText = await env.ASSETS.fetch(new Request(new URL("/players.json", url))).then((r) => r.text());
   let base = {};
   try { base = JSON.parse(savedText); } catch (e) {}
-  try {
-    const res = await srcP;
-    if (!res || !res.ok) throw new Error("source failed");
-    const players = parse(await res.text());
-    if (players.length < 10) throw new Error("source looks wrong");
-    const obj = build(players, base);
-    cache = { at: Date.now(), text: JSON.stringify(obj), obj: obj };
-    try { await caches.default.put(new Request(CK), new Response(cache.text, { headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" } })); } catch (e) {}
-    return cache;
-  } catch (e) {
-    return { text: savedText, obj: base };
-  }
+  const obj = build(base.players || [], base);
+  cache = { at: Date.now(), text: JSON.stringify(obj), obj: obj };
+  return cache;
 }
 
 // Skin lookups. No skin is ever stored.
@@ -531,24 +518,41 @@ async function skinsApi(url, ctx, env) {
   return jsonRes(await lookupMany(names, ctx, env), 200, 0);
 }
 
+// /api/players/txt : the full player list as text, same layout as the old lovable API.
+// /api/players      : the same list as JSON. Both update when the bot saves a /results.
+function playersTxt(players) {
+  const list = players.filter((p) => p.tiers && Object.keys(p.tiers).length).slice()
+    .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+  const rank = {}; // place in each gamemode: 1 + how many players have a better tier there
+  for (const m of Object.keys(LABEL)) {
+    const idx = list.map((p) => ORDER.indexOf(p.tiers[m])).filter((i) => i >= 0);
+    for (const t of ORDER) rank[m + t] = 1 + idx.filter((i) => i < ORDER.indexOf(t)).length;
+  }
+  const head = "DiamondTier player list (" + list.length + " players)";
+  return head + "\n" + "=".repeat(head.length) + "\n" + list.map((p) =>
+    p.name + (p.region ? " [" + p.region + "]" : "") + " \u2014 " +
+    Object.keys(p.tiers).filter((m) => ORDER.indexOf(p.tiers[m]) >= 0).sort()
+      .map((m) => m + ": " + p.tiers[m] + " (#" + rank[m + p.tiers[m]] + ")").join(" | ")
+  ).join("\n") + "\n";
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/skin") return skinApi(url, ctx, env);
     if (url.pathname === "/api/skins") return skinsApi(url, ctx, env);
     if (url.pathname === "/api/chat") return chat(request, env, url);
+    if (url.pathname === "/api/players/txt" || url.pathname === "/api/players") {
+      const d = await loadData(env, url);
+      const players = (d.obj && d.obj.players) || [];
+      if (url.pathname === "/api/players") return new Response(JSON.stringify({ count: players.length, players }), { headers: HEADERS });
+      return new Response(playersTxt(players), { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=60", "access-control-allow-origin": "*" } });
+    }
     if (url.pathname !== "/players.json") return env.ASSETS.fetch(request);
     // answer straight away with the last copy, and refresh it in the background
     if (cache.obj) {
       if (Date.now() - cache.at >= 30000) ctx.waitUntil(loadData(env, url));
       return new Response(cache.text, { headers: HEADERS });
-    }
-    let hit = null;
-    try { hit = await caches.default.match(new Request(CK)); } catch (e) {}
-    if (hit) {
-      const text = await hit.text();
-      ctx.waitUntil(loadData(env, url));
-      return new Response(text, { headers: HEADERS });
     }
     const d = await loadData(env, url);
     return new Response(d.text, { headers: HEADERS });
