@@ -39,7 +39,7 @@
     {"name":"bioncLMAO","region":"AS","tiers":{"mace":"HT3"}},
     {"name":"BladeOfHevean","region":"AS","tiers":{"smp":"HT4","sword":"HT4"}},
     {"name":"bloxro_","region":"AS","tiers":{"sword":"LT4"}},
-    {"name":"oLineage","region":"NA","tiers":{"axe":"LT3","crystal":"LT3","dsmp":"LT3","mace":"HT3","nethpot":"LT3","smp":"LT3","sword":"LT2","uhc":"LT3","diapot":"LT3"}},
+    {"name":"oLineage","region":"NA","tiers":{"axe":"LT3","crystal":"HT2","dsmp":"LT3","mace":"HT3","nethpot":"LT3","smp":"LT3","sword":"LT2","uhc":"LT3","diapot":"LT3"},"edited":{"crystal":1793742165139}},
     {"name":"bobamachalabubus","region":"AS","tiers":{"mace":"LT4","smp":"LT3","sword":"HT5"}},
     {"name":"bottomfragger523","region":"AS","tiers":{"sword":"LT5"}},
     {"name":"BrxmmetjeNL","region":"EU","tiers":{"mace":"LT4"}},
