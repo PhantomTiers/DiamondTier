@@ -3,7 +3,7 @@
 import OV from "../overrides.json";
 
 const SOURCE = "https://diamondtier.lovable.app/api/players/txt";
-const MODES = ["crystal", "sword", "axe", "mace", "nethpot", "uhc", "dsmp", "smp"];
+const MODES = ["crystal", "sword", "axe", "mace", "nethpot", "uhc", "dsmp", "smp", "diapot"];
 
 function parse(text) {
   const players = [];
@@ -104,7 +104,7 @@ const OFFTOPIC = "Sorry I can only answer questions about the tierlist!";
 // ---------- facts the AI can use ----------
 const ORDER = ["HT1", "LT1", "HT2", "LT2", "HT3", "LT3", "HT4", "LT4", "HT5", "LT5"];
 const PTS = [70, 55, 46, 32, 25, 13, 7, 4, 2, 1];
-const LABEL = { crystal: "Crystal", sword: "Sword", axe: "Axe", mace: "Mace", nethpot: "Netherite Pot", uhc: "UHC", dsmp: "Diamond SMP", smp: "SMP" };
+const LABEL = { crystal: "Crystal", sword: "Sword", axe: "Axe", mace: "Mace", nethpot: "Netherite Pot", uhc: "UHC", dsmp: "Diamond SMP", smp: "SMP", diapot: "Diamond Pot" };
 
 function rankTitle(p) {
   if (p >= 400) return "Combat Grandmaster";
