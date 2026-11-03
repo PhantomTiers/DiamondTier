@@ -51,5 +51,9 @@
       "article": "The DiamondTier Discord now has over 1000 members. Thank you to everyone who joined and helped the community grow!"
     }
   ],
-  "tierEdits": {}
+  "tierEdits": {
+    "oLineage": {
+      "diapot": "LT3"
+    }
+  }
 }
