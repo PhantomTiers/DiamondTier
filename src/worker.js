@@ -1,4 +1,4 @@
-// Serves /players.json from DiamondTier's own list (public/players.json),
+// Serves /players.json: the lovable API merged with DiamondTier's own list (public/players.json),
 // with your own fixes from overrides.json applied. Everything else is the normal website.
 import OV from "../overrides.json";
 
@@ -392,12 +392,50 @@ let cache = { at: 0, text: "", obj: null };
 
 // DiamondTier's own player list: public/players.json in the GitHub repo is the only source.
 // The Discord bot saves tier changes into it, and Cloudflare redeploys the site from each commit.
+// Reads BOTH lists and merges them:
+//  - the lovable API is the base (its updates keep showing),
+//  - public/players.json (saved by the Discord bot) adds what lovable doesn't have
+//    (new gamemodes like Diamond Pot, brand-new players),
+//  - any tier the bot saved ("edited" in players.json) always wins over lovable.
+const SOURCE = "https://diamondtier.lovable.app/api/players/txt";
+
+function mergeLists(fromApi, fromBot) {
+  const out = fromApi.map((p) => Object.assign({}, p, { tiers: Object.assign({}, p.tiers) }));
+  const byName = new Map(out.map((p) => [p.name.toLowerCase(), p]));
+  for (const j of fromBot) {
+    const name = String(j.name || "");
+    const p = byName.get(name.toLowerCase());
+    if (!p) {                                   // only in players.json: add them
+      const add = { name, tiers: Object.assign({}, j.tiers) };
+      if (j.region) add.region = j.region;
+      if (Object.keys(add.tiers).length) { out.push(add); byName.set(name.toLowerCase(), add); }
+      continue;
+    }
+    for (const m of Object.keys(j.tiers || {})) if (!(m in p.tiers)) p.tiers[m] = j.tiers[m];   // fill gaps
+    for (const m of Object.keys(j.edited || {})) {                                             // bot results win
+      if (j.tiers && j.tiers[m]) p.tiers[m] = j.tiers[m]; else delete p.tiers[m];
+    }
+    if (!p.region && j.region) p.region = j.region;
+  }
+  return out.filter((p) => Object.keys(p.tiers).length);
+}
+
 async function loadData(env, url) {
   if (cache.obj && Date.now() - cache.at < 30000) return cache;
-  const savedText = await env.ASSETS.fetch(new Request(new URL("/players.json", url))).then((r) => r.text());
+  const savedP = env.ASSETS.fetch(new Request(new URL("/players.json", url))).then((r) => r.text());
+  const srcP = fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } }).catch(() => null);
   let base = {};
-  try { base = JSON.parse(savedText); } catch (e) {}
-  const obj = build(base.players || [], base);
+  try { base = JSON.parse(await savedP); } catch (e) {}
+  let api = [];
+  try {
+    const res = await srcP;
+    if (res && res.ok) api = parse(await res.text());
+    if (api.length < 10) api = [];              // lovable down or broken: use players.json alone
+  } catch (e) { api = []; }
+  // apply renames / removals / extras to the API list first, then merge in the bot's list
+  const renamed = api.length ? build(api, {}).players : [];
+  const merged = mergeLists(renamed, base.players || []);
+  const obj = build(merged, base);
   cache = { at: Date.now(), text: JSON.stringify(obj), obj: obj };
   return cache;
 }
