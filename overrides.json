@@ -1,15 +1,16 @@
 {
   "rename": {
     "runsz": "runsztuffington",
-    "Blusped": "oLineage"
+    "Blusped": "oLineage",
+    "sssap": "sapstruth"
   },
   "remove": [
     "Larpitylarpic"
   ],
   "regions": {
     "oLineage": "NA",
-    "sssap": "NA",
-    "Crifies": "NA"
+    "Crifies": "NA",
+    "sapstruth": "NA"
   },
   "tags": {
     "oLineage": "Creator"
