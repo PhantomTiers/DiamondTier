@@ -75,6 +75,7 @@ function build(players, base) {
   result.tags = OV.tags || {};
   result.display = OV.display || {};
   result.news = OV.news || [];
+  result.testers = Array.isArray(base.testers) ? base.testers : [];   // saved by the Discord bot
   return result;
 }
 
@@ -436,6 +437,7 @@ async function loadData(env, url) {
   const renamed = api.length ? build(api, {}).players : [];
   const merged = mergeLists(renamed, base.players || []);
   const obj = build(merged, base);
+  obj.source = api.length ? "lovable + players.json" : "players.json only (lovable unreachable)";
   cache = { at: Date.now(), text: JSON.stringify(obj), obj: obj };
   return cache;
 }
@@ -580,6 +582,20 @@ export default {
     if (url.pathname === "/api/skin") return skinApi(url, ctx, env);
     if (url.pathname === "/api/skins") return skinsApi(url, ctx, env);
     if (url.pathname === "/api/chat") return chat(request, env, url);
+    // /api/testers : tester leaderboard (most tests first), saved by the Discord bot with each /results
+    if (url.pathname === "/api/testers" || url.pathname === "/api/testers/txt") {
+      const d = await loadData(env, url);
+      const list = ((d.obj && d.obj.testers) || []).slice().sort((a, b) => (b.tests || 0) - (a.tests || 0))
+        .map((t, k) => ({ rank: k + 1, name: t.name, tests: t.tests || 0, modes: t.modes || {} }));
+      const total = list.reduce((s, t) => s + t.tests, 0);
+      if (url.pathname === "/api/testers/txt") {
+        const head = "DiamondTier tester leaderboard (" + list.length + " testers, " + total + " tests)";
+        const txt = head + "\n" + "=".repeat(head.length) + "\n" + list.map((t) => "#" + t.rank + " " + t.name + " \u2014 " + t.tests + " test" + (t.tests === 1 ? "" : "s") +
+          (Object.keys(t.modes).length ? " (" + Object.keys(t.modes).filter((m) => t.modes[m] > 0).map((m) => m + ": " + t.modes[m]).join(", ") + ")" : "")).join("\n") + "\n";
+        return new Response(txt, { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=60", "access-control-allow-origin": "*" } });
+      }
+      return new Response(JSON.stringify({ count: list.length, totalTests: total, testers: list }), { headers: HEADERS });
+    }
     if (url.pathname === "/api/players/txt" || url.pathname === "/api/players") {
       const d = await loadData(env, url);
       const players = (d.obj && d.obj.players) || [];
