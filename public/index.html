@@ -391,6 +391,8 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 .trow{display:grid;grid-template-columns:40px 1fr auto;align-items:center;padding:12px 16px;border:1px dashed var(--line);border-radius:10px;background:rgba(10,16,48,.45);color:var(--muted)}
 .trow span{font:700 18px var(--px)}.trow em{font-style:normal;text-align:center}.trow u{text-decoration:none}
 .tnone{text-align:center;color:var(--muted);padding:10px}
+.tpod>div.on{border-style:solid;color:var(--text,#eaf6ff)}.tpod>div.on b{opacity:1;font-size:17px;padding:0 8px;text-align:center;word-break:break-word}.tpod>div.on small{font:600 13px var(--b,inherit);color:var(--muted);margin-top:-6px}
+.trow.on{border-style:solid;color:var(--text,#eaf6ff)}.trow.on u{color:var(--cy)}
 @media (max-width:560px){.tpod>div{width:30%}.tpod .tp1{height:170px}.tpod .tp2{height:140px}.tpod .tp3{height:120px}.cautn{font-size:17px}.wipc h2{font-size:28px}}
 @media (prefers-reduced-motion:reduce){.cautn-in,.wipc svg{animation:none}}
 @media (max-width:480px){.nr{gap:6px}.nr .dc{width:34px;height:34px}.nr .dc svg{width:19px;height:19px}.nl{gap:12px;padding-left:2px}.sgnup{height:34px}}
@@ -540,12 +542,12 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 </div>
 <div class="view" id="vTest" hidden>
   <div class="tstp">
-    <div class="cautn small"><div class="cautn-in"><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span></div></div>
+    <div class="cautn small" id="tCaut"><div class="cautn-in"><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span></div></div>
     <h2 class="ttl2">Tester Leaderboard</h2>
-    <p class="tsts">The tester leaderboard isn't finished yet. Nobody is on it for now.</p>
-    <div class="tpod"><div class="tp2"><b>?</b><i>2</i></div><div class="tp1"><b>?</b><i>1</i></div><div class="tp3"><b>?</b><i>3</i></div></div>
-    <div class="trows"><div class="trow"><span>4</span><em>Empty spot</em><u>--</u></div><div class="trow"><span>5</span><em>Empty spot</em><u>--</u></div><div class="trow"><span>6</span><em>Empty spot</em><u>--</u></div></div>
-    <div class="tnone">No testers yet. Check back soon!</div>
+    <p class="tsts" id="tSub">The tester leaderboard isn't finished yet. Nobody is on it for now.</p>
+    <div class="tpod" id="tPod"><div class="tp2"><b>?</b><i>2</i></div><div class="tp1"><b>?</b><i>1</i></div><div class="tp3"><b>?</b><i>3</i></div></div>
+    <div class="trows" id="tRows"><div class="trow"><span>4</span><em>Empty spot</em><u>--</u></div><div class="trow"><span>5</span><em>Empty spot</em><u>--</u></div><div class="trow"><span>6</span><em>Empty spot</em><u>--</u></div></div>
+    <div class="tnone" id="tNone">No testers yet. Check back soon!</div>
   </div>
 </div>
 <div class="view" id="vWip" hidden>
@@ -1371,7 +1373,17 @@ document.getElementById("more").onclick=function(){
 /* load players.json, fall back to the top 3 */
 var wait=new Promise(function(res){setTimeout(function(){res(null)},1500)});
 var applied=false;
-function apply(list){var first=!applied;applied=true;
+function fillTesters(list){
+  var t=(list&&!Array.isArray(list)&&Array.isArray(list.testers)?list.testers:[]).filter(function(x){return x&&x.tests>0}).sort(function(a,b){return b.tests-a.tests});
+  if(!t.length)return;
+  var total=t.reduce(function(s,x){return s+x.tests},0),q=function(id){return document.getElementById(id)};
+  q("tCaut").style.display="none";q("tNone").style.display="none";
+  q("tSub").textContent=t.length+" tester"+(t.length===1?"":"s")+" \u00b7 "+total+" test"+(total===1?"":"s")+" done";
+  [["tp1",0],["tp2",1],["tp3",2]].forEach(function(c){var el=q("tPod").querySelector("."+c[0]),x=t[c[1]];if(!el)return;
+    el.className=c[0]+(x?" on":"");el.innerHTML="<b>"+(x?esc(x.name):"?")+"</b>"+(x?"<small>"+x.tests+" test"+(x.tests===1?"":"s")+"</small>":"")+"<i>"+(c[1]+1)+"</i>"});
+  var rows=t.slice(3);q("tRows").innerHTML=rows.length?rows.map(function(x,k){return '<div class="trow on"><span>'+(k+4)+'</span><em>'+esc(x.name)+'</em><u>'+x.tests+' test'+(x.tests===1?"":"s")+'</u></div>'}).join(""):"";
+}
+function apply(list){var first=!applied;applied=true;fillTesters(list);
   var arr=Array.isArray(list)?list:(list&&list.players),ups=list&&!Array.isArray(list)&&list.updates;
   tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];ptags=list&&!Array.isArray(list)&&list.tags&&typeof list.tags==="object"?list.tags:ptags;news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
   render();route(true);fillPod();moveInd();setTimeout(moveInd,80);if(first)setTimeout(shoot,900);
