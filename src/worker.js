@@ -416,7 +416,7 @@ function mergeLists(fromApi, fromBot) {
     for (const m of Object.keys(j.edited || {})) {                                             // bot results win
       if (j.tiers && j.tiers[m]) p.tiers[m] = j.tiers[m]; else delete p.tiers[m];
     }
-    if (!p.region && j.region) p.region = j.region;
+    if (j.region && (!p.region || j.regionSet)) p.region = j.region;   // a region picked in /results wins
   }
   return out.filter((p) => Object.keys(p.tiers).length);
 }
