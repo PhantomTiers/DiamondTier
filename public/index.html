@@ -481,6 +481,164 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 .setp .pre b{position:absolute;right:7px;bottom:7px;width:14px;height:14px;border-radius:50%;box-shadow:0 0 8px rgba(255,255,255,.25)}
 .setp .pre.on{border-color:var(--cy);background:rgba(255,255,255,.09)}
 .setp .pre:hover{background:rgba(255,255,255,.09)}
+/* ---------- home (Wintiers-style layout) ---------- */
+.hero{position:relative;display:grid;grid-template-columns:1.25fr 1fr;align-items:center;min-height:330px;margin-top:4px;padding:38px 44px;border-radius:24px;overflow:hidden;isolation:isolate;border:1px solid rgba(120,230,255,.22);background:linear-gradient(120deg,#0f1c4c 0%,#15296a 55%,#123a7a 100%);box-shadow:0 18px 44px rgba(0,0,0,.32)}
+.hbg{position:absolute;inset:0;z-index:-1;background:radial-gradient(45% 80% at 78% 55%,rgba(70,230,255,.32),transparent 70%),radial-gradient(30% 50% at 10% 0%,rgba(120,140,255,.25),transparent 70%)}
+.hbg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(90deg,transparent,#000 60%)}
+.hk{display:inline-block;padding:5px 11px;border-radius:999px;background:rgba(70,230,255,.14);border:1px solid rgba(70,230,255,.35);color:var(--cy);font:700 12px var(--px);letter-spacing:.14em;text-transform:uppercase}
+.hero h1{margin:14px 0 8px;font:700 46px/1.05 var(--px);color:#fff}
+.hero h1 em{font-style:normal;color:var(--cy);text-shadow:0 0 22px rgba(70,230,255,.45)}
+.hero p{margin:0;color:#c3cbe6;font:600 17px var(--b)}
+.hact{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hbtn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;font:700 17px var(--px);color:#03131a;background:linear-gradient(180deg,#7df3ff,#1fb6d4);box-shadow:0 0 18px rgba(70,230,255,.35);transition:transform .15s}
+.hbtn:hover{transform:translateY(-2px)}
+.hbtn.gh{background:rgba(255,255,255,.08);color:#dfe6fb;box-shadow:none;border:1px solid var(--line)}
+.hform{display:flex;gap:8px;width:100%;max-width:420px}
+.hform input{flex:1;min-width:0;padding:13px 15px;border-radius:12px;border:1px solid rgba(120,230,255,.3);background:rgba(5,12,40,.55);color:#fff;font:600 16px var(--b);outline:0}
+.hform input:focus{border-color:var(--cy);box-shadow:0 0 0 3px rgba(70,230,255,.18)}
+.hst{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hst div{padding:9px 14px;border-radius:12px;background:rgba(5,12,40,.45);border:1px solid var(--line)}
+.hst div{display:flex;flex-direction:column;justify-content:center;text-align:left}.hst small{display:block;text-align:left!important;color:var(--muted);font:700 10px var(--px);letter-spacing:.12em;text-transform:uppercase}
+.hst b{display:flex;align-items:center;gap:6px;color:#fff;font:700 19px var(--px)}.hst b .ic-s{width:22px;height:22px}
+.hfig{position:relative;display:flex;justify-content:center;align-items:flex-end;height:290px}
+.hfig::before{content:"";position:absolute;bottom:4px;width:170px;height:22px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.45),transparent 70%)}
+.hfig .pose{position:relative;animation:hbob 3.4s ease-in-out infinite}
+.hfig .cap{position:absolute;top:0;right:4%;padding:6px 11px;border-radius:10px;background:rgba(5,12,40,.6);border:1px solid var(--line);color:#dfe6fb;font:700 13px var(--px)}
+@keyframes hbob{50%{transform:translateY(-6px)}}
+.hrow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.hcard{position:relative;display:flex;flex-direction:column;padding:20px;border-radius:18px;border:1px solid var(--line);background:rgba(22,36,86,.85);overflow:hidden}
+.hcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--a)}
+.hk1{--a:linear-gradient(90deg,#ffc61a,#ff9f0a)}.hk2{--a:linear-gradient(90deg,#c24df0,#7a86ff)}.hk3{--a:linear-gradient(90deg,#46e6ff,#1f86f5)}
+.hck{color:var(--muted);font:700 11px var(--px);letter-spacing:.16em;text-transform:uppercase}
+.hcard h4{margin:4px 0 14px;font:700 21px var(--px);color:#fff}
+.ptg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+.ptg div{padding:6px 0;border-radius:9px;background:rgba(255,255,255,.05);text-align:center}
+.ptg .tier{display:block;font-size:14px}.ptg small{color:#c3cbe6;font:700 12px var(--px)}
+.ttl3{display:grid;gap:6px}
+.ttl3 div{display:flex;align-items:center;gap:8px;font:700 14px var(--px);color:#dfe6fb}.ttl3 svg{width:20px;height:20px;flex:none}.ttl3 small{margin-left:auto;color:var(--muted);font:700 12px var(--px)}
+.mlb{display:grid;gap:4px;margin-bottom:14px}
+.mlb button{display:flex;align-items:center;gap:10px;padding:5px 8px;border:0;border-radius:10px;background:transparent;color:#dfe6fb;font:700 15px var(--px);cursor:pointer;text-align:left}
+.mlb button:hover{background:rgba(255,255,255,.06)}
+.mlb i{width:18px;color:var(--muted);font-style:normal}.mlb .hd{flex:none}.mlb u{margin-left:auto;text-decoration:none;color:var(--cy);font-size:13px}
+.mlb .r1 i{color:var(--gold)}.mlb .r2 i{color:var(--iron)}.mlb .r3 i{color:var(--cu)}
+.hcb{margin-top:auto;align-self:flex-start;padding:9px 16px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff;text-decoration:none;font:700 14px var(--px)}
+.hcb:hover{background:rgba(255,255,255,.14)}
+.live,.exs{margin-top:30px}
+.live h2,.exs h2{margin:0;font:700 28px var(--px);color:#fff}
+.exs h2{margin-bottom:14px}
+.lvh{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.lvh small{margin-left:auto;color:var(--muted);font:600 13px var(--b)}
+.lvd{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(255,70,90,.14);color:#ff6b7f;font:700 11px var(--px);letter-spacing:.12em}
+.lvd i{width:7px;height:7px;border-radius:50%;background:#ff4d63;box-shadow:0 0 0 0 rgba(255,77,99,.6);animation:lvp 1.6s infinite}
+@keyframes lvp{70%{box-shadow:0 0 0 7px rgba(255,77,99,0)}100%{box-shadow:0 0 0 0 rgba(255,77,99,0)}}
+.lvl{display:grid;gap:8px}
+.lvr{display:grid;grid-template-columns:30px auto 1fr auto auto;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(22,36,86,.85);color:#dfe6fb;cursor:pointer;text-align:left;font:inherit;width:100%;animation:lvin .45s both}
+.lvr:hover{background:rgba(30,48,108,.95)}
+@keyframes lvin{from{opacity:0;transform:translateY(8px)}}
+.lvr .ar{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;font-size:15px;font-weight:900}
+.lvr.up .ar{background:rgba(47,212,122,.16);color:#2fd47a}.lvr.dn .ar{background:rgba(255,77,99,.16);color:#ff4d63}.lvr.nw .ar{background:rgba(70,230,255,.14);color:var(--cy)}
+.lvr .nm{display:flex;align-items:center;gap:10px;min-width:0}.lvr .nm b{font:700 17px var(--px);color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lvr .lmd{display:flex;align-items:center;gap:7px;color:#c3cbe6;font:600 14px var(--b);min-width:0}.lvr .lmd .ic-s{width:24px;height:24px;flex:none}
+.lvr .ch{display:flex;align-items:center;gap:7px;font:700 15px var(--px)}.lvr .ch .tier{font-size:16px}.lvr .ch .no{color:var(--muted)}.lvr .ch em{font-style:normal;color:var(--muted)}
+.lvr.up .ch .to{text-shadow:0 0 12px rgba(47,212,122,.4)}
+.lvr time{color:var(--muted);font:600 12px var(--b);min-width:56px;text-align:right}
+.lvempty{padding:26px;border-radius:14px;border:1px dashed rgba(255,255,255,.18);text-align:center;color:var(--muted);font:600 15px var(--b)}
+.exg{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.exg .hc{height:250px}.exg .s2{grid-column:span 2}.exg .s3{grid-column:span 3}.exg .s4{grid-column:span 4}
+.exg .hc h3{font-size:38px;text-transform:uppercase;letter-spacing:.5px}
+.exg .s2 .art{width:62%;opacity:.9}.exg .s3 .art{width:52%}
+.exg .hc .txt{text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.exg .s3 .pdm{transform:scale(.78);transform-origin:right bottom;right:3%}
+.exg .hc-tier .txt,.exg .hc-sub .txt{text-shadow:none}
+.hc-test .art svg{left:auto;width:78%;right:-4%}
+.exg .hc-tour .art{width:44%}.exg .s3 .pdm{transform:scale(.68)}
+.htx{min-width:0}.hero{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.hc-test .bg{background:radial-gradient(70% 90% at 78% 30%,rgba(160,255,240,.45),transparent 65%),linear-gradient(135deg,#075e75 0%,#0f93a8 55%,#2ed3c7 100%)}
+.hc-dc .bg{background:radial-gradient(70% 90% at 80% 40%,rgba(170,180,255,.55),transparent 65%),linear-gradient(135deg,#2b2f9e 0%,#4752e0 55%,#6f7bff 100%)}
+.hc-dc .art svg{inset:12% 6% 14% auto;width:62%;height:74%;filter:drop-shadow(0 12px 22px rgba(10,10,60,.45))}
+.hc-mod .bg{background:radial-gradient(70% 90% at 78% 40%,rgba(70,230,255,.3),transparent 65%),linear-gradient(135deg,#0b1336 0%,#14235e 60%,#18307c 100%)}
+.mtag{position:absolute;right:9%;top:30%;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:8px;background:rgba(0,0,0,.55);font:700 20px ui-monospace,monospace;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.35);animation:hbob 3.6s ease-in-out infinite}
+.mtag b{color:#ffc61a}.mtag i{width:2px;height:20px;background:rgba(255,255,255,.4)}.mtag .mi{display:flex;width:24px;height:24px}.mtag .mi img{width:100%;height:100%}
+.mtag.m2{top:58%;right:20%;font-size:16px;animation-delay:-1.4s}.mtag.m2 b{color:#e0924f}.mtag.m2 .mi{width:20px;height:20px}
+.hc .txt>svg path[fill="currentColor"]{fill:currentColor}
+@media (max-width:860px){.hrow{grid-template-columns:1fr 1fr}.hk3{grid-column:span 2}}
+@media (max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr);padding:24px 20px 0;min-height:0;text-align:left}
+  .hero h1{font-size:34px}.hero p{font-size:15px}
+  .hfig{height:215px;margin-top:4px}.hst{margin-top:14px}.hbtn{padding:12px 16px;font-size:16px}
+  .hrow{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:16px -16px 0;padding:0 16px 6px;scrollbar-width:none}
+  .hrow::-webkit-scrollbar{display:none}
+  .hcard{flex:0 0 82%;scroll-snap-align:center}
+  .exg{grid-template-columns:1fr;gap:12px}.exg .s2,.exg .s3,.exg .s4{grid-column:auto}.exg .hc{height:200px}.exg .hc h3{font-size:32px}
+  .lvr{grid-template-columns:30px 1fr auto;row-gap:4px;padding:10px 12px}
+  .lvr .lmd{grid-column:2;grid-row:2;font-size:13px}.lvr .ch{grid-column:3;grid-row:1}.lvr time{grid-column:3;grid-row:2}.lvr .ar{grid-row:span 2}
+  .lvh small{margin-left:0;width:100%;text-align:left}
+  .mtag{font-size:16px;right:6%}.mtag.m2{display:none}
+}
+
+/* ---------- More menu ---------- */
+.mr{position:relative;display:flex}
+#moreBtn{background:none;border:0;border-top:2px solid transparent;cursor:pointer;color:var(--text)}
+#moreBtn.on{color:var(--cy);border-top-color:var(--cy);opacity:1}
+#moreBtn .chv{width:16px;height:16px;fill:none;transition:transform .2s}
+.mr.open #moreBtn .chv{transform:rotate(180deg)}
+.mmenu{position:absolute;top:calc(100% - 6px);left:-10px;z-index:60;display:grid;gap:2px;min-width:250px;padding:8px;border-radius:16px;border:1px solid rgba(120,230,255,.22);background:#0d163a;backdrop-filter:blur(14px);box-shadow:0 20px 44px rgba(0,0,0,.45);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .15s,transform .15s}
+.mr.open .mmenu{opacity:1;transform:none;pointer-events:auto}
+.mmenu a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:11px;color:#dfe6fb;text-decoration:none}
+.mmenu a:hover{background:rgba(70,230,255,.1)}
+.mmenu a svg{width:20px;height:20px;flex:none;color:var(--cy)}
+.mmenu span{display:flex;flex-direction:column;gap:2px;text-align:left}.mmenu b,.mmenu small{display:block;margin:0!important;padding:0!important;text-align:left!important;line-height:1.2}.mmenu b{color:#fff;font:700 16px var(--px)}.mmenu small{color:var(--muted);font:600 12px var(--b)}
+/* ---------- Downloads ---------- */
+.fk{display:block;margin:26px 0 10px;color:var(--muted);font:700 12px var(--px);letter-spacing:.18em;text-transform:uppercase}
+.dlp .fk:first-child{margin-top:6px}
+.dlc{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;padding:26px;border-radius:22px;border:1px solid var(--line);background:rgba(22,36,86,.85)}
+.dll h2{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 10px;font:700 32px var(--px);color:#fff}
+.bdg{padding:4px 10px;border-radius:999px;background:rgba(47,212,122,.16);color:#2fd47a;font:700 13px var(--px)}
+.dll p{margin:0 0 18px;color:#c3cbe6;font:500 16px/1.55 var(--b)}
+.dls{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.dls div{padding:12px 14px;border-radius:14px;background:rgba(5,12,40,.45);border:1px solid var(--line)}
+.dls small{display:block;color:var(--muted);font:700 10px var(--px);letter-spacing:.14em;text-transform:uppercase}
+.dls b{display:block;margin:4px 0 2px;color:#fff;font:700 19px var(--px)}.dls span{color:var(--muted);font:600 12px var(--b)}
+.dlbtn{display:inline-flex;align-items:center;gap:9px;padding:15px 24px;border-radius:12px;background:linear-gradient(180deg,#ff8a3d,#e5571a);color:#fff;text-decoration:none;font:700 18px var(--px);box-shadow:0 6px 0 #a83c0c,0 10px 24px rgba(229,87,26,.35);transition:transform .15s}
+.dlbtn:hover{transform:translateY(-2px)}.dlbtn svg{width:20px;height:20px}
+.dlr{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:300px;border-radius:16px;background:radial-gradient(60% 60% at 50% 60%,rgba(70,230,255,.18),transparent 70%),linear-gradient(180deg,#101a46,#0b1336);overflow:hidden}
+.dlfig{position:relative;display:flex;flex-direction:column;align-items:center;padding-bottom:18px}
+.ntag{display:flex;align-items:center;gap:6px;margin-bottom:10px;padding:5px 10px;border-radius:4px;background:rgba(0,0,0,.6);color:#fff;font:700 16px ui-monospace,monospace}
+.ntag b{color:#ffc61a}.ntag i{width:2px;height:16px;background:rgba(255,255,255,.4)}.ntag .mi{display:flex;width:20px;height:20px}.ntag .mi img{width:100%;height:100%}
+.dlesc{position:absolute;top:16px;left:16px;padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12)}
+.dlesc>b{display:block;margin-bottom:6px;color:var(--cy);font:700 13px var(--px)}
+.dlesc div div{display:flex;align-items:center;gap:6px;font-size:14px}.dlesc .ic-s{width:20px;height:20px}
+.faq{display:grid;gap:10px}
+.faq details{border-radius:14px;border:1px solid var(--line);background:rgba(22,36,86,.85)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;cursor:pointer;list-style:none;color:#fff;font:700 17px var(--px)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chv{width:18px;height:18px;flex:none;color:var(--muted);transition:transform .2s}
+.faq details[open] summary .chv{transform:rotate(180deg)}
+.faq p{margin:0;padding:0 18px 16px;color:#c3cbe6;font:500 15px/1.55 var(--b)}
+/* ---------- Staff ---------- */
+.stp .ttl2{margin-top:0;text-align:left}.stp .tsts{text-align:left;margin:4px 0 0}
+.stg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.sc{display:flex;flex-direction:column;border-radius:18px;border:1px solid var(--line);background:rgba(22,36,86,.85);overflow:hidden;animation:lvin .45s both}
+.sbn{height:96px;background-size:cover;background-position:center}
+.sav{position:relative;width:76px;height:76px;margin:-38px 0 0 18px}
+.sav>img,.sav>b{display:grid;place-items:center;width:76px;height:76px;border-radius:50%;object-fit:cover;border:4px solid #182659;background:#24357a;color:#fff;font:700 30px var(--px)}
+.sav .hd{position:absolute;right:-4px;bottom:-2px;border-radius:50%;overflow:hidden;border:3px solid #182659;background:#182659}
+.sbd{padding:10px 18px 0;flex:1}
+.snm{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}.snm b{color:#fff;font:700 20px var(--px)}.snm small{color:var(--muted);font:600 13px var(--b)}
+.srl{display:flex;align-items:center;gap:5px;margin-top:2px;color:var(--rc);font:700 14px var(--px)}.srl svg{width:14px;height:14px}
+.sbd p{margin:12px 0 16px;color:#c3cbe6;font:500 14px/1.5 var(--b)}.sbd p.nb{color:var(--muted)}
+.sft{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 18px;padding:12px 0 14px;border-top:1px solid var(--line);color:var(--muted);font:600 12px var(--b)}
+.sig{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.06);color:#dfe6fb}
+.hc-staff .bg{background:radial-gradient(70% 90% at 78% 40%,rgba(255,170,190,.5),transparent 65%),linear-gradient(135deg,#7a1a4a 0%,#c23a6a 55%,#ff7a8a 100%)}
+.avs{position:absolute;right:12%;top:20%;display:flex}
+.avs img,.avs i{width:64px;height:64px;margin-left:-18px;border-radius:50%;border:4px solid rgba(255,255,255,.85);object-fit:cover;background:rgba(255,255,255,.25);box-shadow:0 8px 18px rgba(60,0,30,.35)}
+.avs i:nth-child(2){transform:translateY(-14px)}
+@media (max-width:860px){.stg{grid-template-columns:1fr 1fr}.dlc{grid-template-columns:1fr}}
+@media (max-width:560px){.stg{grid-template-columns:1fr}.dls{grid-template-columns:1fr 1fr}.dls div:last-child{grid-column:span 2}.dll h2{font-size:26px}.dlc{padding:16px}.mmenu{left:-60px}
+  .avs img,.avs i{width:52px;height:52px}}
+.nav{z-index:40}
+.dls small,.dls b,.dls span{text-align:left!important}
+@media (max-width:420px){.nr{gap:4px}.nl{gap:9px}.nav .in{padding:0 8px}.nr .dc{width:31px;height:31px}.nr .dc svg{width:17px;height:17px}.sgnup{height:31px;padding:0 7px}.nl .lk{font-size:14px}.nl .lk svg{width:13px;height:13px}}
 </style>
 </head>
 <body>
@@ -489,7 +647,7 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
   <div class="nav"><div class="bar"></div><div class="in">
     <div class="nl">
       <a class="lk on" href="#home" id="home2"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg>Home</a>
-      <a class="lk" href="#testers" id="upd"><span class="lfull">Tester Leaderboard</span><span class="lshort">Testers</span></a>
+      <div class="mr" id="moreWrap"><button class="lk" type="button" id="moreBtn" aria-haspopup="true" aria-expanded="false">More<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mmenu" id="moreMenu" role="menu"><a href="#testers" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Tester Leaderboard</b><small>Who tests the most</small></span></a><a href="#staff" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.6 0 4.5 1.9 4.5 4.5"/></svg><span><b>Staff</b><small>Meet the team</small></span></a><a href="#downloads" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg><span><b>Downloads</b><small>DiamondTierTagger mod</small></span></a><a href="#tournaments" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/></svg><span><b>Tournaments</b><small>Compete for tiers</small></span></a></div></div>
     </div>
     <a class="logo" href="#home" id="home" aria-label="DiamondTier home"><svg viewBox="0 0 120 80" role="img" aria-label="DiamondTier"><defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9fdff"/><stop offset="1" stop-color="#5fe4f7"/></linearGradient><linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#53d7f5"/><stop offset="1" stop-color="#1b7fd0"/></linearGradient><linearGradient id="gC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d9be6"/><stop offset="1" stop-color="#1450b0"/></linearGradient></defs><g stroke="#0a3d6e" stroke-width="1.6" stroke-linejoin="round"><path d="M38 16h44l14 16H24z" fill="url(#gA)"/><path d="M24 32h72L60 72z" fill="url(#gB)"/><path d="M60 72 78 32h18z" fill="url(#gC)"/><path d="M24 32h18l18 40z" fill="#3cc4ee"/><path d="M42 32 50 16h20l8 16z" fill="#bff6ff" stroke="none" opacity=".55"/><path d="M50 16 42 32M70 16l8 16M42 32 60 72 78 32" fill="none" stroke="#0a3d6e" stroke-width="1.2"/></g><path d="M44 21h14l-5 8H40z" fill="#fff" opacity=".7"/><g fill="#7ee9ff"><path d="M12 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M104 8l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z"/><path d="M108 52l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/></g></svg></a>
     <div class="nr">
@@ -501,8 +659,21 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
     </div>
   </div></div>
 
-  <div class="view" id="vHome"><div class="hub">
-  <a class="hc hc-tour" href="#tournaments"><div class="bg"></div><div class="art"><svg viewBox="-14 -22 356 330" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><defs>
+  <div class="view" id="vHome">
+  <section class="hero" id="hero"><div class="hbg" aria-hidden="true"></div>
+    <div class="htx"><span class="hk">DiamondTier</span><h1 id="hTitle">Welcome to <em>DiamondTier</em>.</h1><p id="hSub">Check your tiers and where you stand.</p><div class="hact" id="hAct"></div><div class="hst" id="hStats"></div></div>
+    <div class="hfig" id="hFig"></div>
+  </section>
+  <div class="hrow" id="hRow">
+    <div class="hcard hk1"><span class="hck">Get points</span><h4>Every tier is worth points</h4><div class="ptg" id="ptGrid"></div><a class="hcb" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Get tested</a></div>
+    <div class="hcard hk2"><span class="hck">Climb ranks</span><h4>Points unlock titles</h4><div class="ttl3" id="ttlList"></div></div>
+    <div class="hcard hk3"><span class="hck">Leaderboard</span><h4>Top players</h4><div class="mlb" id="miniLb"></div><a class="hcb" href="#tierlist">Full rankings</a></div>
+  </div>
+  <section class="live" id="liveSec"><div class="lvh"><h2>Live Results</h2><span class="lvd"><i></i>LIVE</span><small>Last 10 tier results</small></div><div class="lvl" id="liveList"></div></section>
+  <section class="exs"><h2>Explore</h2><div class="exg">
+  <a class="hc hc-tier s4" href="#tierlist"><div class="bg"></div><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 7.5 7.5 12 12 4.5 16.5 12l5-4.5L19.5 19h-15z"/><rect x="5" y="20" width="14" height="2" rx="1"/></svg><h3>Rankings</h3><p id="exCount">Check your ranking</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="hc hc-test s2" href="#testers"><div class="bg"></div><div class="art"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="128" cy="92" r="84" fill="rgba(255,255,255,.16)"/><g class="fl"><path d="M128 30 178 50v40c0 34-22 58-50 70-28-12-50-36-50-70V50z" fill="rgba(255,255,255,.92)"/><path d="M128 44 164 58v32c0 25-16 44-36 54-20-10-36-29-36-54V58z" fill="#16a3b8"/><path d="m108 92 14 14 28-30" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg><h3>Testers</h3><p id="exTest">Meet the testers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="hc hc-tour s3" href="#tournaments"><div class="bg"></div><div class="art"><svg viewBox="-14 -22 356 330" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><defs>
 <linearGradient id="t1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b4ff"/><stop offset="1" stop-color="#a64df0"/></linearGradient>
 <linearGradient id="t2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a3de0"/><stop offset="1" stop-color="#3a1590"/></linearGradient>
 <linearGradient id="t3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c24df0"/><stop offset="1" stop-color="#5a1fb0"/></linearGradient>
@@ -527,11 +698,13 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 <g fill="none" stroke="#e6d6ff" stroke-width="5" stroke-linejoin="round"><polygon points="100,8 172,50 172,134 100,176 28,134 28,50"/><polyline points="28,50 100,92 172,50"/><line x1="100" y1="92" x2="100" y2="176"/></g>
 <g fill="none" stroke="#fff" stroke-width="2" opacity=".5"><polygon points="100,34 142,58 100,82 58,58"/><polyline points="58,58 58,106 100,130 142,106 142,58"/><line x1="100" y1="82" x2="100" y2="130"/></g>
 <g fill="#2a0f6b" opacity=".85"><rect x="34" y="52" width="9" height="9" transform="rotate(30 38 56)"/><rect x="157" y="52" width="9" height="9" transform="rotate(-30 161 56)"/><rect x="94" y="164" width="12" height="9"/><rect x="94" y="2" width="12" height="9" opacity=".0"/></g></g></g>
-<g fill="#fff"><path class="sp" d="M52 62l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" style="animation-delay:-.8s" d="M308 206l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" style="animation-delay:-1.6s" d="M200 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v6a6 6 0 0 1-12 0V3z"/><path d="M5 5H2.5v2A3.5 3.5 0 0 0 6 10.5V9a2 2 0 0 1-1-1.7V6zM19 5h2.5v2a3.5 3.5 0 0 1-3.5 3.5V9a2 2 0 0 0 1-1.7V6z"/><path d="M10.5 14.5h3V18h-3zM7 19h10v2.2H7z"/></svg><h3>Tournaments</h3><p>Compete For Tiers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-tier" href="#tierlist"><div class="bg"></div><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 7.5 7.5 12 12 4.5 16.5 12l5-4.5L19.5 19h-15z"/><rect x="5" y="20" width="14" height="2" rx="1"/></svg><h3>Tierlist</h3><p>Check Your Ranking</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-sub" href="#subtiers"><div class="bg"></div><span class="pill" id="subPill">Not added yet</span><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5z"/><path d="M2 12l10 5 10-5-2.2-1.1L12 14.8 4.2 10.9z"/><path d="M2 17l10 5 10-5-2.2-1.1L12 19.8 4.2 15.9z"/></svg><h3>Subtiers</h3><p>Separate tierlist for subtiers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-</div>
- <div class="dlbar"><div class="dlt"><b>DiamondTier Tags mod</b><span>Shows your gamemode icon and tier in your name tag in game. Fabric 1.21.11, works with Lunar Client.</span></div><a class="cta dlb" href="#mod"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Download mod</a></div></div>
+<g fill="#fff"><path class="sp" d="M52 62l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" style="animation-delay:-.8s" d="M308 206l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" style="animation-delay:-1.6s" d="M200 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v6a6 6 0 0 1-12 0V3z"/><path d="M5 5H2.5v2A3.5 3.5 0 0 0 6 10.5V9a2 2 0 0 1-1-1.7V6zM19 5h2.5v2a3.5 3.5 0 0 1-3.5 3.5V9a2 2 0 0 0 1-1.7V6z"/><path d="M10.5 14.5h3V18h-3zM7 19h10v2.2H7z"/></svg><h3>Tournaments</h3><p>Compete for tiers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="hc hc-sub s3" href="#subtiers"><div class="bg"></div><span class="pill" id="subPill">Not added yet</span><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5z"/><path d="M2 12l10 5 10-5-2.2-1.1L12 14.8 4.2 10.9z"/><path d="M2 17l10 5 10-5-2.2-1.1L12 19.8 4.2 15.9z"/></svg><h3>Subtiers</h3><p>Separate tierlist for subtiers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="hc hc-dc s2" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener"><div class="bg"></div><div class="art"><svg viewBox="-2 -4 28 30" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><g class="fl" color="#fff" opacity=".95"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg><h3>Discord</h3><p>Join the community</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="hc hc-staff s2" href="#staff"><div class="bg"></div><div class="art"><div class="avs" id="exStaff"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.6"/><path d="M2 20c0-3.8 3.1-6.2 7-6.2s7 2.4 7 6.2z"/><circle cx="17.5" cy="9" r="2.8"/><path d="M17 14.2c3 .1 5 2.2 5 5.8h-4.5c0-2.4-.6-4.3-.5-5.8z"/></svg><h3>Staff</h3><p id="exStaffN">Meet the team</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="hc hc-mod s2" href="#downloads"><div class="bg"></div><div class="art"><div class="mtag"><span class="mi" id="exModIc"></span><b>HT1</b><i></i><span>Steve</span></div><div class="mtag m2"><span class="mi" id="exModIc2"></span><b>LT3</b><i></i><span>Alex</span></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Downloads</h3><p>DiamondTierTagger mod</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  </div></section>
+  </div>
 <div class="view" id="vAI" hidden>
   <div class="aip">
     <div class="aih"><img src="data:image/jpeg;base64,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" alt=""><div><b>AI</b><span>Ask me anything. Keep it family-friendly.</span></div></div>
@@ -562,13 +735,28 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
     </div>
   </div>
 </div>
-<div class="view" id="vMod" hidden>
-  <div class="modp">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-    <h2>The mod isn't finished yet</h2>
-    <p>The DiamondTier Tags mod is still being worked on, so there's nothing to download right now. It will be available here as soon as it's ready.</p>
-    <p class="sm">Want to know when it's out? Join our Discord for updates.</p>
-    <div class="mbtns"><a class="cta" href="#home">Back to home</a><a class="cta alt" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Join Discord</a></div>
+<div class="view" id="vDl" hidden>
+  <div class="dlp">
+    <span class="fk">Downloads</span>
+    <div class="dlc">
+      <div class="dll">
+        <h2>DiamondTierTagger <span class="bdg">Available</span></h2>
+        <p>A Minecraft mod that shows each player's DiamondTier gamemode icon and tier right next to their name tag, on any server you join. Tiers come straight from the rankings on this site.</p>
+        <div class="dls"><div><small>Downloads</small><b>CurseForge</b><span>free download</span></div><div><small>Minecraft</small><b>1.21.11</b><span>Fabric</span></div><div><small>Mod loader</small><b>Fabric</b><span>works with Lunar Client</span></div></div>
+        <a class="dlbtn" id="dlLink" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg> Download on CurseForge</a>
+      </div>
+      <div class="dlr"><div class="dlesc"><b>DiamondTier</b><div id="dlEsc"></div></div><div class="dlfig"><div class="ntag"><span class="mi" id="dlTagIc"></span><b>HT1</b><i></i><span>Steve</span></div><div id="dlFig"></div></div></div>
+    </div>
+    <span class="fk">Questions</span>
+    <div class="faq"><details open><summary>Is DiamondTierTagger free?<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>Yes. Download it from CurseForge and use it as much as you like.</p></details><details open><summary>Will I get banned for using it?<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>It only changes what you see (the tier next to name tags) and doesn't touch gameplay. Each server still sets its own rules about client mods, so check them before you play.</p></details><details><summary>Where do the tiers come from?<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>Straight from the rankings on this site. When a tester posts a new result, the mod shows the new tier too.</p></details><details><summary>Which Minecraft versions does it support?<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>It's a Fabric mod for Minecraft 1.21.11. Check the CurseForge page for the newest files.</p></details><details><summary>Does it work with Lunar Client?<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>Yes. Add it to your Fabric mods in Lunar Client and it works like any other Fabric mod.</p></details><details><summary>Can I see my own tiers in game?<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>Yes. Open the ESC menu to view your own tiers or search any player.</p></details></div>
+  </div>
+</div>
+<div class="view" id="vStaff" hidden>
+  <div class="stp">
+    <span class="fk">Team</span>
+    <h2 class="ttl2">Staff</h2>
+    <p class="tsts">The people who run DiamondTier.</p>
+    <div class="stg" id="staffGrid"></div>
   </div>
 </div>
 <div class="view" id="vTour" hidden>
@@ -1432,7 +1620,7 @@ function fillTesters(list){
 function apply(list){var first=!applied;applied=true;fillTesters(list);
   var arr=Array.isArray(list)?list:(list&&list.players),ups=list&&!Array.isArray(list)&&list.updates;
   tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];ptags=list&&!Array.isArray(list)&&list.tags&&typeof list.tags==="object"?list.tags:ptags;news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
-  render();route(true);fillPod();moveInd();setTimeout(moveInd,80);if(first)setTimeout(shoot,900);
+  render();route(true);fillPod();if(typeof homeRender==="function")homeRender(list);moveInd();setTimeout(moveInd,80);if(first)setTimeout(shoot,900);
 }
 var PLK="dtpl1",cachedTxt=null;
 try{cachedTxt=localStorage.getItem(PLK)}catch(e){}
@@ -1482,6 +1670,140 @@ function fillPod(){
     mountSkins(el);
   });
 }
+/* ---------- home: hero, cards, live results, explore ---------- */
+var ME_K="dtme";
+function meName(){try{return localStorage.getItem(ME_K)||""}catch(e){return ""}}
+function rankedMain(){return(mainPlayers||[]).filter(function(p){return p.total>0}).sort(function(a,b){return b.total-a.total||a.order-b.order})}
+function findMain(n){n=String(n||"").toLowerCase();for(var i=0;i<(mainPlayers||[]).length;i++)if(mainPlayers[i].name.toLowerCase()===n)return mainPlayers[i];return null}
+function showProfile(p){if(!p)return;if(typeof sect!=="undefined"&&sect!=="main")setSection("main");var i=players.indexOf(p);if(i>-1)openPlayer(i)}
+function stubP(n){var s=0;for(var j=0;j<n.length;j++)s=(s*31+n.charCodeAt(j))>>>0;return{name:n,id:n,skin:"",hash:"",region:"",tiers:{},total:0,has:false,order:9999,seed:s}}
+var heroSword=null;
+function swordItem(){if(!heroSword){var m=(ICONS.sword||"").match(/src="([^"]+)"/);heroSword=new Image();if(m)heroSword.src=m[1]}return heroSword}
+function heroHold(el){ /* the hero figure holds a sword, gently swinging */
+  var item=swordItem(),cv=null,t0=0,last=0,w=parseFloat(el.style.width),ht=parseFloat(el.style.height);
+  var still=(typeof isCalm==="function"&&isCalm())||(typeof DS!=="undefined"&&!DS.fx);
+  el.style.overflow="visible";el.style.marginTop=Math.round(HY/37*ht)+"px";
+  (function frame(now){
+    if(!el.isConnected)return;
+    if(!t0)t0=now;
+    if(el._img&&item.complete&&item.naturalWidth&&now-last>=33){
+      last=now;
+      if(!cv){cv=document.createElement("canvas");cv.width=(26+HX*2)*HK;cv.height=(37+HY)*HK;cv.style.cssText="position:absolute;left:"+(-HX/26*w)+"px;top:"+(-HY/37*ht)+"px;width:"+((26+HX*2)/26*w)+"px;height:"+((37+HY)/37*ht)+"px;image-rendering:pixelated;pointer-events:none"}
+      if(cv.parentNode!==el){el.textContent="";el.appendChild(cv)}
+      drawHold(cv,el._img,still?150:150+18*Math.sin((now-t0)/1000*2*Math.PI*.6),item);
+      if(still)return;
+    }
+    requestAnimationFrame(frame);
+  })(performance.now());
+}
+function heroRender(){
+  var hT=document.getElementById("hTitle");if(!hT)return;
+  var n=meName(),p=n?findMain(n):null,rk=rankedMain(),big=window.innerWidth>760;
+  var act=document.getElementById("hAct"),st=document.getElementById("hStats"),fig=document.getElementById("hFig"),sub=document.getElementById("hSub");
+  var show=p||(n?stubP(n):rk[0])||stubP("Steve");
+  if(n){
+    hT.innerHTML='Welcome back, <em>'+esc(p?p.name:n)+'</em>.';
+    sub.textContent=p&&p.has?"Check your tiers and where you stand.":"You're not on the tierlist yet. Get tested in our Discord to get ranked!";
+    act.innerHTML=(p?'<button class="hbtn" type="button" id="hView">View profile</button>':'<a class="hbtn" href="'+DCI+'" target="_blank" rel="noopener">Get tested</a>')+'<button class="hbtn gh" type="button" id="hChange">Not you?</button>';
+    if(p&&p.has){
+      var best=null;for(var k in p.tiers)if(best==null||p.tiers[k]<p.tiers[best])best=k;
+      st.innerHTML='<div><small>Overall</small><b>#'+(rk.indexOf(p)+1)+'</b></div><div><small>Points</small><b>'+p.total+'</b></div>'+(best?'<div><small>Best tier</small><b>'+icon(best)+badge(p.tiers[best])+'</b></div>':'')+'<div><small>Title</small><b style="color:'+titleOf(p.total)[2]+'">'+esc(titleOf(p.total)[0])+'</b></div>';
+    }else st.innerHTML="";
+  }else{
+    hT.innerHTML='Welcome to <em>DiamondTier</em>.';
+    sub.textContent="Check your tiers and where you stand.";
+    act.innerHTML='<form class="hform" id="hForm" autocomplete="off"><input id="hIn" maxlength="16" placeholder="Your Minecraft name" aria-label="Your Minecraft name"><button class="hbtn" type="submit">Find me</button></form>';
+    st.innerHTML='<div><small>Ranked players</small><b>'+rk.length+'</b></div>';
+  }
+  fig.innerHTML=figure(show,"idle",big?250:170)+(!n&&rk[0]?'<span class="cap">#1 Overall</span>':'');
+  fig.onclick=function(){if(show&&show.order<9999)showProfile(show)};fig.style.cursor=show&&show.order<9999?"pointer":"";
+  mountSkins(fig);var pe=fig.querySelector(".pose");if(pe)heroHold(pe);
+  var v=document.getElementById("hView");if(v)v.onclick=function(){showProfile(p)};
+  var c=document.getElementById("hChange");if(c)c.onclick=function(){try{localStorage.removeItem(ME_K)}catch(e){}heroRender();var i=document.getElementById("hIn");if(i)i.focus()};
+  var f=document.getElementById("hForm");if(f)f.onsubmit=function(e){e.preventDefault();var x=document.getElementById("hIn").value.trim();if(!/^[A-Za-z0-9_]{2,16}$/.test(x))return;var q=findMain(x);try{localStorage.setItem(ME_K,q?q.name:x)}catch(e2){}heroRender()};
+}
+function cardsRender(){
+  var g=document.getElementById("ptGrid");if(!g)return;
+  g.innerHTML=TIERS.map(function(t,i){return '<div>'+badge(i)+'<small>'+PTS[i]+'</small></div>'}).join("");
+  document.getElementById("ttlList").innerHTML=TITLES.slice(0,6).map(function(t){return '<div>'+gemSvg(t[2])+'<span style="color:'+t[2]+'">'+esc(t[0])+'</span><small>'+t[1]+'+ pts</small></div>'}).join("");
+  var rk=rankedMain().slice(0,5),lb=document.getElementById("miniLb");
+  lb.innerHTML=rk.length?rk.map(function(p,i){return '<button type="button" class="r'+(i+1)+'" data-n="'+esc(p.name)+'"><i>'+(i+1)+'</i>'+figure(p,"head",26)+'<span>'+esc(p.name)+'</span><u>'+p.total+' pts</u></button>'}).join(""):'<div class="lvempty">No players yet</div>';
+  [].forEach.call(lb.querySelectorAll("button"),function(b){b.onclick=function(){showProfile(findMain(b.dataset.n))}});
+  mountSkins(lb);
+  var ec=document.getElementById("exCount");if(ec)ec.textContent=rankedMain().length+" ranked players";
+  var tt=document.getElementById("exTest");if(tt&&window.__testers&&window.__testers.length)tt.textContent=window.__testers.length+" testers";
+  ["exModIc","exModIc2"].forEach(function(id,k){var e=document.getElementById(id);if(e)e.innerHTML=ICONS[k?"crystal":"sword"]||""});
+}
+function ago(ms){var s=Math.max(0,(Date.now()-ms)/1000);if(s<60)return"just now";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";var d=Math.floor(s/86400);return d<30?d+"d ago":new Date(ms).toLocaleDateString()}
+function liveRender(){
+  var box=document.getElementById("liveList");if(!box)return;
+  var list=(window.__recent||[]).slice(0,10);
+  if(!list.length){box.innerHTML='<div class="lvempty">No results yet. New tier results show up here as soon as a tester posts them.</div>';return}
+  box.innerHTML=list.map(function(r,i){
+    var to=r.to?TIERS.indexOf(String(r.to).toUpperCase()):-1,fr=r.from?TIERS.indexOf(String(r.from).toUpperCase()):-1;
+    var cls=fr<0?"nw":to<0||to>fr?"dn":"up",arrow=cls==="up"?"▲":cls==="dn"?"▼":"✦";
+    var ml=(MAIN_MODES.filter(function(m){return m[0]===r.mode})[0]||[r.mode,r.mode])[1];
+    var p=findMain(r.name)||stubP(String(r.name||"?"));
+    return '<button type="button" class="lvr '+cls+'" style="animation-delay:'+i*40+'ms" data-n="'+esc(r.name)+'" title="'+(cls==="up"?"Promoted":cls==="dn"?"Demoted":"New tier")+'"><span class="ar">'+arrow+'</span>'
+      +'<span class="nm">'+figure(p,"head",30)+'<b>'+esc(r.name)+'</b>'+regChip(r)+'</span>'
+      +'<span class="lmd">'+icon(r.mode)+esc(ml)+'</span>'
+      +'<span class="ch">'+(fr<0?'<span class="no">Unranked</span>':badge(fr))+'<em>→</em><span class="to">'+(to<0?'<span class="no">Removed</span>':badge(to))+'</span></span>'
+      +'<time>'+(r.at?ago(r.at):"")+'</time></button>';
+  }).join("");
+  [].forEach.call(box.querySelectorAll(".lvr"),function(b){b.onclick=function(){showProfile(findMain(b.dataset.n))}});
+  mountSkins(box);
+}
+function homeRender(list){
+  if(list&&!Array.isArray(list)){if(Array.isArray(list.recent))window.__recent=list.recent;if(Array.isArray(list.staff))window.__staff=list.staff;if(Array.isArray(list.testers))window.__testers=list.testers.filter(function(t){return t&&t.tests>0})}
+  heroRender();cardsRender();liveRender();staffTile();if(typeof curView!=="undefined"&&curView==="vStaff")staffRender();
+}
+/* ---------- More menu ---------- */
+function closeMore(){var m=document.getElementById("moreWrap");if(m){m.classList.remove("open");document.getElementById("moreBtn").setAttribute("aria-expanded","false")}}
+(function(){var w=document.getElementById("moreWrap"),b=document.getElementById("moreBtn");if(!w)return;
+  b.onclick=function(e){e.stopPropagation();var o=!w.classList.contains("open");w.classList.toggle("open",o);b.setAttribute("aria-expanded",String(o))};
+  document.addEventListener("click",function(e){if(!w.contains(e.target))closeMore()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeMore()});
+})();
+/* ---------- Downloads ---------- */
+var MOD_LINK="https://www.curseforge.com/minecraft/search?search=Diamond%20TierTagger"; /* put the CurseForge project link here */
+function dlRender(){
+  var a=document.getElementById("dlLink");if(!a)return;a.href=MOD_LINK;
+  var ic=document.getElementById("dlTagIc");if(ic&&!ic.innerHTML)ic.innerHTML=ICONS.sword||"";
+  var f=document.getElementById("dlFig");if(f&&!f.innerHTML){f.innerHTML=figure(stubP("Steve"),"idle",window.innerWidth>760?220:180)}
+  var e=document.getElementById("dlEsc");if(e&&!e.innerHTML)e.innerHTML=[["sword","HT1"],["crystal","LT2"],["mace","HT3"],["diapot","LT4"]].map(function(x){return '<div>'+icon(x[0])+badge(TIERS.indexOf(x[1]))+'</div>'}).join("");
+}
+/* ---------- Staff ---------- */
+var ROLEC={Owner:"#ff5c7a",Developer:"#b07aff",Manager:"#ff9f0a",Admin:"#ffc61a",Moderator:"#4f8cff",Tester:"#2fd47a",Helper:"#46e6ff",Builder:"#e0924f"};
+var SHIELD='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" fill="currentColor"/></svg>';
+function okUrl(u){return /^https:\/\/(cdn|media)\.discordapp\.(com|net)\//.test(String(u||""))}
+function staffRender(){
+  var g=document.getElementById("staffGrid"),list=window.__staff||[];if(!g)return;
+  if(!list.length){g.innerHTML='<div class="lvempty">Staff will show up here soon.</div>';return}
+  g.innerHTML=list.map(function(m,i){
+    var c=ROLEC[m.role]||"#46e6ff",bn=okUrl(m.banner)?'background-image:url('+esc(m.banner)+')':'background:'+(/^#[0-9a-f]{6}$/i.test(m.color||"")?m.color:"linear-gradient(135deg,#14235e,#1d3a8a)");
+    var jd=m.joined?new Date(m.joined).toLocaleDateString(undefined,{month:"short",year:"numeric"}):"";
+    return '<div class="sc" style="--rc:'+c+';animation-delay:'+i*50+'ms"><div class="sbn" style="'+bn+'"></div><div class="sav">'+(okUrl(m.avatar)?'<img src="'+esc(m.avatar)+'" alt="" loading="lazy" onerror="this.outerHTML=\'<b>'+esc(String(m.name||"?").charAt(0))+'</b>\'">':'<b>'+esc(String(m.name||"?").charAt(0))+'</b>')+(m.ign?figure(stubP(m.ign),"head",26):'')+'</div>'
+      +'<div class="sbd"><div class="snm"><b>'+esc(m.name||m.username)+'</b><small>@'+esc(m.username||"")+'</small></div><div class="srl">'+SHIELD+esc(m.role||"Staff")+'</div><p'+(m.bio?'':' class="nb"')+'>'+esc(m.bio||"No bio yet.")+'</p></div>'
+      +'<div class="sft"><span>'+(jd?"Joined "+esc(jd):"")+'</span>'+(m.ign?'<span class="sig">'+figure(stubP(m.ign),"head",16)+esc(m.ign)+'</span>':'')+'</div></div>';
+  }).join("");
+  mountSkins(g);
+}
+function staffTile(){
+  var e=document.getElementById("exStaff"),n=document.getElementById("exStaffN"),list=(window.__staff||[]).filter(function(m){return okUrl(m.avatar)}).slice(0,4);if(!e)return;
+  e.innerHTML=list.length?list.map(function(m){return '<img src="'+esc(m.avatar)+'" alt="" loading="lazy">'}).join(""):'<i></i><i></i><i></i>';
+  if(n&&(window.__staff||[]).length)n.textContent=window.__staff.length+" staff members";
+}
+homeRender();
+/* live: check for new results every 45 seconds while the home page is open */
+setInterval(function(){
+  if(document.hidden||curView!=="vHome")return;
+  fetch("/api/recent",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){
+    if(!j||!Array.isArray(j.results))return;
+    if(JSON.stringify(j.results)!==JSON.stringify(window.__recent||[])){window.__recent=j.results;liveRender()}
+  }).catch(function(){});
+},45000);
+setInterval(function(){if(!document.hidden&&curView==="vHome")[].forEach.call(document.querySelectorAll(".lvr time"),function(t,i){var r=(window.__recent||[])[i];if(r&&r.at)t.textContent=ago(r.at)})},30000);
+
 fillPod();var podW=window.innerWidth;window.addEventListener("resize",function(){if(window.innerWidth!==podW){podW=window.innerWidth;fillPod()}});
 /* ---------- AI chat ---------- */
 (function(){
@@ -1511,15 +1833,15 @@ document.getElementById("spLink").onclick=function(e){
 };
 var curView="",curKey="",subOpen=false;
 function route(force){
-  var h=(location.hash||"").replace("#","").toLowerCase(),v=(h==="tierlist"||h==="subtiers")?"vTier":h==="tournaments"?"vTour":h==="mod"?"vMod":h==="ai"?"vAI":h==="testers"?"vTest":h==="signup"?"vWip":"vHome",key=v==="vTier"?h:v;
+  var h=(location.hash||"").replace("#","").toLowerCase(),v=(h==="tierlist"||h==="subtiers")?"vTier":h==="tournaments"?"vTour":(h==="mod"||h==="downloads")?"vDl":h==="staff"?"vStaff":h==="ai"?"vAI":h==="testers"?"vTest":h==="signup"?"vWip":"vHome",key=v==="vTier"?h:v;
   if(key===curKey&&!force)return;
   var changed=key!==curKey;curKey=key;curView=v;
   if(v==="vTier")setSection(h==="subtiers"?"sub":"main");
   document.getElementById("subNote").hidden=!(v==="vTier"&&sect==="sub"&&!subOpen);
   [].forEach.call(document.querySelectorAll(".hsec"),function(s){s.hidden=v!=="vHome"});
-  ["vHome","vTour","vTier","vMod","vAI","vTest","vWip"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
+  ["vHome","vTour","vTier","vDl","vStaff","vAI","vTest","vWip"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
   var el=document.getElementById(v);void el.offsetWidth;if(changed)el.classList.add("enter");
-  document.getElementById("home2").classList.toggle("on",v==="vHome");
+  document.getElementById("home2").classList.toggle("on",v==="vHome");document.getElementById("moreBtn").classList.toggle("on",/^(vTest|vStaff|vDl|vTour)$/.test(v));closeMore();if(v==="vDl")dlRender();if(v==="vStaff")staffRender();
   if(v==="vTier")render();if(v==="vTour")renderTours();
   if(changed)window.scrollTo(0,0);
 }
