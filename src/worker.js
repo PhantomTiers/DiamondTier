@@ -76,6 +76,8 @@ function build(players, base) {
   result.display = OV.display || {};
   result.news = OV.news || [];
   result.testers = Array.isArray(base.testers) ? base.testers : [];   // saved by the Discord bot
+  result.staff = Array.isArray(base.staff) ? base.staff : [];   // staff page, saved by the bot's /staff command
+  result.recent = Array.isArray(base.recent) ? base.recent.slice(0, 10) : [];   // live results, newest first (saved by the bot)
   return result;
 }
 
@@ -582,6 +584,18 @@ export default {
     if (url.pathname === "/api/skin") return skinApi(url, ctx, env);
     if (url.pathname === "/api/skins") return skinsApi(url, ctx, env);
     if (url.pathname === "/api/chat") return chat(request, env, url);
+    // /api/staff : the staff page list
+    if (url.pathname === "/api/staff") {
+      const d = await loadData(env, url);
+      const list = (d.obj && d.obj.staff) || [];
+      return new Response(JSON.stringify({ count: list.length, staff: list }), { headers: HEADERS });
+    }
+    // /api/recent : the last 10 results (live results feed), newest first
+    if (url.pathname === "/api/recent") {
+      const d = await loadData(env, url);
+      const list = (d.obj && d.obj.recent) || [];
+      return new Response(JSON.stringify({ count: list.length, results: list }), { headers: HEADERS });
+    }
     // /api/testers : tester leaderboard (most tests first), saved by the Discord bot with each /results
     if (url.pathname === "/api/testers" || url.pathname === "/api/testers/txt") {
       const d = await loadData(env, url);
