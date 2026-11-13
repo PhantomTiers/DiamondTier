@@ -204,7 +204,18 @@ small{display:block;margin-top:26px;text-align:center;color:var(--muted);font-si
 
 /* ---------- home hub + tournaments ---------- */
 .view[hidden]{display:none}
-.view.enter{animation:swapin .5s cubic-bezier(.2,.9,.3,1) both}
+.view.enter{animation:none}
+/* slide-up when switching sections: each block rises in, one after another */
+@keyframes slideup{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
+.view.enter>*,.view.enter>*>*,.view.enter .stg>.sc,.view.enter .exg>.hc,.view.enter .faq>details{animation:slideup .6s cubic-bezier(.2,.85,.25,1) both}
+.view.enter>*>*:nth-child(2){animation-delay:.07s}.view.enter>*>*:nth-child(3){animation-delay:.14s}.view.enter>*>*:nth-child(4){animation-delay:.21s}.view.enter>*>*:nth-child(5){animation-delay:.28s}.view.enter>*>*:nth-child(n+6){animation-delay:.33s}
+.view.enter>*:nth-child(2){animation-delay:.08s}.view.enter>*:nth-child(3){animation-delay:.16s}.view.enter>*:nth-child(4){animation-delay:.24s}.view.enter>*:nth-child(n+5){animation-delay:.3s}
+.view.enter .stg>.sc:nth-child(1),.view.enter .exg>.hc:nth-child(1),.view.enter .faq>details:nth-child(1){animation-delay:.2s}
+.view.enter .stg>.sc:nth-child(2),.view.enter .exg>.hc:nth-child(2),.view.enter .faq>details:nth-child(2){animation-delay:.27s}
+.view.enter .stg>.sc:nth-child(3),.view.enter .exg>.hc:nth-child(3),.view.enter .faq>details:nth-child(3){animation-delay:.34s}
+.view.enter .stg>.sc:nth-child(4),.view.enter .exg>.hc:nth-child(4),.view.enter .faq>details:nth-child(4){animation-delay:.41s}
+.view.enter .stg>.sc:nth-child(n+5),.view.enter .exg>.hc:nth-child(n+5),.view.enter .faq>details:nth-child(n+5){animation-delay:.48s}
+body.rm .view.enter *{animation:none!important}
 .modp{max-width:560px;margin:40px auto 0;padding:34px 26px;text-align:center;border:1px solid var(--line);border-radius:18px;background:rgba(22,36,86,.85)}
 .modp svg{width:64px;height:64px;color:var(--gold);filter:drop-shadow(0 0 14px rgba(255,198,26,.45))}
 .modp h2{margin:14px 0 8px;font:700 34px var(--px);color:#fff}
@@ -1780,7 +1791,7 @@ function staffRender(){
   var g=document.getElementById("staffGrid"),list=window.__staff||[];if(!g)return;
   if(!list.length){g.innerHTML='<div class="lvempty">Staff will show up here soon.</div>';return}
   g.innerHTML=list.map(function(m,i){
-    var c=ROLEC[m.role]||"#46e6ff",bn=okUrl(m.banner)?'background-image:url('+esc(m.banner)+')':'background:'+(/^#[0-9a-f]{6}$/i.test(m.color||"")?m.color:"linear-gradient(135deg,#14235e,#1d3a8a)");
+    var c=ROLEC[m.role]||"#46e6ff",bn=okUrl(m.banner)?'background-image:url('+esc(m.banner)+')':'background:'+(/^#[0-9a-f]{6}$/i.test(m.color||"")?m.color:"linear-gradient(135deg,color-mix(in srgb,var(--cy) 30%,#0a0a0a),color-mix(in srgb,var(--cy) 10%,#0a0a0a))");
     var jd=m.joined?new Date(m.joined).toLocaleDateString(undefined,{month:"short",year:"numeric"}):"";
     return '<div class="sc" style="--rc:'+c+';animation-delay:'+i*50+'ms"><div class="sbn" style="'+bn+'"></div><div class="sav">'+(okUrl(m.avatar)?'<img src="'+esc(m.avatar)+'" alt="" loading="lazy" onerror="this.outerHTML=\'<b>'+esc(String(m.name||"?").charAt(0))+'</b>\'">':'<b>'+esc(String(m.name||"?").charAt(0))+'</b>')+(m.ign?figure(stubP(m.ign),"head",26):'')+'</div>'
       +'<div class="sbd"><div class="snm"><b>'+esc(m.name||m.username)+'</b><small>@'+esc(m.username||"")+'</small></div><div class="srl">'+SHIELD+esc(m.role||"Staff")+'</div><p'+(m.bio?'':' class="nb"')+'>'+esc(m.bio||"No bio yet.")+'</p></div>'
@@ -1840,7 +1851,7 @@ function route(force){
   document.getElementById("subNote").hidden=!(v==="vTier"&&sect==="sub"&&!subOpen);
   [].forEach.call(document.querySelectorAll(".hsec"),function(s){s.hidden=v!=="vHome"});
   ["vHome","vTour","vTier","vDl","vStaff","vAI","vTest","vWip"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
-  var el=document.getElementById(v);void el.offsetWidth;if(changed)el.classList.add("enter");
+  var el=document.getElementById(v);void el.offsetWidth;if(changed){el.classList.add("enter");clearTimeout(el._et);el._et=setTimeout(function(){el.classList.remove("enter")},1300)}
   document.getElementById("home2").classList.toggle("on",v==="vHome");document.getElementById("moreBtn").classList.toggle("on",/^(vTest|vStaff|vDl|vTour)$/.test(v));closeMore();if(v==="vDl")dlRender();if(v==="vStaff")staffRender();
   if(v==="vTier")render();if(v==="vTour")renderTours();
   if(changed)window.scrollTo(0,0);
