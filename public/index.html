@@ -635,9 +635,10 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 .sav>img,.sav>b{display:grid;place-items:center;width:76px;height:76px;border-radius:50%;object-fit:cover;border:4px solid #182659;background:#24357a;color:#fff;font:700 30px var(--px)}
 .sav .hd{position:absolute;right:-4px;bottom:-2px;border-radius:50%;overflow:hidden;border:3px solid #182659;background:#182659}
 .sbd{padding:10px 18px 0;flex:1}
-.snm{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}.snm b{color:#fff;font:700 20px var(--px)}.snm small{color:var(--muted);font:600 13px var(--b)}
+.snm{display:flex;flex-direction:column;gap:1px}.snm b{line-height:1.2}.snm b{color:#fff;font:700 20px var(--px)}.snm small{color:var(--muted);font:600 13px var(--b)}
 .srl{display:flex;align-items:center;gap:5px;margin-top:2px;color:var(--rc);font:700 14px var(--px)}.srl svg{width:14px;height:14px}
-.sbd p{margin:12px 0 16px;color:#c3cbe6;font:500 14px/1.5 var(--b)}.sbd p.nb{color:var(--muted)}
+.srls{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.srls span{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#e6e8ef;font:700 12px var(--b)}.srls i{width:10px;height:10px;border-radius:50%;background:var(--d);box-shadow:0 0 6px var(--d)}
+.sbd p{white-space:pre-line;margin:12px 0 16px;color:#c3cbe6;font:500 14px/1.5 var(--b)}.sbd p.nb{color:var(--muted)}
 .sft{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 18px;padding:12px 0 14px;border-top:1px solid var(--line);color:var(--muted);font:600 12px var(--b)}
 .sig{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.06);color:#dfe6fb}
 .hc-staff .bg{background:radial-gradient(70% 90% at 78% 40%,rgba(255,170,190,.5),transparent 65%),linear-gradient(135deg,#7a1a4a 0%,#c23a6a 55%,#ff7a8a 100%)}
@@ -649,6 +650,9 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
   .avs img,.avs i{width:52px;height:52px}}
 .nav{z-index:40}
 .dls small,.dls b,.dls span{text-align:left!important}
+.snm small{display:block;text-align:left!important;margin:0!important}
+@media (max-width:480px){#home2 svg{display:none}#moreBtn .chv{width:13px;height:13px}.nav .in{grid-template-columns:auto 1fr auto;gap:6px}.nav .logo{justify-self:center}}
+@media (max-width:420px){.nav .in{gap:4px;padding:0 8px}.nav .nr{gap:3px!important}.nav .nr .dc{width:28px!important;height:28px!important}.nav .nr .dc svg{width:16px!important;height:16px!important}.nav .nr .ai b{font-size:12px}.nav .sgnup{height:28px!important;padding:0 6px!important}.nav .sgnup svg{width:15px;height:15px}.nav .logo{height:34px}.nl .lk{font-size:13.5px}}
 @media (max-width:420px){.nr{gap:4px}.nl{gap:9px}.nav .in{padding:0 8px}.nr .dc{width:31px;height:31px}.nr .dc svg{width:17px;height:17px}.sgnup{height:31px;padding:0 7px}.nl .lk{font-size:14px}.nl .lk svg{width:13px;height:13px}}
 </style>
 </head>
@@ -1784,25 +1788,37 @@ function dlRender(){
   var e=document.getElementById("dlEsc");if(e&&!e.innerHTML)e.innerHTML=[["sword","HT1"],["crystal","LT2"],["mace","HT3"],["diapot","LT4"]].map(function(x){return '<div>'+icon(x[0])+badge(TIERS.indexOf(x[1]))+'</div>'}).join("");
 }
 /* ---------- Staff ---------- */
+/* staff page: shown until the bot saves its own list (players.json "staff"). Pictures are in public/staff/ */
+var RC={"Network Owner":"#e8453c","Co owner":"#f4a7c0","Developer":"#5fd4f0","Head Administrator":"#b8321e","Seniorest Admin":"#ff8c1a","Senior Admin":"#f5c518","Jr. Admin":"#f0a020","Master Tester":"#2fd47a","Verified Tester":"#3ddc84","Intermediate Tester":"#9be15d","Tester":"#3ddc84"};
+var STAFF0=[
+ {name:"Lineage (GOATED DEV AND OWNER)",username:"lucilferxdd",roles:["Network Owner","Master Tester"],bio:"Loving Machine",ign:"oLineage",avatar:"staff/lineage.png",banner:"staff/lineage-banner.jpg"},
+ {name:"DEXTER || Owner",username:"ptsd._dexter",roles:["Network Owner","Co owner","Developer"],bio:"Owner of DiamondTier\nJoin NOW- https://discord.gg/X762fMXnMq\ndihxter",avatar:"staff/dexter.png",color:"#6b1313"},
+ {name:"@ for Help? ItzRealSasuke",username:"itzrealsasukee",roles:["Network Owner","Developer","Senior Admin"],bio:"🇵🇭\nOwner of DiamondTierlist\nJoin Now! Its cracked...",avatar:"staff/sasuke.png",color:"#2c02fe"},
+ {name:"ItsClifins || Head.Admin",username:"clifinsxgod",roles:["Head Administrator","Seniorest Admin"],avatar:"staff/clifins.png",color:"#0697c7"},
+ {name:"The honoured one",username:"rnicknametheog",roles:["Senior Admin"],bio:"Adhd, ocd, and every debuff in the game\nSupport me on Modrinth!",ign:"rNickname",avatar:"staff/rnickname.png",color:"#ded1d2"},
+ {name:"sap (🗡️ rlt2)",username:"sapstruth",roles:["Jr. Admin","Verified Tester","Tester"],ign:"sapstruth",avatar:"staff/sap.png",color:"#000000"},
+ {name:"@ for q | Crifies",username:"crifies",roles:["Jr. Admin","Intermediate Tester"],bio:"Crifies!\nTester at Diamond TL...",ign:"Crifies",avatar:"staff/crifies.png",banner:"staff/crifies-banner.jpg"}
+];
+function staffList(){return window.__staff&&window.__staff.length?window.__staff:STAFF0}
 var ROLEC={Owner:"#ff5c7a",Developer:"#b07aff",Manager:"#ff9f0a",Admin:"#ffc61a",Moderator:"#4f8cff",Tester:"#2fd47a",Helper:"#46e6ff",Builder:"#e0924f"};
 var SHIELD='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" fill="currentColor"/></svg>';
-function okUrl(u){return /^https:\/\/(cdn|media)\.discordapp\.(com|net)\//.test(String(u||""))}
+function okUrl(u){return /^(https:\/\/(cdn|media)\.discordapp\.(com|net)\/|staff\/[\w.-]+$)/.test(String(u||""))}
 function staffRender(){
-  var g=document.getElementById("staffGrid"),list=window.__staff||[];if(!g)return;
+  var g=document.getElementById("staffGrid"),list=staffList();if(!g)return;
   if(!list.length){g.innerHTML='<div class="lvempty">Staff will show up here soon.</div>';return}
   g.innerHTML=list.map(function(m,i){
-    var c=ROLEC[m.role]||"#46e6ff",bn=okUrl(m.banner)?'background-image:url('+esc(m.banner)+')':'background:'+(/^#[0-9a-f]{6}$/i.test(m.color||"")?m.color:"linear-gradient(135deg,color-mix(in srgb,var(--cy) 30%,#0a0a0a),color-mix(in srgb,var(--cy) 10%,#0a0a0a))");
+    var c=ROLEC[m.role]||"#46e6ff",bn=okUrl(m.banner)?'background-image:url('+esc(m.banner)+');background-position:center 40%':'background:'+(/^#[0-9a-f]{6}$/i.test(m.color||"")?m.color:"linear-gradient(135deg,color-mix(in srgb,var(--cy) 30%,#0a0a0a),color-mix(in srgb,var(--cy) 10%,#0a0a0a))");
     var jd=m.joined?new Date(m.joined).toLocaleDateString(undefined,{month:"short",year:"numeric"}):"";
     return '<div class="sc" style="--rc:'+c+';animation-delay:'+i*50+'ms"><div class="sbn" style="'+bn+'"></div><div class="sav">'+(okUrl(m.avatar)?'<img src="'+esc(m.avatar)+'" alt="" loading="lazy" onerror="this.outerHTML=\'<b>'+esc(String(m.name||"?").charAt(0))+'</b>\'">':'<b>'+esc(String(m.name||"?").charAt(0))+'</b>')+(m.ign?figure(stubP(m.ign),"head",26):'')+'</div>'
-      +'<div class="sbd"><div class="snm"><b>'+esc(m.name||m.username)+'</b><small>@'+esc(m.username||"")+'</small></div><div class="srl">'+SHIELD+esc(m.role||"Staff")+'</div><p'+(m.bio?'':' class="nb"')+'>'+esc(m.bio||"No bio yet.")+'</p></div>'
-      +'<div class="sft"><span>'+(jd?"Joined "+esc(jd):"")+'</span>'+(m.ign?'<span class="sig">'+figure(stubP(m.ign),"head",16)+esc(m.ign)+'</span>':'')+'</div></div>';
+      +'<div class="sbd"><div class="snm"><b>'+esc(m.name||m.username)+'</b><small>@'+esc(m.username||"")+'</small></div><div class="srls">'+(m.roles||[m.role||"Staff"]).map(function(r){return '<span style="--d:'+(RC[r]||ROLEC[r]||"#9aa3b8")+'"><i></i>'+esc(r)+'</span>'}).join("")+'</div><p'+(m.bio?'':' class="nb"')+'>'+esc(m.bio||"No bio yet.")+'</p></div>'
+      +((jd||m.ign)?'<div class="sft"><span>'+(jd?"Joined "+esc(jd):"")+'</span>'+(m.ign?'<span class="sig">'+figure(stubP(m.ign),"head",16)+esc(m.ign)+'</span>':'')+'</div>':'')+'</div>';
   }).join("");
   mountSkins(g);
 }
 function staffTile(){
-  var e=document.getElementById("exStaff"),n=document.getElementById("exStaffN"),list=(window.__staff||[]).filter(function(m){return okUrl(m.avatar)}).slice(0,4);if(!e)return;
+  var e=document.getElementById("exStaff"),n=document.getElementById("exStaffN"),list=staffList().filter(function(m){return okUrl(m.avatar)}).slice(0,4);if(!e)return;
   e.innerHTML=list.length?list.map(function(m){return '<img src="'+esc(m.avatar)+'" alt="" loading="lazy">'}).join(""):'<i></i><i></i><i></i>';
-  if(n&&(window.__staff||[]).length)n.textContent=window.__staff.length+" staff members";
+  if(n&&staffList().length)n.textContent=staffList().length+" staff members";
 }
 homeRender();
 /* live: check for new results every 45 seconds while the home page is open */
