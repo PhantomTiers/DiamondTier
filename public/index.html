@@ -796,7 +796,7 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 
 <script>
 /* ---- settings ---- */
-var DS={vol:100,fx:1,rm:0,sky:1,acc:"diamond",dens:"normal",wid:"narrow",cols:1,fs:"m"};
+var DS={vol:100,fx:1,rm:0,sky:1,acc:"blackgold",dens:"normal",wid:"narrow",cols:1,fs:"m"};
 var DS0=JSON.parse(JSON.stringify(DS));
 var PRE={
   diamond:{n:"Diamond Blue",h:190,hb:225,s:1,l:1,as:1,c:"#46e6ff"},
@@ -814,7 +814,7 @@ var PRE={
 };
 var BG0=["#1d2f6e","#121f4d"];
 function sLoad(){try{var o=JSON.parse(localStorage.getItem("dtset")||"{}");for(var k in o)if(k in DS)DS[k]=o[k]}catch(e){}
-  if(!PRE[DS.acc])DS.acc="diamond"}
+  if(!PRE[DS.acc])DS.acc="blackgold"}
 function sSave(){try{localStorage.setItem("dtset",JSON.stringify(DS))}catch(e){}}
 function volGain(){var v=Math.max(0,Math.min(100,+DS.vol||0))/100;return v*v}
 
