@@ -684,7 +684,6 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
     <div class="hcard hk2"><span class="hck">Climb ranks</span><h4>Points unlock titles</h4><div class="ttl3" id="ttlList"></div></div>
     <div class="hcard hk3"><span class="hck">Leaderboard</span><h4>Top players</h4><div class="mlb" id="miniLb"></div><a class="hcb" href="#tierlist">Full rankings</a></div>
   </div>
-  <section class="live" id="liveSec"><div class="lvh"><h2>Live Results</h2><span class="lvd"><i></i>LIVE</span><small>Last 10 tier results</small></div><div class="lvl" id="liveList"></div></section>
   <section class="exs"><h2>Explore</h2><div class="exg">
   <a class="hc hc-tier s4" href="#tierlist"><div class="bg"></div><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 7.5 7.5 12 12 4.5 16.5 12l5-4.5L19.5 19h-15z"/><rect x="5" y="20" width="14" height="2" rx="1"/></svg><h3>Rankings</h3><p id="exCount">Check your ranking</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   <a class="hc hc-test s2" href="#testers"><div class="bg"></div><div class="art"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="128" cy="92" r="84" fill="rgba(255,255,255,.16)"/><g class="fl"><path d="M128 30 178 50v40c0 34-22 58-50 70-28-12-50-36-50-70V50z" fill="rgba(255,255,255,.92)"/><path d="M128 44 164 58v32c0 25-16 44-36 54-20-10-36-29-36-54V58z" fill="#16a3b8"/><path d="m108 92 14 14 28-30" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg><h3>Testers</h3><p id="exTest">Meet the testers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -1750,27 +1749,9 @@ function cardsRender(){
   ["exModIc","exModIc2"].forEach(function(id,k){var e=document.getElementById(id);if(e)e.innerHTML=ICONS[k?"crystal":"sword"]||""});
 }
 function ago(ms){var s=Math.max(0,(Date.now()-ms)/1000);if(s<60)return"just now";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";var d=Math.floor(s/86400);return d<30?d+"d ago":new Date(ms).toLocaleDateString()}
-function liveRender(){
-  var box=document.getElementById("liveList");if(!box)return;
-  var list=(window.__recent||[]).slice(0,10);
-  if(!list.length){box.innerHTML='<div class="lvempty">No results yet. New tier results show up here as soon as a tester posts them.</div>';return}
-  box.innerHTML=list.map(function(r,i){
-    var to=r.to?TIERS.indexOf(String(r.to).toUpperCase()):-1,fr=r.from?TIERS.indexOf(String(r.from).toUpperCase()):-1;
-    var cls=fr<0?"nw":to<0||to>fr?"dn":"up",arrow=cls==="up"?"▲":cls==="dn"?"▼":"✦";
-    var ml=(MAIN_MODES.filter(function(m){return m[0]===r.mode})[0]||[r.mode,r.mode])[1];
-    var p=findMain(r.name)||stubP(String(r.name||"?"));
-    return '<button type="button" class="lvr '+cls+'" style="animation-delay:'+i*40+'ms" data-n="'+esc(r.name)+'" title="'+(cls==="up"?"Promoted":cls==="dn"?"Demoted":"New tier")+'"><span class="ar">'+arrow+'</span>'
-      +'<span class="nm">'+figure(p,"head",30)+'<b>'+esc(r.name)+'</b>'+regChip(r)+'</span>'
-      +'<span class="lmd">'+icon(r.mode)+esc(ml)+'</span>'
-      +'<span class="ch">'+(fr<0?'<span class="no">Unranked</span>':badge(fr))+'<em>→</em><span class="to">'+(to<0?'<span class="no">Removed</span>':badge(to))+'</span></span>'
-      +'<time>'+(r.at?ago(r.at):"")+'</time></button>';
-  }).join("");
-  [].forEach.call(box.querySelectorAll(".lvr"),function(b){b.onclick=function(){showProfile(findMain(b.dataset.n))}});
-  mountSkins(box);
-}
 function homeRender(list){
-  if(list&&!Array.isArray(list)){if(Array.isArray(list.recent))window.__recent=list.recent;if(Array.isArray(list.staff))window.__staff=list.staff;if(Array.isArray(list.testers))window.__testers=list.testers.filter(function(t){return t&&t.tests>0})}
-  heroRender();cardsRender();liveRender();staffTile();if(typeof curView!=="undefined"&&curView==="vStaff")staffRender();
+  if(list&&!Array.isArray(list)){if(Array.isArray(list.staff))window.__staff=list.staff;if(Array.isArray(list.testers))window.__testers=list.testers.filter(function(t){return t&&t.tests>0})}
+  heroRender();cardsRender();staffTile();if(typeof curView!=="undefined"&&curView==="vStaff")staffRender();
 }
 /* ---------- More menu ---------- */
 function closeMore(){var m=document.getElementById("moreWrap");if(m){m.classList.remove("open");document.getElementById("moreBtn").setAttribute("aria-expanded","false")}}
@@ -1821,15 +1802,7 @@ function staffTile(){
   if(n&&staffList().length)n.textContent=staffList().length+" staff members";
 }
 homeRender();
-/* live: check for new results every 45 seconds while the home page is open */
-setInterval(function(){
-  if(document.hidden||curView!=="vHome")return;
-  fetch("/api/recent",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){
-    if(!j||!Array.isArray(j.results))return;
-    if(JSON.stringify(j.results)!==JSON.stringify(window.__recent||[])){window.__recent=j.results;liveRender()}
-  }).catch(function(){});
-},45000);
-setInterval(function(){if(!document.hidden&&curView==="vHome")[].forEach.call(document.querySelectorAll(".lvr time"),function(t,i){var r=(window.__recent||[])[i];if(r&&r.at)t.textContent=ago(r.at)})},30000);
+
 
 fillPod();var podW=window.innerWidth;window.addEventListener("resize",function(){if(window.innerWidth!==podW){podW=window.innerWidth;fillPod()}});
 /* ---------- AI chat ---------- */
