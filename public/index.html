@@ -375,8 +375,8 @@ body.rm .view.enter *{animation:none!important}
 .rg.rAS{background:rgba(255,198,26,.18);color:#ffd23f;box-shadow:inset 0 0 0 1px rgba(255,198,26,.5)}
 .pod .pt{white-space:nowrap}@media(max-width:560px){.pod .rg{margin-right:4px;padding:2px 5px;font-size:10px}.pod .pt{font-size:11px}}
 .ptag.chud{color:#fff;box-shadow:0 0 14px rgba(176,122,69,.5)}
-.sgnup{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:9px;border:1px solid #6fc2ff;border-bottom-color:#0b3a9a;background:linear-gradient(180deg,#3fa9ff 0%,#1a6dff 55%,#0f4fd6 100%);color:#fff;font:700 15px var(--px);text-decoration:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 0 #0a3590,0 8px 20px rgba(26,109,255,.5);transition:transform .15s,filter .2s}
-.sgnup svg{width:20px;height:20px;flex:none}.sgnup:hover{filter:brightness(1.12);transform:translateY(-1px)}.sgnup:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 2px 0 #0a3590}
+.sgnup{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:9px;border:1px solid #6fc2ff;border-bottom-color:#0b3a9a;background:linear-gradient(180deg,#3fa9ff 0%,#1a6dff 55%,#0f4fd6 100%);color:#fff;font:700 15px var(--px);text-decoration:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.18),0 4px 14px rgba(26,109,255,.35);transition:transform .15s,filter .2s}
+.sgnup svg{width:20px;height:20px;flex:none}.sgnup:hover{filter:brightness(1.12);transform:translateY(-1px)}.sgnup:active{transform:translateY(1px)}
 @media (max-width:640px){.sgnup{height:34px;padding:0 10px;gap:5px;font-size:13px}.sgnup svg{width:16px;height:16px}}
 @media (max-width:420px){.sgnup span{display:none}.sgnup{padding:0 9px}}
 .cautn{position:relative;overflow:hidden;background:#ffd21a;color:#111;font:700 22px var(--px);letter-spacing:.14em;white-space:nowrap;border-block:9px solid transparent;border-image:repeating-linear-gradient(135deg,#111 0 14px,#ffd21a 14px 28px) 9;box-shadow:0 8px 26px rgba(0,0,0,.45)}
@@ -654,6 +654,146 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 @media (max-width:480px){#home2 svg{display:none}#moreBtn .chv{width:13px;height:13px}.nav .in{grid-template-columns:auto 1fr auto;gap:6px}.nav .logo{justify-self:center}}
 @media (max-width:420px){.nav .in{gap:4px;padding:0 8px}.nav .nr{gap:3px!important}.nav .nr .dc{width:28px!important;height:28px!important}.nav .nr .dc svg{width:16px!important;height:16px!important}.nav .nr .ai b{font-size:12px}.nav .sgnup{height:28px!important;padding:0 6px!important}.nav .sgnup svg{width:15px;height:15px}.nav .logo{height:34px}.nl .lk{font-size:13.5px}}
 @media (max-width:420px){.nr{gap:4px}.nl{gap:9px}.nav .in{padding:0 8px}.nr .dc{width:31px;height:31px}.nr .dc svg{width:17px;height:17px}.sgnup{height:31px;padding:0 7px}.nl .lk{font-size:14px}.nl .lk svg{width:13px;height:13px}}
+
+/* ===== Wintiers-style home ===== */
+.wrap{max-width:1000px}
+.nav{height:60px;margin:6px 0 30px}
+.nav .bar{border-radius:0;border-width:0 0 1px;background:transparent;left:calc(50% - 50vw);right:calc(50% - 50vw)}
+html,body{overflow-x:clip}
+.nav .logo{height:52px}
+.nl .lk.x{display:none}
+@media (min-width:900px){.nl{gap:26px}.nl .lk.x{display:inline-flex}}
+.wt-head{margin:4px 0 26px}
+.wt-k{display:inline-flex;align-items:center;gap:8px;color:#fff;font:700 13px var(--px)}
+.wt-k i{width:8px;height:8px;border-radius:50%;background:#2fd47a;box-shadow:0 0 0 0 rgba(47,212,122,.6);animation:lvp 1.8s infinite}
+@keyframes lvp{70%{box-shadow:0 0 0 7px rgba(47,212,122,0)}100%{box-shadow:0 0 0 0 rgba(47,212,122,0)}}
+.wt-h1{margin:6px 0 8px;font:900 52px/1 var(--px);letter-spacing:-.5px;color:#fff}
+.wt-h1 em{font-style:italic;color:var(--cy);padding-right:6px}
+.wt-sub{margin:0;max-width:460px;color:#aeb5c8;font:500 14.5px/1.55 var(--b)}
+.wt-row{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+/* the welcome card (Wintiers' sign-in card) */
+.wt-me{position:relative;display:grid;grid-template-columns:1fr 190px;align-items:center;min-height:168px;padding:22px 0 22px 26px;border-radius:10px;border:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015)),repeating-conic-gradient(rgba(255,255,255,.025) 0 25%,transparent 0 50%) 0 0/28px 28px,#121418;box-shadow:inset 0 -2px 0 var(--cy)}
+.wt-me h2{margin:0 0 4px;font:800 21px/1.25 var(--px);color:#fff}.wt-me h2 em{font-style:normal;color:var(--cy)}
+.wt-me p{margin:0;color:#aeb5c8;font:500 13.5px/1.5 var(--b)}
+.wt-me .hact{margin-top:14px;gap:8px}
+.wt-me .hbtn{padding:9px 16px;font-size:14px;border-radius:6px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+.wt-me .hbtn.gh{box-shadow:none}
+.wt-me .hform{max-width:300px}.wt-me .hform input{padding:9px 12px;font-size:14px;border-radius:6px}
+.wt-me .hst{margin-top:12px;gap:6px;flex-wrap:nowrap}.wt-me .hst div:nth-child(4){display:none}.wt-me .hst div{padding:5px 9px;border-radius:6px}.wt-me .hst b{font-size:14px}.wt-me .hst small{font-size:9px}
+.wt-me .hfig{height:168px;margin:-40px 0 -22px;align-self:end}
+.wt-me .hfig::before{display:none}.wt-me .hfig .cap{display:none}
+/* card deck */
+.wt-deckw{position:relative}
+.wt-deck{position:relative;height:150px}
+.wt-card{position:absolute;top:0;left:50%;width:min(270px,78%);height:142px;padding:18px 20px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#16181d;box-shadow:0 14px 30px rgba(0,0,0,.45);
+  color:#fff;text-decoration:none;display:flex;flex-direction:column;transform:translateX(-50%);transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s,filter .5s;overflow:hidden}
+.wt-card.l{transform:translateX(-96%) scale(.86);opacity:.45;filter:blur(.4px);z-index:1}
+.wt-card.r{transform:translateX(-4%) scale(.86);opacity:.45;filter:blur(.4px);z-index:1}
+.wt-card.c{z-index:2}
+.wt-ck{color:#8b92a6;font:800 9.5px var(--px);letter-spacing:.16em;text-transform:uppercase}
+.wt-card b{margin-top:4px;font:900 24px/.95 var(--px)}
+.wt-go{margin-top:auto;color:#c8cddb;font:700 11.5px var(--px)}.wt-go i{font-style:normal;color:var(--cy)}
+.wt-cside{position:absolute;right:12px;top:12px;bottom:12px;width:46%;display:flex;align-items:center}
+.wt-pts{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;width:100%;padding:8px;border-radius:7px;background:rgba(0,0,0,.35);font:700 11px var(--px)}
+.wt-pts div{display:flex;align-items:center;justify-content:space-between}.wt-pts .tier{font-size:11px}.wt-pts small{color:#c8cddb;font:700 11px var(--px)}
+.wt-card .mlb{width:100%;margin:0;gap:2px;padding:6px;border-radius:7px;background:rgba(0,0,0,.35)}
+.wt-card .mlb button{padding:2px 4px;font-size:11.5px;gap:6px;pointer-events:none}.wt-card .mlb u{font-size:10.5px}.wt-card .mlb i{width:10px}
+.wt-q{width:100%;padding:8px 10px;border-radius:7px;background:rgba(0,0,0,.35);font:700 11.5px var(--px);color:#dfe3ee}
+.wt-q div{display:flex;align-items:center;gap:6px;padding:2px 0}.wt-q .ic-s{width:16px;height:16px}.wt-q span{margin-left:auto;color:#2fd47a;font-size:10.5px}
+.wt-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.wt-dots button{width:22px;height:3px;padding:0;border:0;border-radius:2px;background:rgba(255,255,255,.18);cursor:pointer}
+.wt-dots button.on{background:#fff}
+/* community banner */
+.wt-comm{position:relative;display:flex;align-items:center;justify-content:space-between;margin:34px 0 0;padding:26px 28px;min-height:100px;border-radius:10px;overflow:hidden;text-decoration:none;color:#fff;
+  border:1px solid rgba(255,255,255,.07);background:linear-gradient(100deg,#121418 35%,#1f2350 100%)}
+.wt-comm::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+.wt-comm h3{margin:0 0 4px;font:800 19px var(--px)}.wt-comm p{margin:0;max-width:330px;color:#aeb5c8;font:500 13px/1.5 var(--b)}
+.wt-comm-art{position:relative;width:330px;height:100px;flex:none}
+.wt-comm-art canvas{position:absolute;image-rendering:pixelated}
+.wt-dlogo{right:40px;top:-12px;width:160px;height:112px;transition:transform .3s;filter:drop-shadow(0 10px 18px rgba(40,50,180,.45))}
+.wt-bub.b1{right:220px;top:10px;width:60px;height:48px}.wt-bub.b2{right:262px;top:52px;width:46px;height:37px}
+.wt-comm:hover .wt-dlogo{transform:translateY(-4px) rotate(-3deg)}
+/* top players + steps */
+.wt-two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
+.wt-h3row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.wt-h3row h3{margin:0;font:800 17px var(--px);color:#fff}
+.wt-more{color:#8b92a6;text-decoration:none;font:700 12px var(--px)}.wt-more:hover{color:#fff}
+.wt-list{display:grid;gap:6px}
+.wt-pr{display:grid;grid-template-columns:22px 34px 1fr auto;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:#121418;border:1px solid rgba(255,255,255,.05);color:#fff;cursor:pointer;text-align:left;font:inherit;width:100%}
+.wt-pr:hover{background:#171a20}
+.wt-pr>i{font:800 13px var(--px);color:#8b92a6;font-style:normal;text-align:center}
+.wt-pr.r1>i{color:var(--gold)}.wt-pr.r2>i{color:var(--iron)}.wt-pr.r3>i{color:var(--cu)}
+.wt-pr .nm{display:flex;flex-direction:column;gap:2px;min-width:0}.wt-pr .nm b,.wt-pr .nm small{margin:0!important;padding:0!important;line-height:1.25!important;text-align:left!important}.wt-pr .nm b{display:block;font:800 14px var(--px)}.wt-pr .nm small{display:flex;align-items:center;gap:5px;color:#8b92a6;font:600 11.5px var(--b)}.wt-pr .nm .ic-s{width:14px;height:14px}
+.wt-pr .tr{display:flex;align-items:center;gap:8px}.wt-pr .tr u{text-decoration:none;color:#8b92a6;font:700 11.5px var(--px)}
+.wt-pr .tier{padding:3px 7px;border-radius:5px;background:#1d2027;font-size:12px}
+.wt-arr{display:flex;gap:6px}.wt-arr button{width:30px;height:30px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:#121418;color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.wt-arr button:hover{background:#1a1d24}
+.wt-steps{position:relative;height:258px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.05);
+  background:repeating-conic-gradient(rgba(255,255,255,.025) 0 25%,transparent 0 50%) 0 0/28px 28px,#121418}
+.wt-step{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(24px);transition:opacity .45s,transform .45s;pointer-events:none}
+.wt-step.on{opacity:1;transform:none;pointer-events:auto}
+.wt-sart{flex:1;display:flex;align-items:center;justify-content:center;padding:14px}
+.wt-stx{padding:0 18px 16px;text-align:left}.wt-stx small,.wt-inv small,.wt-mock>small,.wt-ck{text-align:left!important;margin-left:0!important}.wt-stx small{color:#8b92a6;font:800 9.5px var(--px);letter-spacing:.16em;text-transform:uppercase}
+.wt-stx b{display:block;margin:3px 0 2px;font:900 15px var(--px);color:#fff}.wt-stx p{margin:0;color:#aeb5c8;font:500 12.5px/1.45 var(--b)}
+.wt-inv,.wt-mock{width:220px;padding:12px;border-radius:8px;background:#1a1c22;box-shadow:0 10px 24px rgba(0,0,0,.4);color:#fff}
+.wt-inv small,.wt-mock>small{display:block;margin-bottom:8px;color:#8b92a6;font:800 8.5px var(--px);letter-spacing:.14em;text-transform:uppercase}
+.wt-invr{display:flex;align-items:center;gap:10px;margin-bottom:10px}.wt-invl{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:#0f1013;color:var(--cy);font-size:16px}
+.wt-invr b{display:block;font:800 13px var(--px)}.wt-invr em{display:flex;align-items:center;gap:4px;font-style:normal;color:#aeb5c8;font:600 10px var(--b)}.wt-invr em i{width:6px;height:6px;border-radius:50%;background:#80848e}.wt-invr em i.g{background:#2fd47a}
+.wt-inv a,.wt-btn{display:block;padding:7px;border-radius:4px;background:#248046;color:#fff;text-align:center;text-decoration:none;font:700 12px var(--px)}
+.wt-field{display:flex;justify-content:space-between;gap:8px;padding:6px 8px;margin-bottom:6px;border-radius:5px;background:#0f1013;color:#8b92a6;font:600 11px var(--b)}.wt-field span{color:#fff;font-weight:700}
+.wt-mock .wt-qr{display:flex;align-items:center;gap:6px;padding:5px 7px;margin-bottom:4px;border-radius:5px;background:#0f1013;font:700 11px var(--px)}.wt-mock .wt-qr .ic-s{width:16px;height:16px}.wt-mock .wt-qr span{margin-left:auto;padding:2px 6px;border-radius:4px;background:#2b5fd9;font-size:10px}
+.wt-big{margin:2px 0 10px;font:900 22px var(--px)}
+/* blocky background corners */
+.wt-blocks{position:fixed;left:0;right:0;bottom:0;height:300px;pointer-events:none;z-index:0}
+.wt-blocks canvas{position:absolute;bottom:0;image-rendering:pixelated;opacity:.55}
+.wt-blocks .bl{left:0}.wt-blocks .br{right:0}
+/* footer */
+.wt-foot{position:relative;z-index:1;margin-top:70px;background:#0e0f12;border-top:1px solid rgba(255,255,255,.06)}
+.wt-fin{display:grid;grid-template-columns:1.4fr 1fr 1fr .8fr;gap:30px;max-width:1240px;margin:0 auto;padding:44px 24px 34px}
+.wt-flogo{font:900 22px var(--px);color:#fff}.wt-flogo em{font-style:italic;color:var(--cy)}
+.wt-fb p{margin:10px 0 0;max-width:320px;color:#aeb5c8;font:500 13px/1.55 var(--b)}.wt-fb p b{color:#fff}
+.wt-dc{display:inline-block;margin-top:16px;padding:9px 16px;border-radius:6px;background:#5865f2;color:#fff;text-decoration:none;font:700 13px var(--px);box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+.wt-foot h5{margin:2px 0 12px;color:#8b92a6;font:800 10.5px var(--px);letter-spacing:.14em;text-transform:uppercase}
+.wt-fl2{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}.wt-fl1{display:grid;gap:9px}
+.wt-foot nav a{color:#dfe3ee;text-decoration:none;font:600 13px var(--b)}.wt-foot nav a:hover{color:var(--cy)}
+.wt-fbot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;max-width:1240px;margin:0 auto;padding:14px 24px 22px;border-top:1px solid rgba(255,255,255,.05);color:#8b92a6}
+.wt-fbot small{font:500 11.5px var(--b)}
+@media (max-width:860px){
+  .wt-row,.wt-two{grid-template-columns:1fr;gap:22px}
+  .wt-fin{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .wt-h1{font-size:38px}
+  .wt-me{grid-template-columns:1fr 120px;padding:18px 0 18px 18px}.wt-me .hfig{height:140px;margin-top:-26px}
+  .wt-comm{padding:20px}.wt-comm-art{width:110px}.wt-bub{display:none}.wt-dlogo{right:0;top:-4px;width:100px;height:70px}
+  .wt-fin{grid-template-columns:1fr}
+  .wt-blocks{height:180px}
+  .wt-deckw{overflow:hidden;margin:0 -16px;padding:0 16px}
+  .wt-steps{height:290px}
+}
+
+/* ===== DiamondTier's own touches (not a copy) ===== */
+.nav .sgnup{height:38px}
+.wt-head{text-align:center;margin:10px auto 30px;max-width:640px}
+.wt-head .wt-sub{margin:0 auto}
+.wt-h1{font-size:56px;text-shadow:0 0 34px rgba(70,230,255,.18)}
+.wt-h1 em{position:relative;text-shadow:0 0 26px var(--cy)}
+.wt-k{padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.wt-me,.wt-card,.wt-pr,.wt-steps,.wt-inv,.wt-mock{border-radius:14px}
+.wt-me{box-shadow:inset 0 0 0 1px rgba(70,230,255,.12),0 0 40px rgba(70,230,255,.08)}
+.exs{margin-top:40px}.exs h2{margin:0 0 14px;font:800 17px var(--px);color:#fff}
+.exg{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.exg .s2{grid-column:auto}
+.exg .hc{height:118px;border-radius:14px}
+.exg .hc .art,.exg .hc .pdm,.exg .hc .pill,.exg .hc .go{display:none!important}
+.exg .hc .txt{left:14px;right:10px;bottom:12px}
+.exg .hc .txt>svg{width:20px;height:20px;margin-bottom:6px}
+.exg .hc h3{font-size:15px;letter-spacing:.6px;text-transform:uppercase}
+.exg .hc p{font-size:11px;margin-top:2px}
+.exg .hc:hover{transform:translateY(-3px)}
+@media (max-width:900px){.exg{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.wt-h1{font-size:40px}.exg{grid-template-columns:1fr 1fr;gap:10px}.exg .hc{height:96px}}
 </style>
 </head>
 <body>
@@ -662,71 +802,59 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
   <div class="nav"><div class="bar"></div><div class="in">
     <div class="nl">
       <a class="lk on" href="#home" id="home2"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg>Home</a>
-      <div class="mr" id="moreWrap"><button class="lk" type="button" id="moreBtn" aria-haspopup="true" aria-expanded="false">More<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mmenu" id="moreMenu" role="menu"><a href="#testers" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Tester Leaderboard</b><small>Who tests the most</small></span></a><a href="#staff" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.6 0 4.5 1.9 4.5 4.5"/></svg><span><b>Staff</b><small>Meet the team</small></span></a><a href="#downloads" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg><span><b>Downloads</b><small>DiamondTierTagger mod</small></span></a><a href="#tournaments" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/></svg><span><b>Tournaments</b><small>Compete for tiers</small></span></a></div></div>
+      <div class="mr" id="moreWrap"><button class="lk" type="button" id="moreBtn" aria-haspopup="true" aria-expanded="false">More<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mmenu" id="moreMenu" role="menu"><a href="#testers" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Tester Leaderboard</b><small>Who tests the most</small></span></a><a href="#staff" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.6 0 4.5 1.9 4.5 4.5"/></svg><span><b>Staff</b><small>Meet the team</small></span></a><a href="#downloads" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg><span><b>Downloads</b><small>DiamondTierTagger mod</small></span></a><a href="#news" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span><b>News</b><small>Updates and announcements</small></span></a><a href="#tournaments" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/></svg><span><b>Tournaments</b><small>Compete for tiers</small></span></a></div></div>
     </div>
     <a class="logo" href="#home" id="home" aria-label="DiamondTier home"><svg viewBox="0 0 120 80" role="img" aria-label="DiamondTier"><defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9fdff"/><stop offset="1" stop-color="#5fe4f7"/></linearGradient><linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#53d7f5"/><stop offset="1" stop-color="#1b7fd0"/></linearGradient><linearGradient id="gC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d9be6"/><stop offset="1" stop-color="#1450b0"/></linearGradient></defs><g stroke="#0a3d6e" stroke-width="1.6" stroke-linejoin="round"><path d="M38 16h44l14 16H24z" fill="url(#gA)"/><path d="M24 32h72L60 72z" fill="url(#gB)"/><path d="M60 72 78 32h18z" fill="url(#gC)"/><path d="M24 32h18l18 40z" fill="#3cc4ee"/><path d="M42 32 50 16h20l8 16z" fill="#bff6ff" stroke="none" opacity=".55"/><path d="M50 16 42 32M70 16l8 16M42 32 60 72 78 32" fill="none" stroke="#0a3d6e" stroke-width="1.2"/></g><path d="M44 21h14l-5 8H40z" fill="#fff" opacity=".7"/><g fill="#7ee9ff"><path d="M12 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M104 8l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z"/><path d="M108 52l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/></g></svg></a>
     <div class="nr">
       <a class="sgnup" href="#signup" id="signBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.6" fill="currentColor"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6z" fill="currentColor"/><path d="M19 6v6M16 9h6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg><span>Sign up</span></a>
       <a class="dc ib" href="#" id="setBtn" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
-      <a class="dc ib ai" href="#ai" id="aiBtn" aria-label="Ask the AI" title="Ask the AI"><b>AI</b></a>
       <a class="dc ib" href="#" id="infoBtn" aria-label="How points work" title="How points work"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="12" cy="7.6" r="1.4" fill="currentColor"/></svg></a>
       <a class="dc" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener" aria-label="Join our Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></a>
     </div>
   </div></div>
 
   <div class="view" id="vHome">
-  <section class="hero" id="hero"><div class="hbg" aria-hidden="true"></div>
-    <div class="htx"><span class="hk">DiamondTier</span><h1 id="hTitle">Welcome to <em>DiamondTier</em>.</h1><p id="hSub">Check your tiers and where you stand.</p><div class="hact" id="hAct"></div><div class="hst" id="hStats"></div></div>
-    <div class="hfig" id="hFig"></div>
+  <section class="wt-head">
+    <span class="wt-k"><i></i><b id="hTesters">Active Testers</b></span>
+    <h1 class="wt-h1">FIND YOUR <em>TIER</em></h1>
+    <p class="wt-sub">The DiamondTier Minecraft PvP tierlist. Get tested by our testers, earn points and climb the rankings.</p>
   </section>
-  <div class="hrow" id="hRow">
-    <div class="hcard hk1"><span class="hck">Get points</span><h4>Every tier is worth points</h4><div class="ptg" id="ptGrid"></div><a class="hcb" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Get tested</a></div>
-    <div class="hcard hk2"><span class="hck">Climb ranks</span><h4>Points unlock titles</h4><div class="ttl3" id="ttlList"></div></div>
-    <div class="hcard hk3"><span class="hck">Leaderboard</span><h4>Top players</h4><div class="mlb" id="miniLb"></div><a class="hcb" href="#tierlist">Full rankings</a></div>
+  <section class="wt-row">
+    <div class="wt-me" id="hero">
+      <div class="wt-me-tx"><h2 id="hTitle">Welcome to <em>DiamondTier</em>.</h2><p id="hSub">Check your tiers and where you stand.</p><div class="hact" id="hAct"></div><div class="hst" id="hStats"></div></div>
+      <div class="hfig" id="hFig"></div>
+    </div>
+    <div class="wt-deckw">
+      <div class="wt-deck" id="deck">
+        <a class="wt-card" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener"><span class="wt-ck">How to start</span><b>GET<br>TESTED</b><span class="wt-go">Join Discord <i>&rarr;</i></span><div class="wt-cside" id="dkQueue"></div></a>
+        <a class="wt-card" href="#" id="dkPoints"><span class="wt-ck">Tier points</span><b>GET<br>POINTS</b><span class="wt-go">See points <i>&rarr;</i></span><div class="wt-cside"><div class="wt-pts" id="ptGrid"></div></div></a>
+        <a class="wt-card" href="#tierlist"><span class="wt-ck">Leaderboard</span><b>CLIMB<br>RANKS</b><span class="wt-go">Rankings <i>&rarr;</i></span><div class="wt-cside"><div class="mlb" id="miniLb"></div></div></a>
+      </div>
+      <div class="wt-dots" id="deckDots"></div>
+    </div>
+  </section>
+  <a class="wt-comm" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">
+    <div><h3>Join the Community</h3><p>Meet the best players, get tier tested and be the first to hear about events.</p></div>
+    <div class="wt-comm-art" aria-hidden="true"><canvas class="wt-bub b1" width="10" height="8"></canvas><canvas class="wt-bub b2" width="10" height="8"></canvas><canvas class="wt-dlogo" width="20" height="14"></canvas></div>
+  </a>
+  <section class="wt-two">
+    <div>
+      <div class="wt-h3row"><h3>Top players</h3><a class="wt-more" href="#tierlist">View all</a></div>
+      <div class="wt-list" id="topList"></div>
+    </div>
+    <div>
+      <div class="wt-h3row"><h3>How to get tested</h3><span class="wt-arr"><button type="button" id="stPrev" aria-label="Previous step">&lsaquo;</button><button type="button" id="stNext" aria-label="Next step">&rsaquo;</button></span></div>
+      <div class="wt-steps" id="steps">
+        <div class="wt-step on"><div class="wt-sart"><div class="wt-inv"><small>You've been invited to join</small><div class="wt-invr"><span class="wt-invl">&#9670;</span><div><b>DiamondTier</b><em><i class="g"></i>Online <i></i>Members</em></div></div><a href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Join</a></div></div><div class="wt-stx"><small>Step 1 of 4</small><b>JOIN OUR DISCORD</b><p>Tier tests, announcements and support all happen there.</p></div></div>
+        <div class="wt-step"><div class="wt-sart"><div class="wt-mock"><small>Verify your account</small><div class="wt-field">Minecraft IGN<span>Steve</span></div><div class="wt-field">Region<span>NA</span></div><div class="wt-btn">Verify</div></div></div><div class="wt-stx"><small>Step 2 of 4</small><b>VERIFY</b><p>Press Verify in the Discord and type your exact Minecraft name and region.</p></div></div>
+        <div class="wt-step"><div class="wt-sart"><div class="wt-mock" id="stQueue"></div></div><div class="wt-stx"><small>Step 3 of 4</small><b>JOIN A QUEUE</b><p>Pick your gamemode's queue for your region and press Join Queue.</p></div></div>
+        <div class="wt-step"><div class="wt-sart"><div class="wt-mock wt-res"><small>Tier Test Result</small><div class="wt-big" id="stRes"></div><div class="wt-field">Tested by<span>a DiamondTier tester</span></div></div></div><div class="wt-stx"><small>Step 4 of 4</small><b>GET YOUR TIER</b><p>A tester fights you and posts your tier. It shows on this site a minute later.</p></div></div>
+      </div>
+      <div class="wt-dots" id="stDots"></div>
+    </div>
+  </section>
   </div>
-  <section class="exs"><h2>Explore</h2><div class="exg">
-  <a class="hc hc-tier s4" href="#tierlist"><div class="bg"></div><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 7.5 7.5 12 12 4.5 16.5 12l5-4.5L19.5 19h-15z"/><rect x="5" y="20" width="14" height="2" rx="1"/></svg><h3>Rankings</h3><p id="exCount">Check your ranking</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-test s2" href="#testers"><div class="bg"></div><div class="art"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="128" cy="92" r="84" fill="rgba(255,255,255,.16)"/><g class="fl"><path d="M128 30 178 50v40c0 34-22 58-50 70-28-12-50-36-50-70V50z" fill="rgba(255,255,255,.92)"/><path d="M128 44 164 58v32c0 25-16 44-36 54-20-10-36-29-36-54V58z" fill="#16a3b8"/><path d="m108 92 14 14 28-30" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg><h3>Testers</h3><p id="exTest">Meet the testers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-tour s3" href="#tournaments"><div class="bg"></div><div class="art"><svg viewBox="-14 -22 356 330" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><defs>
-<linearGradient id="t1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b4ff"/><stop offset="1" stop-color="#a64df0"/></linearGradient>
-<linearGradient id="t2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a3de0"/><stop offset="1" stop-color="#3a1590"/></linearGradient>
-<linearGradient id="t3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c24df0"/><stop offset="1" stop-color="#5a1fb0"/></linearGradient>
-<radialGradient id="gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f0a0ff" stop-opacity=".8"/><stop offset=".55" stop-color="#c060ff" stop-opacity=".25"/><stop offset="1" stop-color="#c060ff" stop-opacity="0"/></radialGradient></defs>
-<circle cx="190" cy="150" r="170" fill="url(#gl)"/>
-<ellipse cx="190" cy="290" rx="86" ry="9" fill="rgba(20,0,60,.4)"/>
-<g class="fl"><g transform="translate(88 26) scale(1.1) rotate(-6 100 90)">
-<polygon points="100,8 172,50 100,92 28,50" fill="url(#t1)"/><polygon points="28,50 100,92 100,176 28,134" fill="url(#t2)"/><polygon points="172,50 100,92 100,176 172,134" fill="url(#t3)"/>
-<polygon points="100,44 134,64 100,84 66,64" fill="#fff" opacity=".28"/>
-<g fill="none" stroke="#e6d6ff" stroke-width="5" stroke-linejoin="round"><polygon points="100,8 172,50 172,134 100,176 28,134 28,50"/><polyline points="28,50 100,92 172,50"/><line x1="100" y1="92" x2="100" y2="176"/></g>
-<g fill="none" stroke="#fff" stroke-width="2" opacity=".5"><polygon points="100,34 142,58 100,82 58,58"/><polyline points="58,58 58,106 100,130 142,106 142,58"/><line x1="100" y1="82" x2="100" y2="130"/></g>
-<g fill="#2a0f6b" opacity=".85"><rect x="34" y="52" width="9" height="9" transform="rotate(30 38 56)"/><rect x="157" y="52" width="9" height="9" transform="rotate(-30 161 56)"/><rect x="94" y="164" width="12" height="9"/><rect x="94" y="2" width="12" height="9" opacity=".0"/></g></g></g>
-<g class="fl2"><g transform="translate(20 176) scale(0.42) rotate(-12 100 90)">
-<polygon points="100,8 172,50 100,92 28,50" fill="url(#t1)"/><polygon points="28,50 100,92 100,176 28,134" fill="url(#t2)"/><polygon points="172,50 100,92 100,176 172,134" fill="url(#t3)"/>
-<polygon points="100,44 134,64 100,84 66,64" fill="#fff" opacity=".28"/>
-<g fill="none" stroke="#e6d6ff" stroke-width="5" stroke-linejoin="round"><polygon points="100,8 172,50 172,134 100,176 28,134 28,50"/><polyline points="28,50 100,92 172,50"/><line x1="100" y1="92" x2="100" y2="176"/></g>
-<g fill="none" stroke="#fff" stroke-width="2" opacity=".5"><polygon points="100,34 142,58 100,82 58,58"/><polyline points="58,58 58,106 100,130 142,106 142,58"/><line x1="100" y1="82" x2="100" y2="130"/></g>
-<g fill="#2a0f6b" opacity=".85"><rect x="34" y="52" width="9" height="9" transform="rotate(30 38 56)"/><rect x="157" y="52" width="9" height="9" transform="rotate(-30 161 56)"/><rect x="94" y="164" width="12" height="9"/><rect x="94" y="2" width="12" height="9" opacity=".0"/></g></g></g>
-<g class="fl3"><g transform="translate(268 168) scale(0.34) rotate(12 100 90)">
-<polygon points="100,8 172,50 100,92 28,50" fill="url(#t1)"/><polygon points="28,50 100,92 100,176 28,134" fill="url(#t2)"/><polygon points="172,50 100,92 100,176 172,134" fill="url(#t3)"/>
-<polygon points="100,44 134,64 100,84 66,64" fill="#fff" opacity=".28"/>
-<g fill="none" stroke="#e6d6ff" stroke-width="5" stroke-linejoin="round"><polygon points="100,8 172,50 172,134 100,176 28,134 28,50"/><polyline points="28,50 100,92 172,50"/><line x1="100" y1="92" x2="100" y2="176"/></g>
-<g fill="none" stroke="#fff" stroke-width="2" opacity=".5"><polygon points="100,34 142,58 100,82 58,58"/><polyline points="58,58 58,106 100,130 142,106 142,58"/><line x1="100" y1="82" x2="100" y2="130"/></g>
-<g fill="#2a0f6b" opacity=".85"><rect x="34" y="52" width="9" height="9" transform="rotate(30 38 56)"/><rect x="157" y="52" width="9" height="9" transform="rotate(-30 161 56)"/><rect x="94" y="164" width="12" height="9"/><rect x="94" y="2" width="12" height="9" opacity=".0"/></g></g></g>
-<g fill="#fff"><path class="sp" d="M52 62l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" style="animation-delay:-.8s" d="M308 206l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" style="animation-delay:-1.6s" d="M200 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v6a6 6 0 0 1-12 0V3z"/><path d="M5 5H2.5v2A3.5 3.5 0 0 0 6 10.5V9a2 2 0 0 1-1-1.7V6zM19 5h2.5v2a3.5 3.5 0 0 1-3.5 3.5V9a2 2 0 0 0 1-1.7V6z"/><path d="M10.5 14.5h3V18h-3zM7 19h10v2.2H7z"/></svg><h3>Tournaments</h3><p>Compete for tiers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-sub s3" href="#subtiers"><div class="bg"></div><span class="pill" id="subPill">Not added yet</span><div class="art"><div class="spot"></div><div class="pdm"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5z"/><path d="M2 12l10 5 10-5-2.2-1.1L12 14.8 4.2 10.9z"/><path d="M2 17l10 5 10-5-2.2-1.1L12 19.8 4.2 15.9z"/></svg><h3>Subtiers</h3><p>Separate tierlist for subtiers</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-dc s2" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener"><div class="bg"></div><div class="art"><svg viewBox="-2 -4 28 30" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><g class="fl" color="#fff" opacity=".95"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></g></svg></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg><h3>Discord</h3><p>Join the community</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-staff s2" href="#staff"><div class="bg"></div><div class="art"><div class="avs" id="exStaff"></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.6"/><path d="M2 20c0-3.8 3.1-6.2 7-6.2s7 2.4 7 6.2z"/><circle cx="17.5" cy="9" r="2.8"/><path d="M17 14.2c3 .1 5 2.2 5 5.8h-4.5c0-2.4-.6-4.3-.5-5.8z"/></svg><h3>Staff</h3><p id="exStaffN">Meet the team</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="hc hc-mod s2" href="#downloads"><div class="bg"></div><div class="art"><div class="mtag"><span class="mi" id="exModIc"></span><b>HT1</b><i></i><span>Steve</span></div><div class="mtag m2"><span class="mi" id="exModIc2"></span><b>LT3</b><i></i><span>Alex</span></div></div><div class="txt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Downloads</h3><p>DiamondTierTagger mod</p></div><span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  </div></section>
-  </div>
-<div class="view" id="vAI" hidden>
-  <div class="aip">
-    <div class="aih"><img src="data:image/jpeg;base64,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" alt=""><div><b>AI</b><span>Ask me anything. Keep it family-friendly.</span></div></div>
-    <div class="aim" id="aiMsgs" aria-live="polite"></div>
-    <form class="aif" id="aiForm" autocomplete="off"><input id="aiIn" maxlength="500" placeholder="Ask me anything..." aria-label="Message"><button id="aiSend" type="submit">Send</button></form>
-    <div class="ain">AI can make mistakes. No 18+ or harmful content.</div>
-  </div>
-</div>
+
 <div class="view" id="vTest" hidden>
   <div class="tstp">
     <div class="cautn small" id="tCaut"><div class="cautn-in"><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span></div></div>
@@ -793,18 +921,17 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
     </div>
   </div>
   </div>
-  <section class="hsec" id="newsSec"><h2>Recent News</h2><div class="ng" id="newsGrid"></div></section>
-  <section class="hsec" id="srvSec"><h2>Servers</h2><div class="sbox sone"><b>Servers coming soon</b></div></section>
-  <nav class="fnav" aria-label="Footer">
-    <a href="#tournaments"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8M10 17h4"/></svg><span>Tourneys</span></a>
-    <a href="#tierlist"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg><span>Tiers</span></a>
-    <a href="#" data-go="newsSec"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z"/><path d="M18 9h2v8a2 2 0 0 1-2 2M8 8h7M8 12h7M8 15h4"/></svg><span>News</span></a>
-    <a href="#" data-go="srvSec"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg><span>Servers</span></a>
-    <a href="#ai"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg><span>AI</span></a>
-    <a href="#" id="spLink"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Sponsors</span></a>
-  </nav>
-  <small>© DiamondTier · Not affiliated with Mojang<button type="button" class="epfoot" id="epBtn"></button></small>
+  <div class="view" id="vNews" hidden><section class="hsec" id="newsSec"><h2>News</h2><div class="ng" id="newsGrid"></div></section></div>
 </div>
+<footer class="wt-foot">
+  <div class="wt-fin">
+    <div class="wt-fb"><div class="wt-flogo">Diamond<em>Tier</em></div><p>The competitive <b>Minecraft PvP tierlist</b>. Get tier tested across 9 gamemodes, earn points and climb the rankings.</p><p>Tier tests, support and announcements all happen on our Discord server.</p><a class="wt-dc" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Join our Discord</a></div>
+    <div><h5>DiamondTier</h5><nav class="wt-fl2"><a href="#home">Home</a><a href="#tierlist">Rankings</a><a href="#testers">Testers</a><a href="#staff">Staff</a><a href="#downloads">Downloads</a><a href="#news">News</a><a href="#tournaments">Tournaments</a><a href="#" id="spLink">Sponsors</a></nav></div>
+    <div><h5>Gamemodes</h5><nav class="wt-fl2" id="footModes"></nav></div>
+    <div><h5>Social</h5><nav class="wt-fl1"><a href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Discord</a><a href="#downloads">DiamondTierTagger</a></nav></div>
+  </div>
+  <div class="wt-fbot"><small>&copy; DiamondTier. Not affiliated with Mojang or Microsoft. Minecraft is a trademark of Mojang AB.</small><button type="button" class="epfoot" id="epBtn"></button></div>
+</footer>
 <button type="button" class="safepill off" id="safePill" aria-label="Toggle safe mode (no flashing effects)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Safe mode</span></button>
 <div class="md" id="md" role="dialog" aria-modal="true" aria-label="Details"><div class="mc" id="mc"></div></div>
 
@@ -857,7 +984,12 @@ function shiftText(t){
     var n=shiftRGB(+r,+g,+b);if(!n)return m;return(a===undefined?"rgb(":"rgba(")+n[0]+","+n[1]+","+n[2]+(a===undefined?")":","+a+")")})}
 function ruleTheme(r){
   try{
-    if(r.type===1){if(EXCL.test(r.selectorText))return"";var o=r.cssText,n=shiftText(o);return n===o?"":n}
+    if(r.type===1){if(EXCL.test(r.selectorText))return"";
+      /* copy ONLY the colors that change, so the theme never re-applies layout (that broke phone layouts) */
+      var t=r.style.cssText,d="",dep=0,st=0;
+      for(var k=0;k<=t.length;k++){var ch=t.charAt(k);if(ch==="(")dep++;else if(ch===")")dep--;
+        else if((ch===";"&&dep===0)||k===t.length){var one=t.slice(st,k).trim();st=k+1;if(!one)continue;var n1=shiftText(one);if(n1!==one)d+=n1+";"}}
+      return d?r.selectorText+"{"+d+"}":""}
     if(r.type===7){var o2=r.cssText,n2=shiftText(o2);return n2===o2?"":n2}
     if(r.type===4){var inner=[].map.call(r.cssRules,ruleTheme).join("");return inner?"@media "+r.conditionText+"{"+inner+"}":""}
   }catch(e){}
@@ -1633,7 +1765,7 @@ function fillTesters(list){
 }
 function apply(list){var first=!applied;applied=true;fillTesters(list);
   var arr=Array.isArray(list)?list:(list&&list.players),ups=list&&!Array.isArray(list)&&list.updates;
-  tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];ptags=list&&!Array.isArray(list)&&list.tags&&typeof list.tags==="object"?list.tags:ptags;news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);document.getElementById("subPill").hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
+  tours=list&&!Array.isArray(list)&&Array.isArray(list.tournaments)?list.tournaments:[];updates=Array.isArray(ups)?ups:[];ptags=list&&!Array.isArray(list)&&list.tags&&typeof list.tags==="object"?list.tags:ptags;news=list&&!Array.isArray(list)&&Array.isArray(list.news)&&list.news.length?list.news:NEWS0;if(typeof renderNews==="function")renderNews();players=norm(Array.isArray(arr)?arr:DEFAULT);mainPlayers=players;subOpen=!!(list&&list.subtiersOpen===true);(document.getElementById("subPill")||{}).hidden=subOpen;subPlayers=norm(list&&!Array.isArray(list)&&Array.isArray(list.subtiers)?list.subtiers:[],SUB_MODES);buildFx();
   render();route(true);fillPod();if(typeof homeRender==="function")homeRender(list);moveInd();setTimeout(moveInd,80);if(first)setTimeout(shoot,900);
 }
 var PLK="dtpl1",cachedTxt=null;
@@ -1729,7 +1861,7 @@ function heroRender(){
     act.innerHTML='<form class="hform" id="hForm" autocomplete="off"><input id="hIn" maxlength="16" placeholder="Your Minecraft name" aria-label="Your Minecraft name"><button class="hbtn" type="submit">Find me</button></form>';
     st.innerHTML='<div><small>Ranked players</small><b>'+rk.length+'</b></div>';
   }
-  fig.innerHTML=figure(show,"idle",big?250:170)+(!n&&rk[0]?'<span class="cap">#1 Overall</span>':'');
+  fig.innerHTML=figure(show,"idle",window.innerWidth>560?200:140)+(!n&&rk[0]?'<span class="cap">#1 Overall</span>':'');
   fig.onclick=function(){if(show&&show.order<9999)showProfile(show)};fig.style.cursor=show&&show.order<9999?"pointer":"";
   mountSkins(fig);var pe=fig.querySelector(".pose");if(pe)heroHold(pe);
   var v=document.getElementById("hView");if(v)v.onclick=function(){showProfile(p)};
@@ -1737,13 +1869,12 @@ function heroRender(){
   var f=document.getElementById("hForm");if(f)f.onsubmit=function(e){e.preventDefault();var x=document.getElementById("hIn").value.trim();if(!/^[A-Za-z0-9_]{2,16}$/.test(x))return;var q=findMain(x);try{localStorage.setItem(ME_K,q?q.name:x)}catch(e2){}heroRender()};
 }
 function cardsRender(){
-  var g=document.getElementById("ptGrid");if(!g)return;
-  g.innerHTML=TIERS.map(function(t,i){return '<div>'+badge(i)+'<small>'+PTS[i]+'</small></div>'}).join("");
-  document.getElementById("ttlList").innerHTML=TITLES.slice(0,6).map(function(t){return '<div>'+gemSvg(t[2])+'<span style="color:'+t[2]+'">'+esc(t[0])+'</span><small>'+t[1]+'+ pts</small></div>'}).join("");
+  var g=document.getElementById("ptGrid");if(g){g.innerHTML=TIERS.map(function(t,i){return '<div>'+badge(i)+'<small>'+PTS[i]+'</small></div>'}).join("");
+  var tlx=document.getElementById("ttlList");if(tlx)tlx.innerHTML=TITLES.slice(0,6).map(function(t){return '<div>'+gemSvg(t[2])+'<span style="color:'+t[2]+'">'+esc(t[0])+'</span><small>'+t[1]+'+ pts</small></div>'}).join("");
   var rk=rankedMain().slice(0,5),lb=document.getElementById("miniLb");
   lb.innerHTML=rk.length?rk.map(function(p,i){return '<button type="button" class="r'+(i+1)+'" data-n="'+esc(p.name)+'"><i>'+(i+1)+'</i>'+figure(p,"head",26)+'<span>'+esc(p.name)+'</span><u>'+p.total+' pts</u></button>'}).join(""):'<div class="lvempty">No players yet</div>';
   [].forEach.call(lb.querySelectorAll("button"),function(b){b.onclick=function(){showProfile(findMain(b.dataset.n))}});
-  mountSkins(lb);
+  mountSkins(lb);}
   var ec=document.getElementById("exCount");if(ec)ec.textContent=rankedMain().length+" ranked players";
   var tt=document.getElementById("exTest");if(tt&&window.__testers&&window.__testers.length)tt.textContent=window.__testers.length+" testers";
   ["exModIc","exModIc2"].forEach(function(id,k){var e=document.getElementById(id);if(e)e.innerHTML=ICONS[k?"crystal":"sword"]||""});
@@ -1751,7 +1882,69 @@ function cardsRender(){
 function ago(ms){var s=Math.max(0,(Date.now()-ms)/1000);if(s<60)return"just now";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";var d=Math.floor(s/86400);return d<30?d+"d ago":new Date(ms).toLocaleDateString()}
 function homeRender(list){
   if(list&&!Array.isArray(list)){if(Array.isArray(list.staff))window.__staff=list.staff;if(Array.isArray(list.testers))window.__testers=list.testers.filter(function(t){return t&&t.tests>0})}
-  heroRender();cardsRender();staffTile();if(typeof curView!=="undefined"&&curView==="vStaff")staffRender();
+  heroRender();cardsRender();wtHome();staffTile();if(typeof curView!=="undefined"&&curView==="vStaff")staffRender();
+}
+/* ---------- Wintiers-style home: card deck, steps, top players, pixel art ---------- */
+var CALM=function(){return (typeof isCalm==="function"&&isCalm())||(typeof DS!=="undefined"&&!DS.fx)};
+function wtSlider(items,dotsEl,cls,every){
+  var i=0,n=items.length,t=null;
+  dotsEl.innerHTML=items.map(function(_,k){return '<button type="button" aria-label="Show '+(k+1)+'"></button>'}).join("");
+  var dots=dotsEl.querySelectorAll("button");
+  function show(k){i=(k+n)%n;cls(i);[].forEach.call(dots,function(d,j){d.classList.toggle("on",j===i)})}
+  function auto(){clearInterval(t);if(!CALM())t=setInterval(function(){if(!document.hidden&&curView==="vHome")show(i+1)},every)}
+  [].forEach.call(dots,function(d,j){d.onclick=function(e){e.preventDefault();show(j);auto()}});
+  show(0);auto();return{show:function(k){show(k);auto()},get:function(){return i}};
+}
+(function(){
+  var deck=document.getElementById("deck");if(!deck)return;
+  var cards=[].slice.call(deck.querySelectorAll(".wt-card"));
+  var dk=wtSlider(cards,document.getElementById("deckDots"),function(c){cards.forEach(function(el,k){var d=(k-c+cards.length)%cards.length;el.classList.remove("l","r","c");el.classList.add(d===0?"c":d===1?"r":"l")})},4500);
+  cards.forEach(function(el,k){el.addEventListener("click",function(e){if(!el.classList.contains("c")){e.preventDefault();dk.show(k)}})});
+  document.getElementById("dkPoints").addEventListener("click",function(e){e.preventDefault();if(this.classList.contains("c"))openInfo()});
+  var steps=[].slice.call(document.querySelectorAll("#steps .wt-step"));
+  var st=wtSlider(steps,document.getElementById("stDots"),function(c){steps.forEach(function(el,k){el.classList.toggle("on",k===c)})},6000);
+  document.getElementById("stPrev").onclick=function(){st.show(st.get()-1)};
+  document.getElementById("stNext").onclick=function(){st.show(st.get()+1)};
+  /* pixel-art Discord logo and chat bubbles, drawn tiny and scaled up blocky */
+  var DCP="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z";
+  var lg=document.querySelector(".wt-dlogo");
+  if(lg){var x=lg.getContext("2d"),M=[
+    "...XXXX......XXXX...",
+    "..XXXXXXXXXXXXXXXX..",
+    ".XXXXXXXXXXXXXXXXXX.",
+    ".XXXXXXXXXXXXXXXXXX.",
+    "XXXXXXXXXXXXXXXXXXXX",
+    "XXXXX..XXXXXX..XXXXX",
+    "XXXX....XXXX....XXXX",
+    "XXXX....XXXX....XXXX",
+    "XXXXX..XXXXXX..XXXXX",
+    "XXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXX",
+    ".XXXXXX......XXXXXX.",
+    "..XXXX........XXXX..",
+    "...XX..........XX..."];
+    lg.width=20;lg.height=14;
+    M.forEach(function(row,y){for(var c=0;c<row.length;c++)if(row[c]==="X"){
+      var edge=(y===M.length-1||M[y+1][c]!=="X")||(c===row.length-1||row[c+1]!=="X");
+      x.fillStyle=edge?"#4752d6":(y<3?"#dfe4ff":"#b8c2ff");x.fillRect(c,y,1,1)}})}
+  [].forEach.call(document.querySelectorAll(".wt-bub"),function(c,k){var x=c.getContext("2d");x.fillStyle=k?"#6f7bf7":"#f2f4ff";x.fillRect(1,0,8,1);x.fillRect(0,1,10,5);x.fillRect(1,6,8,1);x.fillRect(k?7:1,7,2,1);
+    x.fillStyle=k?"#f2f4ff":"#6f7bf7";[2,4,6].forEach(function(px){x.fillRect(px+ (k?0:0),3,1,1)})});
+
+})();
+function wtHome(){
+  var tl=document.getElementById("topList");if(!tl)return;
+  var rk=rankedMain().slice(0,5);
+  tl.innerHTML=rk.length?rk.map(function(p,i){var best=null;for(var k in p.tiers)if(best==null||p.tiers[k]<p.tiers[best])best=k;
+    var ml=best?(MAIN_MODES.filter(function(m){return m[0]===best})[0]||[best,best])[1]:"";
+    return '<button type="button" class="wt-pr r'+(i+1)+'" data-n="'+esc(p.name)+'"><i>'+(i+1)+'</i>'+figure(p,"head",30)+'<span class="nm"><b>'+esc(p.name)+'</b><small>'+(best?icon(best)+esc(ml)+' • ':'')+p.total+' pts</small></span><span class="tr">'+(best?badge(p.tiers[best]):"")+'</span></button>'}).join(""):'<div class="lvempty">No players yet</div>';
+  [].forEach.call(tl.querySelectorAll(".wt-pr"),function(b){b.onclick=function(){showProfile(findMain(b.dataset.n))}});
+  mountSkins(tl);
+  var n=(window.__testers||[]).length,ht=document.getElementById("hTesters");if(ht)ht.textContent=n?n+" Active Testers":"Active Testers";
+  var q=["sword","crystal","diapot"];
+  var dq=document.getElementById("dkQueue");if(dq)dq.innerHTML='<div class="wt-q">'+q.map(function(m){return '<div>'+icon(m)+(MAIN_MODES.filter(function(x){return x[0]===m})[0]||[m,m])[1]+'<span>open</span></div>'}).join("")+'</div>';
+  var sq=document.getElementById("stQueue");if(sq)sq.innerHTML='<small>NA queues</small>'+q.map(function(m){return '<div class="wt-qr">'+icon(m)+(MAIN_MODES.filter(function(x){return x[0]===m})[0]||[m,m])[1]+'<span>Join</span></div>'}).join("");
+  var sr=document.getElementById("stRes");if(sr)sr.innerHTML=badge(TIERS.indexOf("LT3"))+' <span style="color:#8b92a6">→</span> '+badge(TIERS.indexOf("HT3"));
+  var fm=document.getElementById("footModes");if(fm&&!fm.innerHTML)fm.innerHTML=MAIN_MODES.filter(function(m){return m[0]!=="overall"}).map(function(m){return '<a href="#tierlist">'+esc(m[1])+'</a>'}).join("");
 }
 /* ---------- More menu ---------- */
 function closeMore(){var m=document.getElementById("moreWrap");if(m){m.classList.remove("open");document.getElementById("moreBtn").setAttribute("aria-expanded","false")}}
@@ -1805,27 +1998,6 @@ homeRender();
 
 
 fillPod();var podW=window.innerWidth;window.addEventListener("resize",function(){if(window.innerWidth!==podW){podW=window.innerWidth;fillPod()}});
-/* ---------- AI chat ---------- */
-(function(){
-  var msgs=document.getElementById("aiMsgs"),form=document.getElementById("aiForm"),inp=document.getElementById("aiIn"),btn=document.getElementById("aiSend"),hist=[],busy=false,AV=document.querySelector(".aih img").src;
-  function add(role,text,cls){
-    var d=document.createElement("div");d.className="aib"+(role==="user"?" me":"")+(cls?" "+cls:"")+(role!=="user"&&/dots|err/.test(cls||"")?" noav":"");
-    if(role!=="user"&&!/dots|err/.test(cls||"")){var im=document.createElement("img");im.src=AV;im.alt="";d.appendChild(im)}
-    var p=document.createElement("p");p.textContent=text;d.appendChild(p);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
-  }
-  add("assistant","Hey! I'm the DiamondTier AI. Ask me anything.");
-  form.onsubmit=function(e){
-    e.preventDefault();var t=inp.value.trim();if(!t||busy)return;
-    inp.value="";add("user",t);hist.push({role:"user",content:t});
-    busy=true;btn.disabled=true;var wait=add("assistant","...","dots");
-    fetch("/api/chat",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({messages:hist.slice(-10)})})
-      .then(function(r){return r.json().catch(function(){return{}})})
-      .then(function(j){wait.remove();var a=(j&&j.reply)||"The AI isn't available right now. Try again in a bit.";add("assistant",a,j&&j.reply?"":"err");if(j&&j.reply)hist.push({role:"assistant",content:j.reply});else hist.pop()})
-      .catch(function(){wait.remove();add("assistant","The AI isn't available right now. Try again in a bit.","err");hist.pop()})
-      .then(function(){busy=false;btn.disabled=false;inp.focus()});
-  };
-  window.addEventListener("hashchange",function(){if(location.hash==="#ai")setTimeout(function(){inp.focus()},120)});
-})();
 /* ---------- sponsors ---------- */
 document.getElementById("spLink").onclick=function(e){
   e.preventDefault();
@@ -1833,15 +2005,15 @@ document.getElementById("spLink").onclick=function(e){
 };
 var curView="",curKey="",subOpen=false;
 function route(force){
-  var h=(location.hash||"").replace("#","").toLowerCase(),v=(h==="tierlist"||h==="subtiers")?"vTier":h==="tournaments"?"vTour":(h==="mod"||h==="downloads")?"vDl":h==="staff"?"vStaff":h==="ai"?"vAI":h==="testers"?"vTest":h==="signup"?"vWip":"vHome",key=v==="vTier"?h:v;
+  var h=(location.hash||"").replace("#","").toLowerCase(),v=(h==="tierlist"||h==="subtiers")?"vTier":h==="tournaments"?"vTour":(h==="mod"||h==="downloads")?"vDl":h==="staff"?"vStaff":h==="news"?"vNews":h==="testers"?"vTest":h==="signup"?"vWip":"vHome",key=v==="vTier"?h:v;
   if(key===curKey&&!force)return;
   var changed=key!==curKey;curKey=key;curView=v;
   if(v==="vTier")setSection(h==="subtiers"?"sub":"main");
   document.getElementById("subNote").hidden=!(v==="vTier"&&sect==="sub"&&!subOpen);
   [].forEach.call(document.querySelectorAll(".hsec"),function(s){s.hidden=v!=="vHome"});
-  ["vHome","vTour","vTier","vDl","vStaff","vAI","vTest","vWip"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
+  ["vHome","vTour","vTier","vDl","vStaff","vNews","vTest","vWip"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
   var el=document.getElementById(v);void el.offsetWidth;if(changed){el.classList.add("enter");clearTimeout(el._et);el._et=setTimeout(function(){el.classList.remove("enter")},1300)}
-  document.getElementById("home2").classList.toggle("on",v==="vHome");document.getElementById("moreBtn").classList.toggle("on",/^(vTest|vStaff|vDl|vTour)$/.test(v));closeMore();if(v==="vDl")dlRender();if(v==="vStaff")staffRender();
+  document.getElementById("home2").classList.toggle("on",v==="vHome");document.getElementById("moreBtn").classList.toggle("on",/^(vTest|vStaff|vDl|vTour|vNews)$/.test(v));closeMore();if(v==="vDl")dlRender();if(v==="vStaff")staffRender();
   if(v==="vTier")render();if(v==="vTour")renderTours();
   if(changed)window.scrollTo(0,0);
 }
