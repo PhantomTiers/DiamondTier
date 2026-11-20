@@ -107,7 +107,7 @@
     {"name":"Itzmeyusor","region":"AS","tiers":{"sword":"HT5"}},
     {"name":"ItzMrPaul","region":"AS","tiers":{"crystal":"LT5","dsmp":"HT5"}},
     {"name":"ItzrealHungg","region":"AS","tiers":{"crystal":"LT3"}},
-    {"name":"ItzRealSasuke","region":"AS","tiers":{"axe":"HT4","crystal":"HT4","dsmp":"HT4","mace":"HT4","nethpot":"HT4","smp":"HT4","sword":"HT4","uhc":"HT4"}},
+    {"name":"ItzRealSasuke","region":"AS","tiers":{"axe":"HT4","crystal":"HT4","dsmp":"HT4","mace":"HT4","nethpot":"HT4","smp":"HT4","sword":"HT4","uhc":"HT4"},"edited":{"crystal":1795191021815}},
     {"name":"itzrealtoned","region":"AS","tiers":{"sword":"LT5"}},
     {"name":"ItzSkullz","region":"AS","tiers":{"dsmp":"LT5","mace":"LT5","smp":"HT5","sword":"LT5"}},
     {"name":"Jairo","region":"AS","tiers":{"axe":"HT4","crystal":"LT5","dsmp":"HT5","mace":"LT4","smp":"LT4","sword":"HT5"}},
@@ -276,5 +276,5 @@
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":3,"modes":{"crystal":1}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
+  "testers": [{"name":"oLineage","tests":4,"modes":{"crystal":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
 }
