@@ -269,12 +269,13 @@
     {"name":"ZenVex_","region":"AS","tiers":{"crystal":"LT4"}},
     {"name":"zenxi0n","region":"AS","tiers":{"crystal":"LT5"}},
     {"name":"Zephyrfox","region":"AS","tiers":{"sword":"HT5"}},
-    {"name":"ZYV1N","region":"AS","tiers":{"crystal":"LT3","dsmp":"LT4","nethpot":"HT4"}}
+    {"name":"ZYV1N","region":"AS","tiers":{"crystal":"LT3","dsmp":"LT4","nethpot":"HT4"}},
+    {"name":"fourtlez","region":"EU","tiers":{"diapot":"LT4"},"edited":{"diapot":1795210092662}}
   ],
   "updates": [],
   "tournaments": [],
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":5,"modes":{"crystal":3}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
+  "testers": [{"name":"oLineage","tests":6,"modes":{"crystal":3,"diapot":1}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
 }
