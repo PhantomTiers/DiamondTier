@@ -657,10 +657,10 @@ body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001s!important;
 
 /* ===== Wintiers-style home ===== */
 .wrap{max-width:1000px}
-.nav{height:60px;margin:6px 0 30px}
+.nav{height:78px;margin:0 0 30px}
 .nav .bar{border-radius:0;border-width:0 0 1px;background:transparent;left:calc(50% - 50vw);right:calc(50% - 50vw)}
 html,body{overflow-x:clip}
-.nav .logo{height:52px}
+.nav .logo{height:54px}
 .nl .lk.x{display:none}
 @media (min-width:900px){.nl{gap:26px}.nl .lk.x{display:inline-flex}}
 .wt-head{margin:4px 0 26px}
@@ -669,13 +669,13 @@ html,body{overflow-x:clip}
 @keyframes lvp{70%{box-shadow:0 0 0 7px rgba(47,212,122,0)}100%{box-shadow:0 0 0 0 rgba(47,212,122,0)}}
 .wt-h1{margin:6px 0 8px;font:900 52px/1 var(--px);letter-spacing:-.5px;color:#fff}
 .wt-h1 em{font-style:italic;color:var(--cy);padding-right:6px}
-.wt-sub{margin:0;max-width:460px;color:#aeb5c8;font:500 14.5px/1.55 var(--b)}
+.wt-sub{margin:0;max-width:460px;color:#c3cbe6;font:500 14.5px/1.55 var(--b)}
 .wt-row{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
 /* the welcome card (Wintiers' sign-in card) */
-.wt-me{position:relative;display:grid;grid-template-columns:1fr 190px;align-items:center;min-height:168px;padding:22px 0 22px 26px;border-radius:10px;border:1px solid rgba(255,255,255,.07);
-  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015)),repeating-conic-gradient(rgba(255,255,255,.025) 0 25%,transparent 0 50%) 0 0/28px 28px,#121418;box-shadow:inset 0 -2px 0 var(--cy)}
+.wt-me{position:relative;background-color:var(--panel)!important;display:grid;grid-template-columns:1fr 190px;align-items:center;min-height:168px;padding:22px 0 22px 26px;border-radius:10px;border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015)),repeating-conic-gradient(rgba(255,255,255,.025) 0 25%,transparent 0 50%) 0 0/28px 28px,var(--panel);box-shadow:inset 0 -2px 0 var(--cy)}
 .wt-me h2{margin:0 0 4px;font:800 21px/1.25 var(--px);color:#fff}.wt-me h2 em{font-style:normal;color:var(--cy)}
-.wt-me p{margin:0;color:#aeb5c8;font:500 13.5px/1.5 var(--b)}
+.wt-me p{margin:0;color:#c3cbe6;font:500 13.5px/1.5 var(--b)}
 .wt-me .hact{margin-top:14px;gap:8px}
 .wt-me .hbtn{padding:9px 16px;font-size:14px;border-radius:6px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
 .wt-me .hbtn.gh{box-shadow:none}
@@ -686,29 +686,29 @@ html,body{overflow-x:clip}
 /* card deck */
 .wt-deckw{position:relative}
 .wt-deck{position:relative;height:150px}
-.wt-card{position:absolute;top:0;left:50%;width:min(270px,78%);height:142px;padding:18px 20px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#16181d;box-shadow:0 14px 30px rgba(0,0,0,.45);
+.wt-card{position:absolute;top:0;left:50%;width:min(270px,78%);height:142px;padding:18px 20px;border-radius:10px;border:1px solid var(--line);background:var(--card);box-shadow:0 14px 30px rgba(0,0,0,.45);
   color:#fff;text-decoration:none;display:flex;flex-direction:column;transform:translateX(-50%);transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s,filter .5s;overflow:hidden}
 .wt-card.l{transform:translateX(-96%) scale(.86);opacity:.45;filter:blur(.4px);z-index:1}
 .wt-card.r{transform:translateX(-4%) scale(.86);opacity:.45;filter:blur(.4px);z-index:1}
 .wt-card.c{z-index:2}
-.wt-ck{color:#8b92a6;font:800 9.5px var(--px);letter-spacing:.16em;text-transform:uppercase}
+.wt-ck{color:var(--muted);font:800 9.5px var(--px);letter-spacing:.16em;text-transform:uppercase}
 .wt-card b{margin-top:4px;font:900 24px/.95 var(--px)}
-.wt-go{margin-top:auto;color:#c8cddb;font:700 11.5px var(--px)}.wt-go i{font-style:normal;color:var(--cy)}
+.wt-go{margin-top:auto;color:#dfe6fb;font:700 11.5px var(--px)}.wt-go i{font-style:normal;color:var(--cy)}
 .wt-cside{position:absolute;right:12px;top:12px;bottom:12px;width:46%;display:flex;align-items:center}
 .wt-pts{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;width:100%;padding:8px;border-radius:7px;background:rgba(0,0,0,.35);font:700 11px var(--px)}
-.wt-pts div{display:flex;align-items:center;justify-content:space-between}.wt-pts .tier{font-size:11px}.wt-pts small{color:#c8cddb;font:700 11px var(--px)}
+.wt-pts div{display:flex;align-items:center;justify-content:space-between}.wt-pts .tier{font-size:11px}.wt-pts small{color:#dfe6fb;font:700 11px var(--px)}
 .wt-card .mlb{width:100%;margin:0;gap:2px;padding:6px;border-radius:7px;background:rgba(0,0,0,.35)}
 .wt-card .mlb button{padding:2px 4px;font-size:11.5px;gap:6px;pointer-events:none}.wt-card .mlb u{font-size:10.5px}.wt-card .mlb i{width:10px}
-.wt-q{width:100%;padding:8px 10px;border-radius:7px;background:rgba(0,0,0,.35);font:700 11.5px var(--px);color:#dfe3ee}
+.wt-q{width:100%;padding:8px 10px;border-radius:7px;background:rgba(0,0,0,.35);font:700 11.5px var(--px);color:#dfe6fb}
 .wt-q div{display:flex;align-items:center;gap:6px;padding:2px 0}.wt-q .ic-s{width:16px;height:16px}.wt-q span{margin-left:auto;color:#2fd47a;font-size:10.5px}
 .wt-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
 .wt-dots button{width:22px;height:3px;padding:0;border:0;border-radius:2px;background:rgba(255,255,255,.18);cursor:pointer}
 .wt-dots button.on{background:#fff}
 /* community banner */
 .wt-comm{position:relative;display:flex;align-items:center;justify-content:space-between;margin:34px 0 0;padding:26px 28px;min-height:100px;border-radius:10px;overflow:hidden;text-decoration:none;color:#fff;
-  border:1px solid rgba(255,255,255,.07);background:linear-gradient(100deg,#121418 35%,#1f2350 100%)}
+  border:1px solid var(--line);background:linear-gradient(100deg,var(--panel) 35%,#1f2350 100%)}
 .wt-comm::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
-.wt-comm h3{margin:0 0 4px;font:800 19px var(--px)}.wt-comm p{margin:0;max-width:330px;color:#aeb5c8;font:500 13px/1.5 var(--b)}
+.wt-comm h3{margin:0 0 4px;font:800 19px var(--px)}.wt-comm p{margin:0;max-width:330px;color:#c3cbe6;font:500 13px/1.5 var(--b)}
 .wt-comm-art{position:relative;width:330px;height:100px;flex:none}
 .wt-comm-art canvas{position:absolute;image-rendering:pixelated}
 .wt-dlogo{right:40px;top:-12px;width:160px;height:112px;transition:transform .3s;filter:drop-shadow(0 10px 18px rgba(40,50,180,.45))}
@@ -718,46 +718,46 @@ html,body{overflow-x:clip}
 .wt-two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
 .wt-h3row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .wt-h3row h3{margin:0;font:800 17px var(--px);color:#fff}
-.wt-more{color:#8b92a6;text-decoration:none;font:700 12px var(--px)}.wt-more:hover{color:#fff}
+.wt-more{color:var(--muted);text-decoration:none;font:700 12px var(--px)}.wt-more:hover{color:#fff}
 .wt-list{display:grid;gap:6px}
-.wt-pr{display:grid;grid-template-columns:22px 34px 1fr auto;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:#121418;border:1px solid rgba(255,255,255,.05);color:#fff;cursor:pointer;text-align:left;font:inherit;width:100%}
-.wt-pr:hover{background:#171a20}
-.wt-pr>i{font:800 13px var(--px);color:#8b92a6;font-style:normal;text-align:center}
+.wt-pr{display:grid;grid-template-columns:22px 34px 1fr auto;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--line);color:#fff;cursor:pointer;text-align:left;font:inherit;width:100%}
+.wt-pr:hover{background:var(--card)}
+.wt-pr>i{font:800 13px var(--px);color:var(--muted);font-style:normal;text-align:center}
 .wt-pr.r1>i{color:var(--gold)}.wt-pr.r2>i{color:var(--iron)}.wt-pr.r3>i{color:var(--cu)}
-.wt-pr .nm{display:flex;flex-direction:column;gap:2px;min-width:0}.wt-pr .nm b,.wt-pr .nm small{margin:0!important;padding:0!important;line-height:1.25!important;text-align:left!important}.wt-pr .nm b{display:block;font:800 14px var(--px)}.wt-pr .nm small{display:flex;align-items:center;gap:5px;color:#8b92a6;font:600 11.5px var(--b)}.wt-pr .nm .ic-s{width:14px;height:14px}
-.wt-pr .tr{display:flex;align-items:center;gap:8px}.wt-pr .tr u{text-decoration:none;color:#8b92a6;font:700 11.5px var(--px)}
-.wt-pr .tier{padding:3px 7px;border-radius:5px;background:#1d2027;font-size:12px}
-.wt-arr{display:flex;gap:6px}.wt-arr button{width:30px;height:30px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:#121418;color:#fff;font-size:18px;line-height:1;cursor:pointer}
-.wt-arr button:hover{background:#1a1d24}
-.wt-steps{position:relative;height:258px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.05);
-  background:repeating-conic-gradient(rgba(255,255,255,.025) 0 25%,transparent 0 50%) 0 0/28px 28px,#121418}
+.wt-pr .nm{display:flex;flex-direction:column;gap:2px;min-width:0}.wt-pr .nm b,.wt-pr .nm small{margin:0!important;padding:0!important;line-height:1.25!important;text-align:left!important}.wt-pr .nm b{display:block;font:800 14px var(--px)}.wt-pr .nm small{display:flex;align-items:center;gap:5px;color:var(--muted);font:600 11.5px var(--b)}.wt-pr .nm .ic-s{width:14px;height:14px}
+.wt-pr .tr{display:flex;align-items:center;gap:8px}.wt-pr .tr u{text-decoration:none;color:var(--muted);font:700 11.5px var(--px)}
+.wt-pr .tier{padding:3px 7px;border-radius:5px;background:var(--line);font-size:12px}
+.wt-arr{display:flex;gap:6px}.wt-arr button{width:30px;height:30px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.wt-arr button:hover{background:var(--card)}
+.wt-steps{position:relative;height:258px;border-radius:10px;overflow:hidden;border:1px solid var(--line);
+  background:repeating-conic-gradient(rgba(255,255,255,.025) 0 25%,transparent 0 50%) 0 0/28px 28px,var(--panel)}
 .wt-step{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(24px);transition:opacity .45s,transform .45s;pointer-events:none}
 .wt-step.on{opacity:1;transform:none;pointer-events:auto}
 .wt-sart{flex:1;display:flex;align-items:center;justify-content:center;padding:14px}
-.wt-stx{padding:0 18px 16px;text-align:left}.wt-stx small,.wt-inv small,.wt-mock>small,.wt-ck{text-align:left!important;margin-left:0!important}.wt-stx small{color:#8b92a6;font:800 9.5px var(--px);letter-spacing:.16em;text-transform:uppercase}
-.wt-stx b{display:block;margin:3px 0 2px;font:900 15px var(--px);color:#fff}.wt-stx p{margin:0;color:#aeb5c8;font:500 12.5px/1.45 var(--b)}
-.wt-inv,.wt-mock{width:220px;padding:12px;border-radius:8px;background:#1a1c22;box-shadow:0 10px 24px rgba(0,0,0,.4);color:#fff}
-.wt-inv small,.wt-mock>small{display:block;margin-bottom:8px;color:#8b92a6;font:800 8.5px var(--px);letter-spacing:.14em;text-transform:uppercase}
-.wt-invr{display:flex;align-items:center;gap:10px;margin-bottom:10px}.wt-invl{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:#0f1013;color:var(--cy);font-size:16px}
-.wt-invr b{display:block;font:800 13px var(--px)}.wt-invr em{display:flex;align-items:center;gap:4px;font-style:normal;color:#aeb5c8;font:600 10px var(--b)}.wt-invr em i{width:6px;height:6px;border-radius:50%;background:#80848e}.wt-invr em i.g{background:#2fd47a}
+.wt-stx{padding:0 18px 16px;text-align:left}.wt-stx small,.wt-inv small,.wt-mock>small,.wt-ck{text-align:left!important;margin-left:0!important}.wt-stx small{color:var(--muted);font:800 9.5px var(--px);letter-spacing:.16em;text-transform:uppercase}
+.wt-stx b{display:block;margin:3px 0 2px;font:900 15px var(--px);color:#fff}.wt-stx p{margin:0;color:#c3cbe6;font:500 12.5px/1.45 var(--b)}
+.wt-inv,.wt-mock{width:220px;padding:12px;border-radius:8px;background:var(--card);box-shadow:0 10px 24px rgba(0,0,0,.4);color:#fff}
+.wt-inv small,.wt-mock>small{display:block;margin-bottom:8px;color:var(--muted);font:800 8.5px var(--px);letter-spacing:.14em;text-transform:uppercase}
+.wt-invr{display:flex;align-items:center;gap:10px;margin-bottom:10px}.wt-invl{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--bg2);color:var(--cy);font-size:16px}
+.wt-invr b{display:block;font:800 13px var(--px)}.wt-invr em{display:flex;align-items:center;gap:4px;font-style:normal;color:#c3cbe6;font:600 10px var(--b)}.wt-invr em i{width:6px;height:6px;border-radius:50%;background:#80848e}.wt-invr em i.g{background:#2fd47a}
 .wt-inv a,.wt-btn{display:block;padding:7px;border-radius:4px;background:#248046;color:#fff;text-align:center;text-decoration:none;font:700 12px var(--px)}
-.wt-field{display:flex;justify-content:space-between;gap:8px;padding:6px 8px;margin-bottom:6px;border-radius:5px;background:#0f1013;color:#8b92a6;font:600 11px var(--b)}.wt-field span{color:#fff;font-weight:700}
-.wt-mock .wt-qr{display:flex;align-items:center;gap:6px;padding:5px 7px;margin-bottom:4px;border-radius:5px;background:#0f1013;font:700 11px var(--px)}.wt-mock .wt-qr .ic-s{width:16px;height:16px}.wt-mock .wt-qr span{margin-left:auto;padding:2px 6px;border-radius:4px;background:#2b5fd9;font-size:10px}
+.wt-field{display:flex;justify-content:space-between;gap:8px;padding:6px 8px;margin-bottom:6px;border-radius:5px;background:var(--bg2);color:var(--muted);font:600 11px var(--b)}.wt-field span{color:#fff;font-weight:700}
+.wt-mock .wt-qr{display:flex;align-items:center;gap:6px;padding:5px 7px;margin-bottom:4px;border-radius:5px;background:var(--bg2);font:700 11px var(--px)}.wt-mock .wt-qr .ic-s{width:16px;height:16px}.wt-mock .wt-qr span{margin-left:auto;padding:2px 6px;border-radius:4px;background:#2b5fd9;font-size:10px}
 .wt-big{margin:2px 0 10px;font:900 22px var(--px)}
 /* blocky background corners */
 .wt-blocks{position:fixed;left:0;right:0;bottom:0;height:300px;pointer-events:none;z-index:0}
 .wt-blocks canvas{position:absolute;bottom:0;image-rendering:pixelated;opacity:.55}
 .wt-blocks .bl{left:0}.wt-blocks .br{right:0}
 /* footer */
-.wt-foot{position:relative;z-index:1;margin-top:70px;background:#0e0f12;border-top:1px solid rgba(255,255,255,.06)}
+.wt-foot{position:relative;z-index:1;margin-top:70px;background:var(--bg2);border-top:1px solid var(--line)}
 .wt-fin{display:grid;grid-template-columns:1.4fr 1fr 1fr .8fr;gap:30px;max-width:1240px;margin:0 auto;padding:44px 24px 34px}
 .wt-flogo{font:900 22px var(--px);color:#fff}.wt-flogo em{font-style:italic;color:var(--cy)}
-.wt-fb p{margin:10px 0 0;max-width:320px;color:#aeb5c8;font:500 13px/1.55 var(--b)}.wt-fb p b{color:#fff}
+.wt-fb p{margin:10px 0 0;max-width:320px;color:#c3cbe6;font:500 13px/1.55 var(--b)}.wt-fb p b{color:#fff}
 .wt-dc{display:inline-block;margin-top:16px;padding:9px 16px;border-radius:6px;background:#5865f2;color:#fff;text-decoration:none;font:700 13px var(--px);box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
-.wt-foot h5{margin:2px 0 12px;color:#8b92a6;font:800 10.5px var(--px);letter-spacing:.14em;text-transform:uppercase}
+.wt-foot h5{margin:2px 0 12px;color:var(--muted);font:800 10.5px var(--px);letter-spacing:.14em;text-transform:uppercase}
 .wt-fl2{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}.wt-fl1{display:grid;gap:9px}
-.wt-foot nav a{color:#dfe3ee;text-decoration:none;font:600 13px var(--b)}.wt-foot nav a:hover{color:var(--cy)}
-.wt-fbot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;max-width:1240px;margin:0 auto;padding:14px 24px 22px;border-top:1px solid rgba(255,255,255,.05);color:#8b92a6}
+.wt-foot nav a{color:#dfe6fb;text-decoration:none;font:600 13px var(--b)}.wt-foot nav a:hover{color:var(--cy)}
+.wt-fbot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;max-width:1240px;margin:0 auto;padding:14px 24px 22px;border-top:1px solid var(--line);color:var(--muted)}
 .wt-fbot small{font:500 11.5px var(--b)}
 @media (max-width:860px){
   .wt-row,.wt-two{grid-template-columns:1fr;gap:22px}
@@ -779,7 +779,7 @@ html,body{overflow-x:clip}
 .wt-head .wt-sub{margin:0 auto}
 .wt-h1{font-size:56px;text-shadow:0 0 34px rgba(70,230,255,.18)}
 .wt-h1 em{position:relative;text-shadow:0 0 26px var(--cy)}
-.wt-k{padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.wt-k{padding:5px 12px;border-radius:999px;background:var(--line);border:1px solid var(--line)}
 .wt-me,.wt-card,.wt-pr,.wt-steps,.wt-inv,.wt-mock{border-radius:14px}
 .wt-me{box-shadow:inset 0 0 0 1px rgba(70,230,255,.12),0 0 40px rgba(70,230,255,.08)}
 .exs{margin-top:40px}.exs h2{margin:0 0 14px;font:800 17px var(--px);color:#fff}
@@ -794,6 +794,17 @@ html,body{overflow-x:clip}
 .exg .hc:hover{transform:translateY(-3px)}
 @media (max-width:900px){.exg{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:560px){.wt-h1{font-size:40px}.exg{grid-template-columns:1fr 1fr;gap:10px}.exg .hc{height:96px}}
+.nav .in{align-items:center}.nav .nr .dc,.nav .nr .ib{width:42px;height:42px}.nav .sgnup{height:40px}
+@media (max-width:760px){.nav{height:64px}.nav .nr .dc,.nav .nr .ib{width:34px;height:34px}.nav .sgnup{height:34px}}
+@media (max-width:420px){.nav .nr .dc,.nav .nr .ib{width:30px!important;height:30px!important}.nav .sgnup{height:30px!important}}
+.wt-cta{display:flex;justify-content:center;gap:10px;margin-top:20px}.wt-cta .hbtn{padding:12px 22px;font-size:15px;border-radius:10px}
+#rankLk svg{fill:currentColor}
+@media (max-width:560px){#rankLk{display:none}}
+.wt-me{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,0) 60%),repeating-conic-gradient(rgba(255,255,255,.03) 0 25%,transparent 0 50%) 0 0/28px 28px,var(--panel)!important;border:1px solid var(--line)!important}
+.wt-card,.wt-pr,.wt-steps,.wt-arr button{background-color:var(--card)}
+.wt-pr{background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,0)),var(--card)}
+.wt-comm{background:linear-gradient(100deg,var(--panel) 35%,#2a2f8a 100%)!important;border-color:var(--line)!important}
+.wt-foot{background:var(--bg2)}
 </style>
 </head>
 <body>
@@ -802,7 +813,8 @@ html,body{overflow-x:clip}
   <div class="nav"><div class="bar"></div><div class="in">
     <div class="nl">
       <a class="lk on" href="#home" id="home2"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg>Home</a>
-      <div class="mr" id="moreWrap"><button class="lk" type="button" id="moreBtn" aria-haspopup="true" aria-expanded="false">More<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mmenu" id="moreMenu" role="menu"><a href="#testers" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Tester Leaderboard</b><small>Who tests the most</small></span></a><a href="#staff" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.6 0 4.5 1.9 4.5 4.5"/></svg><span><b>Staff</b><small>Meet the team</small></span></a><a href="#downloads" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg><span><b>Downloads</b><small>DiamondTierTagger mod</small></span></a><a href="#news" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span><b>News</b><small>Updates and announcements</small></span></a><a href="#tournaments" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/></svg><span><b>Tournaments</b><small>Compete for tiers</small></span></a></div></div>
+      <a class="lk" href="#tierlist" id="rankLk"><svg viewBox="0 0 24 24"><path d="M4 20h4V10H4zm6 0h4V4h-4zm6 0h4v-7h-4z"/></svg>Rankings</a>
+      <div class="mr" id="moreWrap"><button class="lk" type="button" id="moreBtn" aria-haspopup="true" aria-expanded="false">More<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mmenu" id="moreMenu" role="menu"><a href="#tierlist" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" stroke="none"><path d="M4 20h4V10H4zm6 0h4V4h-4zm6 0h4v-7h-4z"/></svg><span><b>Rankings</b><small>The full tierlist</small></span></a><a href="#testers" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Tester Leaderboard</b><small>Who tests the most</small></span></a><a href="#staff" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.6 0 4.5 1.9 4.5 4.5"/></svg><span><b>Staff</b><small>Meet the team</small></span></a><a href="#downloads" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg><span><b>Downloads</b><small>DiamondTierTagger mod</small></span></a><a href="#news" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span><b>News</b><small>Updates and announcements</small></span></a><a href="#tournaments" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/></svg><span><b>Tournaments</b><small>Compete for tiers</small></span></a></div></div>
     </div>
     <a class="logo" href="#home" id="home" aria-label="DiamondTier home"><svg viewBox="0 0 120 80" role="img" aria-label="DiamondTier"><defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9fdff"/><stop offset="1" stop-color="#5fe4f7"/></linearGradient><linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#53d7f5"/><stop offset="1" stop-color="#1b7fd0"/></linearGradient><linearGradient id="gC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d9be6"/><stop offset="1" stop-color="#1450b0"/></linearGradient></defs><g stroke="#0a3d6e" stroke-width="1.6" stroke-linejoin="round"><path d="M38 16h44l14 16H24z" fill="url(#gA)"/><path d="M24 32h72L60 72z" fill="url(#gB)"/><path d="M60 72 78 32h18z" fill="url(#gC)"/><path d="M24 32h18l18 40z" fill="#3cc4ee"/><path d="M42 32 50 16h20l8 16z" fill="#bff6ff" stroke="none" opacity=".55"/><path d="M50 16 42 32M70 16l8 16M42 32 60 72 78 32" fill="none" stroke="#0a3d6e" stroke-width="1.2"/></g><path d="M44 21h14l-5 8H40z" fill="#fff" opacity=".7"/><g fill="#7ee9ff"><path d="M12 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M104 8l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z"/><path d="M108 52l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/></g></svg></a>
     <div class="nr">
@@ -815,9 +827,9 @@ html,body{overflow-x:clip}
 
   <div class="view" id="vHome">
   <section class="wt-head">
-    <span class="wt-k"><i></i><b id="hTesters">Active Testers</b></span>
     <h1 class="wt-h1">FIND YOUR <em>TIER</em></h1>
     <p class="wt-sub">The DiamondTier Minecraft PvP tierlist. Get tested by our testers, earn points and climb the rankings.</p>
+    <div class="wt-cta"><a class="hbtn" href="#tierlist">View rankings</a><a class="hbtn gh" href="https://discord.gg/VMVcGhx9gR" target="_blank" rel="noopener">Get tested</a></div>
   </section>
   <section class="wt-row">
     <div class="wt-me" id="hero">
@@ -1859,7 +1871,7 @@ function heroRender(){
     hT.innerHTML='Welcome to <em>DiamondTier</em>.';
     sub.textContent="Check your tiers and where you stand.";
     act.innerHTML='<form class="hform" id="hForm" autocomplete="off"><input id="hIn" maxlength="16" placeholder="Your Minecraft name" aria-label="Your Minecraft name"><button class="hbtn" type="submit">Find me</button></form>';
-    st.innerHTML='<div><small>Ranked players</small><b>'+rk.length+'</b></div>';
+    st.innerHTML='';
   }
   fig.innerHTML=figure(show,"idle",window.innerWidth>560?200:140)+(!n&&rk[0]?'<span class="cap">#1 Overall</span>':'');
   fig.onclick=function(){if(show&&show.order<9999)showProfile(show)};fig.style.cursor=show&&show.order<9999?"pointer":"";
@@ -2013,7 +2025,7 @@ function route(force){
   [].forEach.call(document.querySelectorAll(".hsec"),function(s){s.hidden=v!=="vHome"});
   ["vHome","vTour","vTier","vDl","vStaff","vNews","vTest","vWip"].forEach(function(id){var e=document.getElementById(id);e.hidden=id!==v;e.classList.remove("enter")});
   var el=document.getElementById(v);void el.offsetWidth;if(changed){el.classList.add("enter");clearTimeout(el._et);el._et=setTimeout(function(){el.classList.remove("enter")},1300)}
-  document.getElementById("home2").classList.toggle("on",v==="vHome");document.getElementById("moreBtn").classList.toggle("on",/^(vTest|vStaff|vDl|vTour|vNews)$/.test(v));closeMore();if(v==="vDl")dlRender();if(v==="vStaff")staffRender();
+  document.getElementById("home2").classList.toggle("on",v==="vHome");var rl=document.getElementById("rankLk");if(rl)rl.classList.toggle("on",v==="vTier");document.getElementById("moreBtn").classList.toggle("on",/^(vTest|vStaff|vDl|vTour|vNews)$/.test(v));closeMore();if(v==="vDl")dlRender();if(v==="vStaff")staffRender();
   if(v==="vTier")render();if(v==="vTour")renderTours();
   if(changed)window.scrollTo(0,0);
 }
