@@ -276,12 +276,13 @@
     {"name":"el_wabna","region":"EU","tiers":{"mace":"LT3"},"edited":{"mace":1795285890148}},
     {"name":"abedz1","region":"EU","tiers":{"sword":"LT4"},"edited":{"sword":1795305391481}},
     {"name":"Edga123452","region":"EU","tiers":{"sword":"LT3"},"edited":{"sword":1795306076828}},
-    {"name":"3m_4k4k","region":"EU","tiers":{"sword":"HT5"},"edited":{"sword":1795306635252}}
+    {"name":"3m_4k4k","region":"EU","tiers":{"sword":"HT5"},"edited":{"sword":1795306635252}},
+    {"name":"reizv","region":"AS","tiers":{"nethpot":"LT3"},"edited":{"nethpot":1795324979481}}
   ],
   "updates": [],
   "tournaments": [],
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"VoidN","tests":1,"modes":{"uhc":1}},{"name":"Its_Kaido","tests":1,"modes":{"mace":1}}]
+  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"VoidN","tests":1,"modes":{"uhc":1}},{"name":"Its_Kaido","tests":1,"modes":{"mace":1}},{"name":"xyzKillerxyz","tests":1,"modes":{"nethpot":1}}]
 }
