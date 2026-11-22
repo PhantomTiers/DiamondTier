@@ -9,7 +9,7 @@
     {"name":"6iachhh","region":"EU","tiers":{"sword":"LT5"}},
     {"name":"aaaace_","region":"EU","tiers":{"mace":"LT3","smp":"LT3"}},
     {"name":"acebki7","region":"AS","tiers":{"crystal":"LT5"}},
-    {"name":"aerint","region":"AS","tiers":{"crystal":"LT5","dsmp":"HT5","mace":"LT4","smp":"LT4","sword":"HT4"}},
+    {"name":"aerint","region":"AS","tiers":{"crystal":"LT5","dsmp":"HT5","mace":"LT4","smp":"LT4","sword":"HT4","uhc":"HT5"},"edited":{"uhc":1795332251313}},
     {"name":"AgentOzzyy","region":"EU","tiers":{"mace":"LT3"}},
     {"name":"Ahahadan","region":"EU","tiers":{"crystal":"LT4","dsmp":"HT5","mace":"LT4","sword":"HT4"}},
     {"name":"aHaz3M_","region":"AS","tiers":{"crystal":"HT3"}},
@@ -286,5 +286,5 @@
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"xyzKillerxyz","tests":2,"modes":{"nethpot":1,"dsmp":1}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"VoidN","tests":1,"modes":{"uhc":1}},{"name":"Its_Kaido","tests":1,"modes":{"mace":1}}]
+  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"VoidN","tests":2,"modes":{"uhc":2}},{"name":"xyzKillerxyz","tests":2,"modes":{"nethpot":1,"dsmp":1}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"Its_Kaido","tests":1,"modes":{"mace":1}}]
 }
