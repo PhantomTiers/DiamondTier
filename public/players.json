@@ -59,7 +59,7 @@
     {"name":"DeafNoEvil","region":"AS","tiers":{"dsmp":"LT4","mace":"LT5","sword":"LT4"}},
     {"name":"DinurobongTubo","region":"AS","tiers":{"crystal":"LT3","nethpot":"LT4"}},
     {"name":"dissoziativaLuv","region":"EU","tiers":{"mace":"LT5"}},
-    {"name":"Dmario890","region":"NA","tiers":{"mace":"LT5"}},
+    {"name":"Dmario890","region":"NA","tiers":{"mace":"LT5"},"edited":{"mace":1795438487963}},
     {"name":"donutizded","region":"AS","tiers":{"nethpot":"LT5"}},
     {"name":"DraculaMC","region":"AS","tiers":{"sword":"LT5"}},
     {"name":"DrFhall","region":"AS","tiers":{"crystal":"LT4","mace":"HT5"}},
@@ -289,5 +289,5 @@
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"xyzKillerxyz","tests":3,"modes":{"nethpot":1,"dsmp":1,"smp":1}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":2,"modes":{"mace":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
+  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"xyzKillerxyz","tests":3,"modes":{"nethpot":1,"dsmp":1,"smp":1}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
 }
