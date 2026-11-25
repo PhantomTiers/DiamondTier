@@ -287,12 +287,12 @@
     {"name":"teqila","region":"AS","tiers":{"sword":"LT4","smp":"LT5"},"edited":{"sword":1795591750828,"smp":1795599437640}},
     {"name":"laptopsmasher17","region":"AS","tiers":{"dsmp":"HT5"},"edited":{"dsmp":1795597111704}},
     {"name":"4cME","region":"AS","tiers":{"smp":"HT5"},"edited":{"smp":1795597832926}},
-    {"name":"GGRickZ","region":"AS","tiers":{"smp":"HT5","dsmp":"LT5"},"edited":{"smp":1795598700060,"dsmp":1795600635884}}
+    {"name":"GGRickZ","region":"AS","tiers":{"smp":"HT5","dsmp":"LT5","crystal":"HT5"},"edited":{"smp":1795598700060,"dsmp":1795600635884,"crystal":1795603130950}}
   ],
   "updates": [],
   "tournaments": [],
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"xyzKillerxyz","tests":9,"modes":{"nethpot":1,"dsmp":4,"smp":4}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"ht miku (we love lamaze p)","tests":1,"modes":{"crystal":1}}]
+  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"xyzKillerxyz","tests":9,"modes":{"nethpot":1,"dsmp":4,"smp":4}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"mentally unstable tranny bitch","tests":2,"modes":{"crystal":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
 }
