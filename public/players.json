@@ -284,12 +284,13 @@
     {"name":"fang_yt2","region":"AS","tiers":{"smp":"HT5"},"edited":{"smp":1795341793201}},
     {"name":"B3n","region":"EU","tiers":{"mace":"LT5"},"edited":{"mace":1795432069035}},
     {"name":"wemmbujudejr123","region":"AS","tiers":{"sword":"LT4"},"edited":{"sword":1795591703037}},
-    {"name":"teqila","region":"AS","tiers":{"sword":"LT4"},"edited":{"sword":1795591750828}}
+    {"name":"teqila","region":"AS","tiers":{"sword":"LT4"},"edited":{"sword":1795591750828}},
+    {"name":"laptopsmasher17","region":"AS","tiers":{"dsmp":"HT5"},"edited":{"dsmp":1795597111704}}
   ],
   "updates": [],
   "tournaments": [],
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"xyzKillerxyz","tests":3,"modes":{"nethpot":1,"dsmp":1,"smp":1}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
+  "testers": [{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"xyzKillerxyz","tests":4,"modes":{"nethpot":1,"dsmp":2,"smp":1}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"Swlghty","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}}]
 }
