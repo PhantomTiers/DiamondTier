@@ -220,7 +220,7 @@
     {"name":"Suldeefire","region":"NA","tiers":{"crystal":"HT5","dsmp":"HT4","nethpot":"LT3","sword":"LT3"}},
     {"name":"SunriseMC","region":"AS","tiers":{"axe":"LT3","crystal":"LT5","mace":"LT3","nethpot":"LT3","sword":"LT4"}},
     {"name":"SwighTIEfied","region":"AS","tiers":{"axe":"LT3","smp":"HT5","sword":"LT4"}},
-    {"name":"Swlghty","region":"AS","tiers":{"axe":"HT5","crystal":"HT5","dsmp":"LT4","mace":"LT3","nethpot":"LT4","smp":"LT4","sword":"LT3","uhc":"HT5"},"edited":{"sword":1795369231956}},
+    {"name":"Swlghty","region":"AS","tiers":{"axe":"HT5","crystal":"HT5","dsmp":"LT4","mace":"LT3","nethpot":"LT4","smp":"LT4","sword":"LT3","uhc":"HT5"},"edited":{"sword":1795369231956,"crystal":1795874039680}},
     {"name":"SWOyuuu","region":"AS","tiers":{"dsmp":"LT5","smp":"HT5","sword":"LT3"}},
     {"name":"sxolarz67","region":"AS","tiers":{"crystal":"LT5"}},
     {"name":"syntafanex","region":"AS","tiers":{"dsmp":"LT3","mace":"LT3","sword":"LT3"}},
@@ -298,5 +298,5 @@
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"xyzKillerxyz","tests":13,"modes":{"nethpot":2,"dsmp":4,"smp":5,"sword":2}},{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Swlghty","tests":5,"modes":{"mace":5}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"mentally unstable tranny bitch","tests":2,"modes":{"crystal":2}},{"name":"EggyWInnerAltAcc","tests":2,"modes":{"crystal":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"AnimeThighs","tests":1,"modes":{"smp":1}},{"name":"LOA","tests":1,"modes":{"dsmp":1}}]
+  "testers": [{"name":"xyzKillerxyz","tests":13,"modes":{"nethpot":2,"dsmp":4,"smp":5,"sword":2}},{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Swlghty","tests":5,"modes":{"mace":5}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"EggyWInnerAltAcc","tests":3,"modes":{"crystal":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"mentally unstable tranny bitch","tests":2,"modes":{"crystal":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"AnimeThighs","tests":1,"modes":{"smp":1}},{"name":"LOA","tests":1,"modes":{"dsmp":1}}]
 }
