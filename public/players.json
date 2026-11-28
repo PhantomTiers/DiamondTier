@@ -289,12 +289,13 @@
     {"name":"4cME","region":"AS","tiers":{"smp":"HT5"},"edited":{"smp":1795597832926}},
     {"name":"GGRickZ","region":"AS","tiers":{"smp":"HT5","dsmp":"LT5","crystal":"HT5"},"edited":{"smp":1795598700060,"dsmp":1795600635884,"crystal":1795603130950}},
     {"name":"BigDih","region":"AS","tiers":{"smp":"LT3"},"edited":{"smp":1795675037942}},
-    {"name":"yibbu","region":"AS","tiers":{"dsmp":"HT5"},"edited":{"dsmp":1795755825284}}
+    {"name":"yibbu","region":"AS","tiers":{"dsmp":"HT5"},"edited":{"dsmp":1795755825284}},
+    {"name":"Tsakuzu","region":"AS","tiers":{"crystal":"LT3"},"edited":{"crystal":1795872707823}}
   ],
   "updates": [],
   "tournaments": [],
   "subtiers": [],
   "tags": {"oLineage":"Creator"},
   "display": {},
-  "testers": [{"name":"xyzKillerxyz","tests":13,"modes":{"nethpot":2,"dsmp":4,"smp":5,"sword":2}},{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Swlghty","tests":5,"modes":{"mace":5}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"mentally unstable tranny bitch","tests":2,"modes":{"crystal":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"AnimeThighs","tests":1,"modes":{"smp":1}},{"name":"LOA","tests":1,"modes":{"dsmp":1}}]
+  "testers": [{"name":"xyzKillerxyz","tests":13,"modes":{"nethpot":2,"dsmp":4,"smp":5,"sword":2}},{"name":"oLineage","tests":9,"modes":{"crystal":3,"diapot":1,"sword":3}},{"name":"VoidN","tests":5,"modes":{"uhc":4,"sword":1}},{"name":"Swlghty","tests":5,"modes":{"mace":5}},{"name":"Its_Kaido","tests":3,"modes":{"mace":3}},{"name":"_Venji","tests":3,"modes":{"mace":3}},{"name":"Yuexvi_","tests":2,"modes":{"sword":2}},{"name":"mentally unstable tranny bitch","tests":2,"modes":{"crystal":2}},{"name":"ItzRealSasuke","tests":1,"modes":{}},{"name":"AnimeThighs","tests":1,"modes":{"smp":1}},{"name":"LOA","tests":1,"modes":{"dsmp":1}},{"name":"EggyWInnerAltAcc","tests":1,"modes":{"crystal":1}}]
 }
